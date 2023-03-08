@@ -1,0 +1,29 @@
+{
+    "name": "mouyong/laravel-jwt-auth",
+    "description": "LaravelJwtAuth plugin made by mouyong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Creator & Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\LaravelJwtAuth\\": "app",
+            "Plugins\\LaravelJwtAuth\\Database\\Factories\\": "database/factories/",
+            "Plugins\\LaravelJwtAuth\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\LaravelJwtAuth\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "tymon/jwt-auth": "dev-develop"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "name": "mouyong/sso-client",
+    "description": "SsoClient plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SsoClient\\": "app",
+            "Plugins\\SsoClient\\Database\\Factories\\": "database/factories/",
+            "Plugins\\SsoClient\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\SsoClient\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0"
+    }
+}

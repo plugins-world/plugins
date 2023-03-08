@@ -1,0 +1,30 @@
+{
+    "name": "mouyong/system-authorization",
+    "description": "SystemAuthorization plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SystemAuthorization\\": "app",
+            "Plugins\\SystemAuthorization\\Database\\Factories\\": "database/factories/",
+            "Plugins\\SystemAuthorization\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\SystemAuthorization\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "zhenmu/support": "dev-master",
+        "mouyong/laravel-config": "dev-master"
+    }
+}

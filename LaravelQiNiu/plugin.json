@@ -1,0 +1,18 @@
+{
+    "unikey": "LaravelQiNiu",
+    "type": 1,
+    "name": "LaravelQiNiu",
+    "description": "LaravelQiNiu plugin made by mouyong",
+    "author": "Fresns",
+    "authorLink": "https://github.com/mouyong",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingPath": null,
+    "providers": [
+        "Plugins\\LaravelQiNiu\\Providers\\LaravelQiNiuServiceProvider",
+        "Plugins\\LaravelQiNiu\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

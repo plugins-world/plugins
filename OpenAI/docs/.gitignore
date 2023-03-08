@@ -1,0 +1,8 @@
+node_modules/
+dist*
+docs/
+.vite/
+*.lock
+*.log
+.htaccess
+.vitepress/cache/

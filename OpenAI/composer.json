@@ -1,0 +1,35 @@
+{
+    "name": "mouyong/open-ai",
+    "description": "OpenAI plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\OpenAI\\": "app",
+            "Plugins\\OpenAI\\Database\\Factories\\": "database/factories/",
+            "Plugins\\OpenAI\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\OpenAI\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "openai-php/client": "^0.3.1"
+    }
+}

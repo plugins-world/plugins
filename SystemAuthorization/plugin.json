@@ -1,0 +1,20 @@
+{
+    "unikey": "SystemAuthorization",
+    "type": 1,
+    "name": "SystemAuthorization",
+    "description": "SystemAuthorization plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\SystemAuthorization\\Providers\\SystemAuthorizationServiceProvider",
+        "Plugins\\SystemAuthorization\\Providers\\CmdWordServiceProvider",
+        "Plugins\\SystemAuthorization\\Providers\\ScheduleServiceProvider",
+        "Plugins\\SystemAuthorization\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

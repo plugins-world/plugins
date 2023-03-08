@@ -1,0 +1,37 @@
+{
+    "name": "mouyong/sso-server",
+    "description": "SsoServer plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jarvis Tang",
+            "email": "jarvis.okay@gmail.com",
+            "homepage": "https://github.com/jarvis-tang",
+            "role": "Creator"
+        },
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SsoServer\\": "app",
+            "Plugins\\SsoServer\\Database\\Factories\\": "database/factories/",
+            "Plugins\\SsoServer\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\SsoServer\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "laravel/sanctum": "^3.2",
+        "zhenmu/support": "dev-master",
+        "mouyong/laravel-config": "dev-master"
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "unikey": "OpenAI",
+    "type": 1,
+    "name": "OpenAI",
+    "description": "OpenAI plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\OpenAI\\Providers\\OpenAIServiceProvider",
+        "Plugins\\OpenAI\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

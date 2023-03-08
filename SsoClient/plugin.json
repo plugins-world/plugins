@@ -1,0 +1,21 @@
+{
+    "unikey": "SsoClient",
+    "type": 1,
+    "name": "SsoClient",
+    "description": "SsoClient plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [
+        "sso_update_userinfo_service"
+    ],
+    "accessPath": "",
+    "settingsPath": "/sso-client/setting",
+    "providers": [
+        "Plugins\\SsoClient\\Providers\\SsoClientServiceProvider",
+        "Plugins\\SsoClient\\Providers\\CmdWordServiceProvider",
+        "Plugins\\SsoClient\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

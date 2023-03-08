@@ -1,0 +1,32 @@
+{
+    "name": "mouyong/laravel-qiniu",
+    "description": "LaravelQiNiu plugin made by mouyong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Creator & Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\LaravelQiNiu\\": "app",
+            "Plugins\\LaravelQiNiu\\Database\\Factories\\": "database/factories/",
+            "Plugins\\LaravelQiNiu\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\LaravelQiNiu\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "zhenmu/support": "dev-master",
+        "mouyong/laravel-config": "dev-master",
+        "overtrue/laravel-filesystem-qiniu": "^2.0",
+        "fresns/cmd-word-manager": "^1.2 | dev-master"
+    }
+}

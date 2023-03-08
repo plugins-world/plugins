@@ -1,0 +1,19 @@
+{
+    "unikey": "WuKongAuthCode",
+    "type": 1,
+    "name": "WuKongAuthCode",
+    "description": "WuKongAuthCode plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\WuKongAuthCode\\Providers\\WuKongAuthCodeServiceProvider",
+        "Plugins\\WuKongAuthCode\\Providers\\CommandServiceProvider",
+        "Plugins\\WuKongAuthCode\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

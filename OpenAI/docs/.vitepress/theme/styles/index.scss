@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vp-doc table {
+    white-space: nowrap !important;
+}
+
+.vp-doc th, .vp-doc td {
+    border: 1px solid #dfe2e5 !important;
+}
+
+// 存在疑问 question
+.vp-doc a.q {
+    color: #CC0000;
+
+    &::after {
+        content: "?"
+    }
+}
+
+// 初次处理待确认 confirm
+.vp-doc a.c {
+    color: #E7C000;
+
+    &::after {
+        content: '!'
+    }
+}
+
+// 修改后待确认的
+.vp-doc a.c2 {
+    color: rgb(110, 149, 233);
+
+    &::after {
+        content: '!'
+    }
+}

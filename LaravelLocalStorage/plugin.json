@@ -1,0 +1,18 @@
+{
+    "unikey": "LaravelLocalStorage",
+    "type": 1,
+    "name": "LaravelLocalStorage",
+    "description": "LaravelLocalStorage plugin made by mouyong",
+    "author": "Fresns",
+    "authorLink": "https://github.com/mouyong",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingPath": null,
+    "providers": [
+        "Plugins\\LaravelLocalStorage\\Providers\\LaravelLocalStorageServiceProvider",
+        "Plugins\\LaravelLocalStorage\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

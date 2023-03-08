@@ -1,0 +1,18 @@
+{
+    "unikey": "FileManage",
+    "type": 1,
+    "name": "FileManage",
+    "description": "FileManage plugin made by mouyong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.cn",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingPath": null,
+    "providers": [
+        "Plugins\\FileManage\\Providers\\FileManageServiceProvider",
+        "Plugins\\FileManage\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

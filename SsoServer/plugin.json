@@ -1,0 +1,18 @@
+{
+    "unikey": "SsoServer",
+    "type": 1,
+    "name": "SsoServer",
+    "description": "SsoServer plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": "/sso-server/setting",
+    "providers": [
+        "Plugins\\SsoServer\\Providers\\SsoServerServiceProvider",
+        "Plugins\\SsoServer\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
