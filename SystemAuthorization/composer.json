@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/system-authorization",
+    "name": "plugins-world/system-authorization",
     "description": "SystemAuthorization plugin made by fresns",
     "license": "MIT",
     "authors": [
@@ -25,6 +25,6 @@
     "require": {
         "php": ">= 8.0",
         "zhenmu/support": "dev-master",
-        "mouyong/laravel-config": "dev-master"
+        "plugins-world/laravel-config": "dev-master"
     }
 }

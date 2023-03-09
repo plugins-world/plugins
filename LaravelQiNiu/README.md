@@ -1,6 +1,6 @@
 # Laravel QiNiu extension
 
-[![Total Downloads](https://img.shields.io/packagist/dt/mouyong/laravel-qiniu.svg?style=flat-square)](https://packagist.org/packages/mouyong/laravel-qiniu)
+[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/laravel-qiniu.svg?style=flat-square)](https://packagist.org/packages/plugins-world/laravel-qiniu)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
@@ -9,7 +9,7 @@ This is where your description should go. Try and limit it to a paragraph or two
 You can install the package via composer:
 
 ```bash
-composer require mouyong/laravel-qiniu
+composer require plugins-world/laravel-qiniu
 ```
 
 ## Usage

@@ -1,5 +1,5 @@
 # DcatSaaS 一款帮助你在 30 分钟内从 0 搭建 Laravel SaaS 化项目的插件
-[![License](http://poser.pugx.org/mouyong/dcat-saas/license)](https://packagist.org/packages/mouyong/dcat-saas)
+[![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
 
 ## 介绍
 
@@ -15,7 +15,7 @@
 - [Laravel](https://laravel.com/)
 
 ## 关注代码仓库
-[点击前往代码仓库](https://github.com/mouyong/dcat-saas)
+[点击前往代码仓库](https://github.com/plugins-world/dcat-saas)
 
 ## 前置要求
 - Laravel 9+
@@ -67,7 +67,7 @@ php artisan migrate
 git add .
 git commit -m "feat: Install market-manager and plugin-manager."
 # 从 github 下载 dcat-saas 扩展
-php artisan market:require mouyong/dcat-saas
+php artisan market:require plugins-world/dcat-saas
 # 或从 zip 压缩包安装 dcat-saas
 php artisan market:require ~/dcat-saas.zip
 # 激活插件
@@ -137,7 +137,7 @@ location ~* ^/assets {
 ```
 
 ## 协议
-[Apache 2.0](https://github.com/mouyong/dcat-saas/blob/master/LICENSE)
+[Apache 2.0](https://github.com/plugins-world/dcat-saas/blob/master/LICENSE)
 
 ## 开发者交流群
 [技术交流群](https://qm.qq.com/cgi-bin/qm/qr?k=JdZJTPzOEsDo3gCR1ENENRXqWPmM-67l&jump_from=webapi&authKey=5EZ6xwqKptmf3U3QMT/IkclubXceZt2JWqkiQbfwXiELv2d4roHTMX32MmBWoi4q) ID: 305795002

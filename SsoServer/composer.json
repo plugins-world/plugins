@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/sso-server",
+    "name": "plugins-world/sso-server",
     "description": "SsoServer plugin made by fresns",
     "license": "MIT",
     "authors": [
@@ -32,6 +32,6 @@
         "php": ">= 8.0",
         "laravel/sanctum": "^3.2",
         "zhenmu/support": "dev-master",
-        "mouyong/laravel-config": "dev-master"
+        "plugins-world/laravel-config": "dev-master"
     }
 }

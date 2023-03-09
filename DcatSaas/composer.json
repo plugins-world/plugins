@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/dcat-saas",
+    "name": "plugins-world/dcat-saas",
     "description": "DcatSaas plugin for the laravel and dcat-saas",
     "license": "Apache-2.0",
     "authors": [
@@ -13,7 +13,7 @@
     "homepage": "https://laravel-workerman.iwnweb.com",
     "support": {
         "email": "my24251325@gmail.com",
-        "source": "https://github.com/mouyong/dcat-saas",
+        "source": "https://github.com/plugins-world/dcat-saas",
         "issues": "https://laravel-workerman.iwnweb.com",
         "forum": "https://laravel-workerman.iwnweb.com",
         "wiki": "https://laravel-workerman.iwnweb.com"

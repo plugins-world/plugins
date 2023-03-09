@@ -1,5 +1,5 @@
 {
-    "name": "mouyong/file-manage",
+    "name": "plugins-world/file-manage",
     "description": "FileManage plugin made by fresns",
     "license": "MIT",
     "authors": [
@@ -26,6 +26,6 @@
         "php": ">= 8.0",
         "xantios/mimey": "^2.2",
         "zhenmu/support": "dev-master",
-        "mouyong/laravel-config": "dev-master"
+        "plugins-world/laravel-config": "dev-master"
     }
 }
