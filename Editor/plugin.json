@@ -1,0 +1,18 @@
+{
+    "unikey": "Editor",
+    "type": 1,
+    "name": "Editor",
+    "description": "Editor plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": null,
+    "providers": [
+        "Plugins\\Editor\\Providers\\EditorServiceProvider",
+        "Plugins\\Editor\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
