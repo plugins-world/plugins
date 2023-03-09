@@ -37,6 +37,7 @@ remote SsoClient git@github.com:plugins-world/SsoClient.git
 remote FileManage git@github.com:plugins-world/FileManage.git
 remote SystemAuthorization git@github.com:plugins-world/SystemAuthorization.git
 remote WuKongAuthCode git@github.com:plugins-world/WuKongAuthCode.git
+remote Editor git@github.com:plugins-world/Editor.git
 
 #split 'src/Illuminate/Foundation' foundation
 split 'DcatSaas' DcatSaas
@@ -48,4 +49,4 @@ split 'SsoServer' SsoServer
 split 'SsoClient' SsoClient
 split 'FileManage' FileManage
 split 'SystemAuthorization' SystemAuthorization
-split 'WuKongAuthCode' WuKongAuthCode
+split 'Editor' Editor
