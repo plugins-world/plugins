@@ -25,7 +25,7 @@
     "require": {
         "php": ">= 8.0",
         "zhenmu/support": "dev-master",
-        "plugins-world/laravel-config": "dev-master",
+        "mouyong/laravel-config": "dev-master",
         "fresns/cmd-word-manager": "^1.2 | dev-master"
     }
 }

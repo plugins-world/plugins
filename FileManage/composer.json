@@ -26,6 +26,6 @@
         "php": ">= 8.0",
         "xantios/mimey": "^2.2",
         "zhenmu/support": "dev-master",
-        "plugins-world/laravel-config": "dev-master"
+        "mouyong/laravel-config": "dev-master"
     }
 }
