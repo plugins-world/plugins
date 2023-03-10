@@ -59,7 +59,7 @@
 
                     $('.toast').toast('show');
                     $('form button[type="submit"]').prop('disabled', false);
-                    top.location.reload();
+                    window.location.reload();
                 },
                 error: function(error) {
                     console.error(error);
