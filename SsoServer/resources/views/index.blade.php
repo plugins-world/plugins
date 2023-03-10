@@ -8,7 +8,7 @@
         This view is loaded from plugin: {!! config('sso-server.name') !!}
     </p>
 
-    <a href="{{ route('sso-client.setting') }}">前往插件 SsoClient 设置页</a>
+    <a href="{{ route('sso-server.setting') }}">前往插件 SsoServer 设置页</a>
     <a href="https://authorization.hwecs.iwnweb.com/system-authorization">授权中心</a>
 </div>
 @endsection
