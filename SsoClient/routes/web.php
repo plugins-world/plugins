@@ -21,10 +21,9 @@ use Plugins\SsoClient\Http\Controllers as WebController;
 */
 
 Route::prefix('sso-client')->group(function() {
-    // Route::get('/', [WebController\SsoClientController::class, 'index'])->name('sso-client.index');
-    Route::name('sso-client.setting')->get('setting', [WebController\SettingController::class, 'showSettingPage'])->name('sso-client.setting');
+    Route::get('/', [WebController\SettingController::class, 'index'])->name('sso-client.index');
+    Route::get('setting', [WebController\SettingController::class, 'showSettingPage'])->name('sso-client.setting');
     Route::post('setting', [WebController\SettingController::class, 'save']);
-    Route::redirect('', route('sso-client.setting'));
 });
 
 // without VerifyCsrfToken

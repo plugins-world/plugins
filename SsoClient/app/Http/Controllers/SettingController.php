@@ -9,6 +9,25 @@ use MouYong\LaravelConfig\Models\Config;
 
 class SettingController extends Controller
 {
+    public function index()
+    {
+        $configs = Config::getValueByKeys([
+            // item_key1,
+            // item_key2,
+        ]);
+
+        $where = [];
+        if (\request()->has('is_enable')) {
+            $where['is_enable'] = \request('is_enable');
+        }
+
+        // $data = DemoTest::query()->where($where)->get();
+
+        return view('SsoClient::index', [
+            'configs' => $configs,
+        ]);
+    }
+    
     public function showSettingPage()
     {
         $configs = Config::getValueByKeys([
