@@ -1,13 +1,14 @@
 @extends('SsoServer::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+<div class="container">
+    <h1>Plugin: SsoServer</h1>
 
     <p>
         This view is loaded from plugin: {!! config('sso-server.name') !!}
     </p>
-    api_token: {{ \Plugins\SsoServer\Heplers\SsoCookieHelper::getServerCookieValue() ?? '未登录' }}
 
-    <br>
+    <a href="{{ route('sso-client.setting') }}">前往插件 SsoClient 设置页</a>
     <a href="https://authorization.hwecs.iwnweb.com/system-authorization">授权中心</a>
+</div>
 @endsection
