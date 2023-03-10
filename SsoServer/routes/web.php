@@ -44,9 +44,9 @@ Route::prefix('sso-server')->withoutMiddleware([
         Route::get('/sso', [WebController\AuthController::class, 'sso'])->name('sso-server.service');
 
 
-        Route::name('sso-server.setting')->get('setting', [WebController\SettingController::class, 'showSettingPage']);
+        Route::get('index', [WebController\SettingController::class, 'index'])->name('sso-server.index');
+        Route::get('setting', [WebController\SettingController::class, 'showSettingPage'])->name('sso-server.setting');
         Route::post('setting', [WebController\SettingController::class, 'save']);
-        // Route::redirect('', route('sso-server.setting'));
     });
 });
 

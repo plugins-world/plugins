@@ -7,7 +7,7 @@
     "authorLink": "https://fresns.org",
     "version": "1.0.0",
     "scene": [],
-    "accessPath": "",
+    "accessPath": "/sso-server/index",
     "settingsPath": "/sso-server/setting",
     "providers": [
         "Plugins\\SsoServer\\Providers\\SsoServerServiceProvider",
