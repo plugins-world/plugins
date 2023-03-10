@@ -21,6 +21,27 @@ function remote()
 git pull origin $CURRENT_BRANCH || true
 
 
-# remote dcat-saas git@github.com:mouyong/dcat-saas.git
+# remote foundation git@github.com:mouyong/laravel-foundation.git
+remote DcatSaas git@github.com:plugins-world/DcatSaas.git
+remote LaravelJwtAuth git@github.com:plugins-world/LaravelJwtAuth.git
+remote LaravelQiNiu git@github.com:plugins-world/LaravelQiNiu.git
+remote LaravelLocalStorage git@github.com:plugins-world/LaravelLocalStorage.git
 
-# split 'extensions/plugins/DcatSaas' dcat-saas
+remote SsoServer git@github.com:plugins-world/SsoServer.git
+remote SsoClient git@github.com:plugins-world/SsoClient.git
+remote FileManage git@github.com:plugins-world/FileManage.git
+remote SystemAuthorization git@github.com:plugins-world/SystemAuthorization.git
+remote WuKongAuthCode git@github.com:plugins-world/WuKongAuthCode.git
+remote Editor git@github.com:plugins-world/Editor.git
+
+# split 'src/Illuminate/Foundation' foundation
+split 'DcatSaas' DcatSaas
+split 'LaravelJwtAuth' LaravelJwtAuth
+split 'LaravelQiNiu' LaravelQiNiu
+split 'LaravelLocalStorage' LaravelLocalStorage
+
+split 'SsoServer' SsoServer
+split 'SsoClient' SsoClient
+split 'FileManage' FileManage
+split 'SystemAuthorization' SystemAuthorization
+split 'Editor' Editor

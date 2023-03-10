@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# this shell script run fails on github actions: @see https://github.com/plugins-world/packages/actions/runs/4380027106/jobs/7666627198#step:4:120
+
 set -e
 set -x
 
@@ -26,27 +28,9 @@ function remote()
 git pull origin $CURRENT_BRANCH || true
 
 
-#remote foundation git@github.com:mouyong/laravel-foundation.git
-remote DcatSaas git@github.com:plugins-world/DcatSaas.git
-remote LaravelJwtAuth git@github.com:plugins-world/LaravelJwtAuth.git
-remote LaravelQiNiu git@github.com:plugins-world/LaravelQiNiu.git
-remote LaravelLocalStorage git@github.com:plugins-world/LaravelLocalStorage.git
+# remote foundation git@github.com:mouyong/laravel-foundation.git
+remote MarketManager git@github.com:mouyong/MarketManager.git
 
-remote SsoServer git@github.com:plugins-world/SsoServer.git
-remote SsoClient git@github.com:plugins-world/SsoClient.git
-remote FileManage git@github.com:plugins-world/FileManage.git
-remote SystemAuthorization git@github.com:plugins-world/SystemAuthorization.git
-remote WuKongAuthCode git@github.com:plugins-world/WuKongAuthCode.git
-remote Editor git@github.com:plugins-world/Editor.git
 
-#split 'src/Illuminate/Foundation' foundation
-split 'DcatSaas' DcatSaas
-split 'LaravelJwtAuth' LaravelJwtAuth
-split 'LaravelQiNiu' LaravelQiNiu
-split 'LaravelLocalStorage' LaravelLocalStorage
-
-split 'SsoServer' SsoServer
-split 'SsoClient' SsoClient
-split 'FileManage' FileManage
-split 'SystemAuthorization' SystemAuthorization
-split 'Editor' Editor
+# split 'src/Illuminate/Foundation' foundation
+split 'MarketManager' MarketManager
