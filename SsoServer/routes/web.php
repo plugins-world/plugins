@@ -23,6 +23,10 @@ use Plugins\SsoServer\Http\Controllers as WebController;
 Route::prefix('sso-server')->withoutMiddleware([
     \App\Http\Middleware\EncryptCookies::class,
 ])->group(function() {
+    Route::get('index', [WebController\SettingController::class, 'index'])->name('sso-server.index');
+    Route::get('setting', [WebController\SettingController::class, 'showSettingPage'])->name('sso-server.setting');
+    Route::post('setting', [WebController\SettingController::class, 'save']);
+
     Route::group([
         'middleware' => [\Plugins\SsoServer\Http\Middleware\SsoAuthCheck::class],
     ], function () {
@@ -42,11 +46,6 @@ Route::prefix('sso-server')->withoutMiddleware([
 
         // sso web 服务
         Route::get('/sso', [WebController\AuthController::class, 'sso'])->name('sso-server.service');
-
-
-        Route::get('index', [WebController\SettingController::class, 'index'])->name('sso-server.index');
-        Route::get('setting', [WebController\SettingController::class, 'showSettingPage'])->name('sso-server.setting');
-        Route::post('setting', [WebController\SettingController::class, 'save']);
     });
 });
 
