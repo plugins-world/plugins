@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ \App::getLocale() }}">
 <head>
-    <title>Plugin SsoClient</title>
+    @include('SsoClient::commons.head', [
+        'title' => 'Plugin SsoClient',
+    ])
+
     {{-- Laravel Mix - CSS File --}}
     {{-- <link rel="stylesheet" href="{{ mix('css/sso-client.css') }}"> --}}
-
-    @include('SsoClient::commons.head')
 </head>
 
 <body>
@@ -15,8 +16,9 @@
         @include('SsoClient::commons.toast')
     </div>
 
+    @yield('bodyjs')
+
     {{-- Laravel Mix - JS File --}}
     {{-- <script src="{{ mix('js/sso-client.js') }}"></script> --}}
-    @include('SsoClient::commons.bodyjs')
 </body>
 </html>
