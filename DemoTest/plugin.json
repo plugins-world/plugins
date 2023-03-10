@@ -1,0 +1,18 @@
+{
+    "unikey": "DemoTest",
+    "type": 1,
+    "name": "DemoTest",
+    "description": "DemoTest plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "",
+    "settingsPath": "/demo-test/setting",
+    "providers": [
+        "Plugins\\DemoTest\\Providers\\DemoTestServiceProvider",
+        "Plugins\\DemoTest\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

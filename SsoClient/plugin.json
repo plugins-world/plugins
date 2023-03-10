@@ -9,7 +9,7 @@
     "scene": [
         "sso_update_userinfo_service"
     ],
-    "accessPath": "",
+    "accessPath": "/sso-client",
     "settingsPath": "/sso-client/setting",
     "providers": [
         "Plugins\\SsoClient\\Providers\\SsoClientServiceProvider",
