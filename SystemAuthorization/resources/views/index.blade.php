@@ -59,7 +59,7 @@
                   </div>
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  <div class="text-gray-900">{{ $customerEntity->getRemark() ?? '-' }}</div>
+                  <div class="text-gray-900">{{ \Illuminate\Support\Str::limit($customerEntity->getRemark()) ?? '-' }}</div>
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-6 text-right text-sm font-medium sm:pr-0">
                   <div class="inline-flex">

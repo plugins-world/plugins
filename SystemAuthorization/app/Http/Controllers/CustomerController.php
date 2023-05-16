@@ -42,7 +42,7 @@ class CustomerController extends Controller
             'customer_name' => 'required|max:32',
             'mobile' => 'nullable|max:32',
             'company_name' => 'nullable|max:32',
-            'remark' => 'nullable|max:255',
+            'remark' => 'nullable|max:99999',
         ], [
             'customer_name.required' => '请提供客户名',
             'mobile.required' => '请提供手机号',
@@ -79,7 +79,7 @@ class CustomerController extends Controller
             'customer_name' => 'required|max:32',
             'mobile' => 'nullable|max:32',
             'company_name' => 'nullable|max:32',
-            'remark' => 'nullable|max:255',
+            'remark' => 'nullable|max:99999',
         ], [
             'customer_name.required' => '请提供客户名',
             'mobile.required' => '请提供手机号',
