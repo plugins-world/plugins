@@ -25,6 +25,7 @@ php artisan saas:demo-add
 php artisan saas:demo-del
 php artisan saas:list
 php artisan tenants:migrate --tenants=foo
+php artisan tenants:migrate-rollback --tenants=foo
 php artisan ...
 ```
 
