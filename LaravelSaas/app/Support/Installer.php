@@ -6,7 +6,7 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\Tenant\Support;
+namespace Plugins\LaravelSaas\Support;
 
 class Installer
 {

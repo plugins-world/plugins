@@ -6,7 +6,7 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\Tenant\Database\Seeders;
+namespace Plugins\LaravelSaas\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 

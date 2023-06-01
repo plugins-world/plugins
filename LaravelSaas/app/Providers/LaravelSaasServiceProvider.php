@@ -6,11 +6,11 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\Tenant\Providers;
+namespace Plugins\LaravelSaas\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class TenantServiceProvider extends BaseServiceProvider
+class LaravelSaasServiceProvider extends BaseServiceProvider
 {
     /**
      * Boot the application events.

@@ -7,7 +7,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-use Plugins\Tenant\Http\Controllers as WebController;
+use Plugins\LaravelSaas\Http\Controllers as WebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +21,9 @@ use Plugins\Tenant\Http\Controllers as WebController;
 */
 
 Route::prefix('tenant')->group(function() {
-    Route::get('/', [WebController\TenantController::class, 'index'])->name('tenant.index');
-    Route::get('setting', [WebController\TenantController::class, 'showSettingView'])->name('tenant.setting');
-    Route::post('setting', [WebController\TenantController::class, 'saveSetting']);
+    Route::get('/', [WebController\LaravelSaasController::class, 'index'])->name('tenant.index');
+    Route::get('setting', [WebController\LaravelSaasController::class, 'showSettingView'])->name('tenant.setting');
+    Route::post('setting', [WebController\LaravelSaasController::class, 'saveSetting']);
 });
 
 // without VerifyCsrfToken
@@ -31,5 +31,5 @@ Route::prefix('tenant')->group(function() {
 //     \App\Http\Middleware\EncryptCookies::class,
 //     \App\Http\Middleware\VerifyCsrfToken::class,
 // ])->group(function() {
-//     Route::get('/', [WebController\TenantController::class, 'index']);
+//     Route::get('/', [WebController\LaravelSaasController::class, 'index']);
 // });

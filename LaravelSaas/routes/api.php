@@ -8,7 +8,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Plugins\Tenant\Http\Controllers as ApiController;
+use Plugins\LaravelSaas\Http\Controllers as ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +26,5 @@ use Plugins\Tenant\Http\Controllers as ApiController;
 // });
 
 // Route::prefix('tenant')->group(function() {
-//     Route::get('/', [ApiController\TenantController::class, 'index']);
+//     Route::get('/', [ApiController\LaravelSaasController::class, 'index']);
 // });

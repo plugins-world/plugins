@@ -6,7 +6,7 @@
  * Released under the Apache-2.0 License.
  */
 
-namespace Plugins\Tenant\Providers;
+namespace Plugins\LaravelSaas\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Debug\ExceptionHandler;

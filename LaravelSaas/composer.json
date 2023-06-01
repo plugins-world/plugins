@@ -12,14 +12,14 @@
     ],
     "autoload": {
         "psr-4": {
-            "Plugins\\Tenant\\": "app",
-            "Plugins\\Tenant\\Database\\Factories\\": "database/factories/",
-            "Plugins\\Tenant\\Database\\Seeders\\": "database/seeders/"
+            "Plugins\\LaravelSaas\\": "app",
+            "Plugins\\LaravelSaas\\Database\\Factories\\": "database/factories/",
+            "Plugins\\LaravelSaas\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Plugins\\Tenant\\Tests\\": "tests/"
+            "Plugins\\LaravelSaas\\Tests\\": "tests/"
         }
     },
     "require": {

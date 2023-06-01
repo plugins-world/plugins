@@ -1,0 +1,17 @@
+{
+    "fskey": "LaravelSaas",
+    "name": "LaravelSaas",
+    "description": "LaravelSaas plugin made by mouyong",
+    "author": "mouyong",
+    "authorLink": "https://plugins-world.cn",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/laravel-saas",
+    "settingsPath": "/laravel-saas/setting",
+    "providers": [
+        "Plugins\\LaravelSaas\\Providers\\LaravelSaasServiceProvider",
+        "Plugins\\LaravelSaas\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

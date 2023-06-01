@@ -1,13 +1,13 @@
 <?php
 
-namespace Plugins\Tenant\Http\Controllers;
+namespace Plugins\LaravelSaas\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Fresns\Tenant\Models\Tenant;
 use MouYong\LaravelConfig\Models\Config;
 
-class TenantController extends Controller
+class LaravelSaasController extends Controller
 {
     public function index()
     {

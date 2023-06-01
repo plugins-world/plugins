@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\Tenant\Console\Commands;
+namespace Plugins\LaravelSaas\Console\Commands;
 
 use Illuminate\Console\Command;
 
