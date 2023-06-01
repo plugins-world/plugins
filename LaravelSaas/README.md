@@ -20,12 +20,12 @@ php artisan saas:install # 需要配置数据库的 root 账号密码
 ## Usage
 
 ``` php
-php artisan saas
-php artisan saas:demo-add
-php artisan saas:demo-del
-php artisan saas:list
-php artisan tenants:migrate --tenants=foo
-php artisan tenants:migrate-rollback --tenants=foo
+php artisan saas # 查看当前可以使用的与 saas 相关的指令
+php artisan saas:demo-add --tenant=foo # 添加租户，默认添加名称为 foo 的租户
+php artisan saas:demo-del --tenant=foo # 删除租户，默认删除名称为 foo 的租户
+php artisan saas:list # 当前 saas 列表
+php artisan tenants:migrate --tenants=foo # 迁移指定租户，用于开发阶段调试表结构与代码逻辑
+php artisan tenants:migrate-rollback --tenants=foo # 回滚指定租户，用于开发阶段调试表结构与代码逻辑
 php artisan ...
 ```
 
