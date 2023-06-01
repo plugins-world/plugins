@@ -12,9 +12,7 @@ This is where your description should go. Try and limit it to a paragraph or two
 You can install the package via composer:
 
 ```bash
-composer require plugins-world/tenant
-
-php artisan tenancy:install
+php artisan market:require plugins-world/laravel-saas # 通过应用市场管理器安装插件
 
 php artisan saas:install # 需要配置数据库的 root 账号密码
 ```
