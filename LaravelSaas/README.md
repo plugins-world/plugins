@@ -25,7 +25,8 @@ php artisan saas:install # 需要配置数据库的 root 账号密码
 php artisan saas
 php artisan saas:demo-add
 php artisan saas:demo-del
-php artisan tenants:list
+php artisan saas:list
+php artisan tenants:migrate --tenants=foo
 php artisan ...
 ```
 
