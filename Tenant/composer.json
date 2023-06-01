@@ -1,0 +1,29 @@
+{
+    "name": "plugins-world/tenant",
+    "description": "Tenant plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mouyong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://github.com/mouyong",
+            "role": "Creator & Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\Tenant\\": "app",
+            "Plugins\\Tenant\\Database\\Factories\\": "database/factories/",
+            "Plugins\\Tenant\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\Tenant\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "stancl/tenancy": "^3.7"
+    }
+}
