@@ -1,6 +1,9 @@
 # DcatSaaS 一款帮助你在 30 分钟内从 0 搭建 Laravel SaaS 化项目的插件
 
-[![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/dcat-saas/v)](https://packagist.org/packages/plugins-world/dcat-saas)
+[![Total Downloads](http://poser.pugx.org/plugins-world/dcat-saas/downloads)](https://packagist.org/packages/plugins-world/dcat-saas)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/dcat-saas/v/unstable)](https://packagist.org/packages/plugins-world/dcat-saas) [![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/dcat-saas/require/php)](https://packagist.org/packages/plugins-world/dcat-saas)
 
 ## 介绍
 
