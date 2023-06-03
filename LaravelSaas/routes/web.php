@@ -20,14 +20,14 @@ use Plugins\LaravelSaas\Http\Controllers as WebController;
 |
 */
 
-Route::prefix('tenant')->group(function() {
-    Route::get('/', [WebController\LaravelSaasController::class, 'index'])->name('tenant.index');
-    Route::get('setting', [WebController\LaravelSaasController::class, 'showSettingView'])->name('tenant.setting');
+Route::prefix('laravel-saas')->group(function() {
+    Route::get('/', [WebController\LaravelSaasController::class, 'index'])->name('laravel-saas.index');
+    Route::get('setting', [WebController\LaravelSaasController::class, 'showSettingView'])->name('laravel-saas.setting');
     Route::post('setting', [WebController\LaravelSaasController::class, 'saveSetting']);
 });
 
 // without VerifyCsrfToken
-// Route::prefix('tenant')->withoutMiddleware([
+// Route::prefix('laravel-saas')->withoutMiddleware([
 //     \App\Http\Middleware\EncryptCookies::class,
 //     \App\Http\Middleware\VerifyCsrfToken::class,
 // ])->group(function() {

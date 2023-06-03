@@ -25,6 +25,6 @@ use Plugins\LaravelSaas\Http\Controllers as ApiController;
 //     return $request->user();
 // });
 
-// Route::prefix('tenant')->group(function() {
+// Route::prefix('laravel-saas')->group(function() {
 //     Route::get('/', [ApiController\LaravelSaasController::class, 'index']);
 // });

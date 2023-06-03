@@ -44,7 +44,7 @@ class LaravelSaasServiceProvider extends BaseServiceProvider
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__, 2) . '/config/tenant.php', 'tenant'
+            dirname(__DIR__, 2) . '/config/laravel-saas.php', 'laravel-saas'
         );
     }
 
@@ -53,7 +53,7 @@ class LaravelSaasServiceProvider extends BaseServiceProvider
      */
     public function registerViews(): void
     {
-        $this->loadViewsFrom(dirname(__DIR__, 2) . '/resources/views', 'Tenant');
+        $this->loadViewsFrom(dirname(__DIR__, 2) . '/resources/views', 'LaravelSaas');
     }
 
     /**
@@ -61,7 +61,7 @@ class LaravelSaasServiceProvider extends BaseServiceProvider
      */
     public function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(dirname(__DIR__, 2) . '/resources/lang', 'Tenant');
+        $this->loadTranslationsFrom(dirname(__DIR__, 2) . '/resources/lang', 'LaravelSaas');
     }
 
     /**

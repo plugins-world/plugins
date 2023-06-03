@@ -6,8 +6,8 @@ require('laravel-mix-merge-manifest');
 
 mix.setPublicPath('../../public').mergeManifest();
 
-mix.js(__dirname + '/resources/assets/js/app.js', 'assets/plugins/Tenant/js/tenant.js')
-    .sass( __dirname + '/resources/assets/sass/app.scss', 'assets/plugins/Tenant/css/tenant.css');
+mix.js(__dirname + '/resources/assets/js/app.js', 'assets/plugins/LaravelSaas/js/laravel-saas.js')
+    .sass( __dirname + '/resources/assets/sass/app.scss', 'assets/plugins/LaravelSaas/css/laravel-saas.css');
 
 if (mix.inProduction()) {
     mix.version();

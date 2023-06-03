@@ -4,7 +4,7 @@ namespace Plugins\LaravelSaas\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Fresns\Tenant\Models\Tenant;
+use App\Models\Tenant;
 use MouYong\LaravelConfig\Models\Config;
 
 class LaravelSaasController extends Controller
@@ -12,8 +12,8 @@ class LaravelSaasController extends Controller
     public function index()
     {
         $configs = Config::getValueByKeys([
-            // item_key1,
-            // item_key2,
+            // 'item_key1',
+            // 'item_key2',
         ]);
 
         $where = [];
@@ -23,7 +23,7 @@ class LaravelSaasController extends Controller
 
         // $data = Tenant::query()->where($where)->get();
 
-        return view('Tenant::index', [
+        return view('LaravelSaas::index', [
             'configs' => $configs,
         ]);
     }
@@ -31,11 +31,11 @@ class LaravelSaasController extends Controller
     public function showSettingView()
     {
         $configs = Config::getValueByKeys([
-            // item_key1,
-            // item_key2,
+            // 'item_key1',
+            // 'item_key2',
         ]);
 
-        return view('Tenant::setting', [
+        return view('LaravelSaas::setting', [
             'configs' => $configs,
         ]);
     }
@@ -48,12 +48,12 @@ class LaravelSaasController extends Controller
         ]);
 
         $itemKeys = [
-            // item_key1,
-            // item_key2,
+            // 'item_key1',
+            // 'item_key2',
         ];
 
-        // Config::updateConfigs($itemKeys, 'tenant');
+        // Config::updateConfigs($itemKeys, 'laravel-saas');
 
-        return redirect(route('tenant.setting'));
+        return redirect(route('laravel-saas.setting'));
     }
 }
