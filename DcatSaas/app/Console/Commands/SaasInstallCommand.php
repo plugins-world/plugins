@@ -173,28 +173,11 @@ class SaasInstallCommand extends Command
             [
                 "Jobs\SeedDatabase::class,",
                 "send(function (Events\TenantCreated \$event) {
-                    \$tenant = \$event->tenant;
-                    \$target = base_path(sprintf(\"storage/tenants/%s%s/app/public\", 
-                        config('tenancy.filesystem.suffix_base'),
-                        \$tenant->id));
-                    \$link = str_replace('%tenant_id%', \$tenant->id, config('tenancy.filesystem.url_override.public', 'public-%tenant_id%'));
-
-                    chdir(public_path());
-                    \Illuminate\Support\Facades\File::ensureDirectoryExists(dirname(\$target));
-                    \Illuminate\Support\Facades\File::ensureDirectoryExists(dirname(\$link));
-                    \Illuminate\Support\Facades\File::link(\$target, \$link);
+                    \App\Models\Tenant::createStorageLink(\$event->tenant); // <-- here.
                     return \$event->tenant;
                 })",
                 "send(function (Events\TenantDeleted \$event) {
-                    \$tenant = \$event->tenant;
-                    \$target = base_path(sprintf(\"storage/tenants/%s%s/app/public\", 
-                        config('tenancy.filesystem.suffix_base'),
-                        \$tenant->id));
-                    \$link = str_replace('%tenant_id%', \$tenant->id, config('tenancy.filesystem.url_override.public', 'public-%tenant_id%'));
-
-                    chdir(public_path());
-                    \Illuminate\Support\Facades\File::delete(\$link);
-                    \Illuminate\Support\Facades\File::deleteDirectory(dirname(dirname(\$target)));
+                    \App\Models\Tenant::removeStorageLink(\$event->tenant); // <-- here.
                     return \$event->tenant;
                 })",
             ],

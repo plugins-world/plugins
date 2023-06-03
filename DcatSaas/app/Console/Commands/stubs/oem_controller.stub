@@ -12,6 +12,6 @@ class OemController extends BaseController
 
     public function detail()
     {
-        return $this->success(tenant()->getDetail());
+        return $this->success(tenant()->toArray());
     }
 }

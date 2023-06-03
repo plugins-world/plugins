@@ -1,6 +1,6 @@
 <?php
 
-namespace $NAMESPACE$\Models;
+namespace App\Models;
 
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
@@ -28,19 +28,28 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         ];
     }
 
-    public function getDetail()
+    public static function createStorageLink($tenant)
     {
-        $domains = $this->domains->map(fn ($item) => [
-            'domain_id' => $item->id,
-            'domain' => $item->domain,
-        ]);
+        $target = base_path(sprintf("storage/tenants/%s%s/app/public", 
+        config('tenancy.filesystem.suffix_base'),
+        $tenant->id));
+        $link = str_replace('%tenant_id%', $tenant->id, config('tenancy.filesystem.url_override.public', 'public-%tenant_id%'));
 
-        return [
-            'api' => 'http://'.$domains->value('domain'),
-            'tenant_id' => $this->id,
-            'admin_user_name' => $this->admin_user_name,
-            'admin_user_username' => $this->admin_user_username,
-            'domains' => $domains,
-        ];
+        chdir(public_path());
+        \Illuminate\Support\Facades\File::ensureDirectoryExists($target);
+        \Illuminate\Support\Facades\File::ensureDirectoryExists(dirname($link));
+        \Illuminate\Support\Facades\File::link($target, $link);
+    }
+
+    public static function removeStorageLink($tenant)
+    {
+        $target = base_path(sprintf("storage/tenants/%s%s/app/public", 
+            config('tenancy.filesystem.suffix_base'),
+            $tenant->id));
+        $link = str_replace('%tenant_id%', $tenant->id, config('tenancy.filesystem.url_override.public', 'public-%tenant_id%'));
+
+        chdir(public_path());
+        \Illuminate\Support\Facades\File::delete($link);
+        \Illuminate\Support\Facades\File::deleteDirectory(dirname(dirname($target)));
     }
 }
