@@ -1,6 +1,12 @@
 # LaravelSaas
 
-[![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
+[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/laravel-saas.svg?style=flat-square)](https://packagist.org/packages/plugins-world/laravel-saas)
+[![Build Status](https://img.shields.io/travis/plugins-world/laravel-saas/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/laravel-saas)
+[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/laravel-saas.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/laravel-saas)
+[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/laravel-saas.svg?style=flat-square)](https://packagist.org/packages/plugins-world/laravel-saas)
+
+
+[![License](http://poser.pugx.org/plugins-world/laravel-saas/license)](https://packagist.org/packages/plugins-world/laravel-saas)
 
 ## 介绍
 
