@@ -1,4 +1,5 @@
 # DcatSaaS 一款帮助你在 30 分钟内从 0 搭建 Laravel SaaS 化项目的插件
+
 [![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
 
 ## 介绍
@@ -22,12 +23,14 @@
 推荐使用不含 dcat-admin 依赖的 [LaravelSaas](https://github.com/plugins-world/plugins/tree/master/LaravelSaas)
 
 ## 前置要求
+
 - Laravel 9+
 - Tenancy 3+
-- DcatAdmin 2.*
 - fresns/plugin-manager ^2
 - fresns/market-manager ^1
-- 项目已完成 fresns/plugin-manager、fresns/market-manager 的安装。
+- fresns/cmd-word-manager ^1
+- 项目已完成 fresns/plugin-manager、fresns/market-manager 的安装。点击查看[如何安装插件管理器与应用市场管理器？](https://discuss.plugins-world.cn/post/hYJORaBi)
+
 
 ## 安装
 1. 修改扩展包稳定性限制
