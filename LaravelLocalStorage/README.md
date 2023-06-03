@@ -1,9 +1,9 @@
-# LaravelLocalStorage extension
+# LaravelLocalStorage
 
-[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/laravel-local-storage.svg?style=flat-square)](https://packagist.org/packages/plugins-world/laravel-local-storage)
-[![Build Status](https://img.shields.io/travis/plugins-world/laravel-local-storage/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/laravel-local-storage)
-[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/laravel-local-storage.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/laravel-local-storage)
-[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/laravel-local-storage.svg?style=flat-square)](https://packagist.org/packages/plugins-world/laravel-local-storage)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/laravel-local-storage/v)](https://packagist.org/packages/plugins-world/laravel-local-storage)
+[![Total Downloads](http://poser.pugx.org/plugins-world/laravel-local-storage/downloads)](https://packagist.org/packages/plugins-world/laravel-local-storage)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/laravel-local-storage/v/unstable)](https://packagist.org/packages/plugins-world/laravel-local-storage) [![License](http://poser.pugx.org/plugins-world/laravel-local-storage/license)](https://packagist.org/packages/plugins-world/laravel-local-storage)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/laravel-local-storage/require/php)](https://packagist.org/packages/plugins-world/laravel-local-storage)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

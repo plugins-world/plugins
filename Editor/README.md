@@ -1,9 +1,9 @@
-# Editor extension
+# Editor
 
-[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/editor.svg?style=flat-square)](https://packagist.org/packages/plugins-world/editor)
-[![Build Status](https://img.shields.io/travis/plugins-world/editor/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/editor)
-[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/editor.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/editor)
-[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/editor.svg?style=flat-square)](https://packagist.org/packages/plugins-world/editor)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/editor/v)](https://packagist.org/packages/plugins-world/editor)
+[![Total Downloads](http://poser.pugx.org/plugins-world/editor/downloads)](https://packagist.org/packages/plugins-world/editor)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/editor/v/unstable)](https://packagist.org/packages/plugins-world/editor) [![License](http://poser.pugx.org/plugins-world/editor/license)](https://packagist.org/packages/plugins-world/editor)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/editor/require/php)](https://packagist.org/packages/plugins-world/editor)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

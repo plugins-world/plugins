@@ -1,9 +1,9 @@
-# FileManage extension
+# FileManage
 
-[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/file-manage.svg?style=flat-square)](https://packagist.org/packages/plugins-world/file-manage)
-[![Build Status](https://img.shields.io/travis/plugins-world/file-manage/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/file-manage)
-[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/file-manage.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/file-manage)
-[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/file-manage.svg?style=flat-square)](https://packagist.org/packages/plugins-world/file-manage)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/file-manage/v)](https://packagist.org/packages/plugins-world/file-manage)
+[![Total Downloads](http://poser.pugx.org/plugins-world/file-manage/downloads)](https://packagist.org/packages/plugins-world/file-manage)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/file-manage/v/unstable)](https://packagist.org/packages/plugins-world/file-manage) [![License](http://poser.pugx.org/plugins-world/file-manage/license)](https://packagist.org/packages/plugins-world/file-manage)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/file-manage/require/php)](https://packagist.org/packages/plugins-world/file-manage)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

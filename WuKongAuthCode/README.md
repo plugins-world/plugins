@@ -1,9 +1,9 @@
-# WuKongAuthCode extension
+# WuKongAuthCode
 
-[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/wu-kong-auth-code.svg?style=flat-square)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
-[![Build Status](https://img.shields.io/travis/plugins-world/wu-kong-auth-code/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/wu-kong-auth-code)
-[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/wu-kong-auth-code.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/wu-kong-auth-code)
-[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/wu-kong-auth-code.svg?style=flat-square)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/wu-kong-auth-code/v)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
+[![Total Downloads](http://poser.pugx.org/plugins-world/wu-kong-auth-code/downloads)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/wu-kong-auth-code/v/unstable)](https://packagist.org/packages/plugins-world/wu-kong-auth-code) [![License](http://poser.pugx.org/plugins-world/wu-kong-auth-code/license)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/wu-kong-auth-code/require/php)](https://packagist.org/packages/plugins-world/wu-kong-auth-code)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 

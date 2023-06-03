@@ -5,8 +5,6 @@
 [![Latest Unstable Version](http://poser.pugx.org/plugins-world/laravel-saas/v/unstable)](https://packagist.org/packages/plugins-world/laravel-saas) [![License](http://poser.pugx.org/plugins-world/laravel-saas/license)](https://packagist.org/packages/plugins-world/laravel-saas)
 [![PHP Version Require](http://poser.pugx.org/plugins-world/laravel-saas/require/php)](https://packagist.org/packages/plugins-world/laravel-saas)
 
-## 介绍
-
 在最新的 laravel 框架中使用 saas 功能的项目。
 
 依赖项目：

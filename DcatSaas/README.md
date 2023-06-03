@@ -1,11 +1,11 @@
-# DcatSaaS 一款帮助你在 30 分钟内从 0 搭建 Laravel SaaS 化项目的插件
+# DcatSaaS
 
 [![Latest Stable Version](http://poser.pugx.org/plugins-world/dcat-saas/v)](https://packagist.org/packages/plugins-world/dcat-saas)
 [![Total Downloads](http://poser.pugx.org/plugins-world/dcat-saas/downloads)](https://packagist.org/packages/plugins-world/dcat-saas)
 [![Latest Unstable Version](http://poser.pugx.org/plugins-world/dcat-saas/v/unstable)](https://packagist.org/packages/plugins-world/dcat-saas) [![License](http://poser.pugx.org/plugins-world/dcat-saas/license)](https://packagist.org/packages/plugins-world/dcat-saas)
 [![PHP Version Require](http://poser.pugx.org/plugins-world/dcat-saas/require/php)](https://packagist.org/packages/plugins-world/dcat-saas)
 
-## 介绍
+一款帮助你在 30 分钟内从 0 搭建 Laravel SaaS 化项目的插件
 
 在`插件管理器`与`应用市场管理器`的插件架构设计下，采用`Tenancy 3.x`、`Dcat-Admin`、`Laravel` 可快速建立属于你的 SaaS 业务框架。
 

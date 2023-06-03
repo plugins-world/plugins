@@ -1,9 +1,9 @@
-# SsoServer extension
+# SsoServer
 
-[![Latest Version on Plugin](https://img.shields.io/packagist/v/plugins-world/sso-server.svg?style=flat-square)](https://packagist.org/packages/plugins-world/sso-server)
-[![Build Status](https://img.shields.io/travis/plugins-world/sso-server/master.svg?style=flat-square)](https://travis-ci.org/plugins-world/sso-server)
-[![Quality Score](https://img.shields.io/scrutinizer/g/plugins-world/sso-server.svg?style=flat-square)](https://scrutinizer-ci.com/g/plugins-world/sso-server)
-[![Total Downloads](https://img.shields.io/packagist/dt/plugins-world/sso-server.svg?style=flat-square)](https://packagist.org/packages/plugins-world/sso-server)
+[![Latest Stable Version](http://poser.pugx.org/plugins-world/sso-server/v)](https://packagist.org/packages/plugins-world/sso-server)
+[![Total Downloads](http://poser.pugx.org/plugins-world/sso-server/downloads)](https://packagist.org/packages/plugins-world/sso-server)
+[![Latest Unstable Version](http://poser.pugx.org/plugins-world/sso-server/v/unstable)](https://packagist.org/packages/plugins-world/sso-server) [![License](http://poser.pugx.org/plugins-world/sso-server/license)](https://packagist.org/packages/plugins-world/sso-server)
+[![PHP Version Require](http://poser.pugx.org/plugins-world/sso-server/require/php)](https://packagist.org/packages/plugins-world/sso-server)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
