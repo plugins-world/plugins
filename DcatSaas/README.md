@@ -19,7 +19,7 @@
 
 [点击前往](https://github.com/plugins-world/plugins)
 
-推荐项目：[LaravelSaas](https://github.com/plugins-world/plugins/tree/master/LaravelSaas)
+推荐使用不含 dcat-admin 依赖的 [LaravelSaas](https://github.com/plugins-world/plugins/tree/master/LaravelSaas)
 
 ## 前置要求
 - Laravel 9+
