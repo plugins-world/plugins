@@ -15,7 +15,10 @@
 - [Laravel](https://laravel.com/)
 
 ## 关注代码仓库
-[点击前往代码仓库](https://github.com/plugins-world/dcat-saas)
+项目自动拆分，如需跟踪源码更新情况，请前往：https://github.com/plugins-world/plugins 查看 DcatSaas 目录
+
+[点击前往](https://github.com/plugins-world/plugins)
+
 
 ## 前置要求
 - Laravel 9+
