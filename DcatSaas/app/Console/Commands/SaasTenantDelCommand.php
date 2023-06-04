@@ -4,21 +4,21 @@ namespace Plugins\DcatSaas\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SaasDemoAddCommand extends Command
+class SaasTenantDelCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'saas:demo-add {tenant=foo}';
+    protected $signature = 'saas:tenant-del {tenant=foo}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = '创建租户';
+    protected $description = '删除租户';
 
     /**
      * Execute the console command.
@@ -27,10 +27,12 @@ class SaasDemoAddCommand extends Command
      */
     public function handle()
     {
-        $tenant1 = \App\Models\Tenant::create(['id' => $id = $this->argument('tenant')]);
-        $tenant1->domains()->create(['domain' => "{$id}.".str_replace(['http://', 'https://'], '', config('app.url'))]);
+        $tenantId = $this->argument('tenant');
 
-        $this->info("{$id} 创建成功");
+        $tenant = \App\Models\Tenant::find($tenantId);
+        $tenant?->delete();
+
+        $this->info("{$tenantId} 删除成功");
         return 0;
     }
 }

@@ -1,10 +1,10 @@
 {
-    "unikey": "Editor",
+    "fskey": "Editor",
     "type": 1,
     "name": "Editor",
-    "description": "Editor plugin made by fresns",
+    "description": "Editor plugin made by mouyong",
     "author": "Fresns",
-    "authorLink": "https://fresns.org",
+    "authorLink": "https://plugins-world.cn",
     "version": "1.0.0",
     "scene": [],
     "accessPath": "",

@@ -1,17 +1,17 @@
 <?php
 
-namespace Plugins\DcatSaas\Console\Commands;
+namespace Plugins\LaravelSaas\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SaasDemoDelCommand extends Command
+class SaasTenantDelCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'saas:demo-del {tenant=foo}';
+    protected $signature = 'saas:tenant-del {tenant=foo}';
 
     /**
      * The console command description.
@@ -22,15 +22,14 @@ class SaasDemoDelCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle()
     {
-        $tenant1 = \App\Models\Tenant::find($id = $this->argument('tenant'));
-        $tenant1?->delete();
+        $tenantId = $this->argument('tenant');
 
-        $this->info("{$id} 删除成功");
-        return 0;
+        $tenant = \App\Models\Tenant::find($tenantId);
+        $tenant?->delete();
+
+        $this->info("{$tenantId} 删除成功");
     }
 }

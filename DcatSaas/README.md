@@ -91,8 +91,8 @@ php artisan saas:install
 # 常用命令
 php artisan saas                                # 查看 saas 扩展包提供的命令
 php artisan saas:install                        # 初始化 saas（会提示是否覆盖）
-php artisan saas:demo-add                       # 添加租户 可指定租户名，默认 foo
-php artisan saas:demo-del                       # 删除租户 可指定租户名，默认 foo
+php artisan saas:tenant-add                       # 添加租户 可指定租户名，默认 foo
+php artisan saas:tenant-del                       # 删除租户 可指定租户名，默认 foo
 php artisan saas:menu-export                    # 导出菜单（默认会尝试导出 foo 租户多菜单）
 php artisan saas:menu-reset                     # 重置菜单 (根据导出的菜单进行租户菜单重置)
 php artisan tenants:list                        # 查看租户列表

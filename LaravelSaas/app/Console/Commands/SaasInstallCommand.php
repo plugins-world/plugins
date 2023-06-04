@@ -3,6 +3,7 @@
 namespace Plugins\LaravelSaas\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class SaasInstallCommand extends Command
 {
@@ -27,14 +28,17 @@ class SaasInstallCommand extends Command
      */
     public function handle()
     {
-        $this->call('migrate');
-
         $this->registerProvider();
         $this->registerRoutes();
-        // $this->registerDomains($this->option('domain'));
-        $this->createTenantMigrationsDir();
+        // $this->registerDomains($this->option('domain')); # 已经通过 setTenantPrefix 初始化了
         $this->setTenantPrefix();
         $this->addInitTenantAction();
+        $this->resetRegisterPasswordLength();
+        $this->createTenantMigrationsDir();
+        $this->initTenantMigrations();
+        $this->initTenantPublicAssets();
+
+        $this->call('tenants:migrate');
     }
 
     /**
@@ -60,6 +64,39 @@ class SaasInstallCommand extends Command
 
     public function registerRoutes()
     {
+        if (! is_file($tenantSessionMiddlewareFile = app_path('Http/Middleware/AuthenticateTenantSession.php'))) {
+            copy(__DIR__.'/stubs/AuthenticateTenantSession.stub', $tenantSessionMiddlewareFile);
+        }
+        
+        $this->replaceInFile(<<<'TXT'
+        Route::middleware([
+            'web',
+            InitializeTenancyByDomain::class,
+            PreventAccessFromCentralDomains::class,
+        ])->group(function () {
+            Route::get('/', function () {
+                return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+            });
+        });
+        TXT,
+        <<<'TXT'
+        \Stancl\Tenancy\Middleware\InitializeTenancyByDomain::$onFail = function ($exception, $request, $next) {
+            return redirect(config('app.url'));
+        };
+
+        Route::middleware([
+            'web',
+            InitializeTenancyByDomain::class,
+            PreventAccessFromCentralDomains::class,
+        ])->group(function () {
+            Route::get('/', function () {
+                return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+            });
+
+            require __DIR__.'/web.php';
+        });
+        TXT, base_path('routes/tenant.php'));
+
         $this->replaceInFile(<<<'TXT'
             public function boot(): void
             {
@@ -76,8 +113,8 @@ class SaasInstallCommand extends Command
                         ->group(base_path('routes/web.php'));
                 });
             }
-        TXT
-        ,<<<'TXT'
+        TXT,
+        <<<'TXT'
             public function boot(): void
             {
                 RateLimiter::for('api', function (Request $request) {
@@ -86,12 +123,12 @@ class SaasInstallCommand extends Command
         
                 $this->routes(function () {
                     foreach ($this->centralDomains() as $domain) {
-                        Route::middleware('api')
+                        Route::middleware(['api', \Plugins\LaravelSaas\Http\Middleware\AuthenticateTenantSession::class])
                             ->domain($domain)
                             ->prefix('api')
                             ->group(base_path('routes/api.php'));
-
-                        Route::middleware('web')
+        
+                        Route::middleware(['web', \Plugins\LaravelSaas\Http\Middleware\AuthenticateTenantSession::class])
                             ->domain($domain)
                             ->group(base_path('routes/web.php'));
                     }
@@ -122,8 +159,8 @@ class SaasInstallCommand extends Command
                 '127.0.0.1',
                 'localhost',
             ],
-        TXT
-        ,<<<"TXT"
+        TXT,
+        <<<"TXT"
             'central_domains' => [
                 '$domain',
                 '127.0.0.1',
@@ -223,5 +260,50 @@ class SaasInstallCommand extends Command
             $content
         );
         file_put_contents($filePath, $newContent);
+    }
+
+    public function resetRegisterPasswordLength()
+    {
+        if (! class_exists(\App\Http\Controllers\Auth\RegisteredUserController::class)) {
+            return;
+        }
+
+        $this->replaceInFile('Rules\Password::defaults()', "'min:6'", app_path('Http/Controllers/Auth/RegisteredUserController.php'));
+    }
+
+    public function initTenantMigrations()
+    {
+        $path = database_path('migrations/tenant');
+
+        $files = glob(database_path('migrations/*create_users_table*'));
+        $createUsersTableMigration = $files ? $files[0] : null;
+        if (! $createUsersTableMigration) {
+            return;
+        }
+
+        $migrationFile = basename($createUsersTableMigration);
+        $createUsersTableMigrationWithTenant = database_path("migrations/tenant/{$migrationFile}");
+
+        if (! is_file($createUsersTableMigrationWithTenant)) {
+            copy($createUsersTableMigration, $createUsersTableMigrationWithTenant);
+        }
+
+        if (file_exists($path.'/.gitkeep')) {
+            unlink($path.'/.gitkeep');
+        }
+    }
+
+    public function initTenantPublicAssets()
+    {
+        tap(new Filesystem, function ($files) {
+            $path = public_path('tenancy/assets');
+            $files->ensureDirectoryExists($path);
+
+            // build assets
+            $build = public_path('build');
+            $buildWithTenancy = public_path('tenancy/assets/build');
+
+            $files->copyDirectory($build, $buildWithTenancy);
+        });
     }
 }

@@ -1,10 +1,10 @@
 {
-    "unikey": "SsoServer",
+    "fskey": "SsoServer",
     "type": 1,
     "name": "SsoServer",
-    "description": "SsoServer plugin made by fresns",
+    "description": "SsoServer plugin made by mouyong",
     "author": "Fresns",
-    "authorLink": "https://fresns.org",
+    "authorLink": "https://plugins-world.cn",
     "version": "1.0.0",
     "scene": [],
     "accessPath": "/sso-server/index",

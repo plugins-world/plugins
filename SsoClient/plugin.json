@@ -1,10 +1,10 @@
 {
-    "unikey": "SsoClient",
+    "fskey": "SsoClient",
     "type": 1,
     "name": "SsoClient",
-    "description": "SsoClient plugin made by fresns",
+    "description": "SsoClient plugin made by mouyong",
     "author": "Fresns",
-    "authorLink": "https://fresns.org",
+    "authorLink": "https://plugins-world.cn",
     "version": "1.0.0",
     "scene": [
         "sso_update_userinfo_service"

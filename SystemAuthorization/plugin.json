@@ -1,10 +1,10 @@
 {
-    "unikey": "SystemAuthorization",
+    "fskey": "SystemAuthorization",
     "type": 1,
     "name": "SystemAuthorization",
-    "description": "SystemAuthorization plugin made by fresns",
+    "description": "SystemAuthorization plugin made by mouyong",
     "author": "Fresns",
-    "authorLink": "https://fresns.org",
+    "authorLink": "https://plugins-world.cn",
     "version": "1.0.0",
     "scene": [],
     "accessPath": "",

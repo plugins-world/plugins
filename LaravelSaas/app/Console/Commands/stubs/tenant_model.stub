@@ -14,8 +14,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     protected $guarded = [];
 
     protected $hidden = [
-        'admin_user_password',
-        'admin_user_password_confirmation',
         'tenancy_db_name',
     ];
 
