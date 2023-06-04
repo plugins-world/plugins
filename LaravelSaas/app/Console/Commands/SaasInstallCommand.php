@@ -37,6 +37,7 @@ class SaasInstallCommand extends Command
         $this->createTenantMigrationsDir();
         $this->initTenantMigrations();
         $this->initTenantPublicAssets();
+        $this->resetLoginLogic();
 
         $this->call('tenants:migrate');
     }
@@ -89,9 +90,9 @@ class SaasInstallCommand extends Command
             InitializeTenancyByDomain::class,
             PreventAccessFromCentralDomains::class,
         ])->group(function () {
-            Route::get('/', function () {
-                return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-            });
+            // Route::get('/', function () {
+            //     return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+            // });
 
             require __DIR__.'/web.php';
         });
@@ -160,7 +161,7 @@ class SaasInstallCommand extends Command
                 'localhost',
             ],
         TXT,
-        <<<"TXT"
+        <<<'TXT'
             'central_domains' => [
                 '$domain',
                 '127.0.0.1',
@@ -305,5 +306,36 @@ class SaasInstallCommand extends Command
 
             $files->copyDirectory($build, $buildWithTenancy);
         });
+    }
+
+    public function resetLoginLogic()
+    {
+        $this->replaceInFile(<<<'TXT'
+            public function create(): Response
+            {
+                return Inertia::render('Auth/Login', [
+                    'canResetPassword' => Route::has('password.request'),
+                    'status' => session('status'),
+                ]);
+            }
+        TXT,
+        <<<'TXT'
+            public function create(): Response|RedirectResponse
+            {
+                if ($encryptData = \request('encryptData')) {
+                    $data = decrypt($encryptData);
+                    $userArray = $data['user'] ?? null;
+                    $user = \App\Models\User::where('name', $userArray['name'])->first();
+                    auth()->login($user);
+        
+                    return redirect('/login');
+                }
+        
+                return Inertia::render('Auth/Login', [
+                    'canResetPassword' => Route::has('password.request'),
+                    'status' => session('status'),
+                ]);
+            }
+        TXT, app_path('Http/Controllers/Auth/AuthenticatedSessionController.php'));
     }
 }

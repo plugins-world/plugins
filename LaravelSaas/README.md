@@ -21,9 +21,23 @@
 - fresns/market-manager ^1
 - fresns/cmd-word-manager ^1
 - 项目已完成 fresns/plugin-manager、fresns/market-manager 的安装。点击查看[如何安装插件管理器与应用市场管理器？](https://discuss.plugins-world.cn/post/hYJORaBi)
+- 项目已安装 breeze 入门套件
 
 ## 安装
 
+1. 安装入门套件
+```bash
+composer require laravel/breeze --dev
+
+php artisan breeze:install vue # 安装 vue 的入门套件（包含认证、登录等相关逻辑）
+php artisan migrate
+npm install
+npm run build # 构建静态文件
+
+npm run dev # 开发阶段使用
+```
+
+2. 安装租户插件
 ```bash
 php artisan market:require plugins-world/laravel-saas # 通过应用市场管理器安装插件
 
