@@ -1,17 +1,17 @@
 <?php
 
-namespace Plugins\LaravelSaas\Console\Commands;
+namespace Plugins\DcatSaas\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SaasListCommand extends Command
+class SaasTenantListCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'saas:list';
+    protected $signature = 'saas:tenant-list';
 
     /**
      * The console command description.

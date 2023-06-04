@@ -29,12 +29,8 @@ class SaasTenantAddCommand extends Command
     {
         $tenantId = $this->argument('tenant');
 
-        \Illuminate\Support\Facades\DB::transaction(function () use ($tenantId) {
-            $tenant = \App\Models\Tenant::create(['id' => $tenantId]);
-            $tenant->domains()->create(['domain' => "{$tenantId}.".str_replace(['http://', 'https://'], '', config('app.url'))]);
-
-            return $tenant;
-        });
+        $tenant = \App\Models\Tenant::create(['id' => $tenantId]);
+        $tenant->domains()->create(['domain' => "{$tenantId}.".str_replace(['http://', 'https://'], '', config('app.url'))]);
 
         $this->info("{$tenantId} 创建成功");
         return 0;
