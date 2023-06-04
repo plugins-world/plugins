@@ -66,6 +66,7 @@ composer require fresns/plugin-manager:2.x-dev
 # 配置数据库与项目信息
 	APP_NAME
 	APP_URL
+	ADMIN_HTTPS
 
 	DB_HOST
 	DB_DATABASE

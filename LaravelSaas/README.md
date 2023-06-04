@@ -27,6 +27,8 @@
 ```bash
 php artisan market:require plugins-world/laravel-saas # 通过应用市场管理器安装插件
 
+php artisan plugin:activate DcatSaas # 启用插件，否则插件不会被加载
+
 php artisan saas:install # 需要配置数据库的 root 账号密码
 ```
 
