@@ -9,7 +9,7 @@
 
 在`插件管理器`与`应用市场管理器`的插件架构设计下，采用`Tenancy 3.x`、`Dcat-Admin`、`Laravel` 可快速建立属于你的 SaaS 业务框架。
 
-初期可采用 `Dcat-Admin` 完成中心应用开账号，租户应用建立业务逻辑的方案。研发到一定阶段后，推荐采用 [scui](https://lolicode.gitee.io/scui-doc/) 或其他你喜欢的管理后台框架，将项目前后端进行分离。
+初期可采用 `Dcat-Admin` 完成中心应用开账号，租户应用建立业务逻辑的方案。研发到一定阶段后，推荐采用 [arco.design](https://arco.design/) 或其他你喜欢的管理后台框架，将项目前后端进行分离。
 
 依赖项目：
 - [插件管理器 fresns/plugin-manager](http://gitee.com/fresns/plugin-manager)
