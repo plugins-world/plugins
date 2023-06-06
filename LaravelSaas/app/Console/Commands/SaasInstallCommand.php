@@ -2,6 +2,7 @@
 
 namespace Plugins\LaravelSaas\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
@@ -38,6 +39,7 @@ class SaasInstallCommand extends Command
         $this->initTenantMigrations();
         $this->initTenantPublicAssets();
         $this->resetLoginLogic();
+        $this->registerInteriaFlashMessage();
 
         $this->call('tenants:migrate');
     }
@@ -58,9 +60,37 @@ class SaasInstallCommand extends Command
         }
     }
 
+    /**
+     * Install the provider in the plugin.json file.
+     *
+     * @param  string  $after
+     * @param  string  $name
+     * @param  string  $group
+     */
+    protected function installPluginProviderAfter(string $after, string $name, string $appConfigPath): void
+    {
+        $appConfig = file_get_contents($appConfigPath);
+
+        $providers = Str::before(Str::after($appConfig, '\'providers\' => ServiceProvider::defaultProviders()->merge(['), sprintf('])->toArray(),', PHP_EOL));
+
+        if (! Str::contains($providers, $name)) {
+            $modifiedProviders = str_replace(
+                sprintf('%s,', $after),
+                sprintf('%s,', $after).PHP_EOL.'        '.sprintf('%s', $name),
+                $providers,
+            );
+
+            $this->replaceInFile(
+                $providers,
+                $modifiedProviders,
+                $appConfigPath,
+            );
+        }
+    }
+
     public function registerProvider()
     {
-        $this->replaceInFile('App\Providers\RouteServiceProvider::class,', 'App\Providers\RouteServiceProvider::class,'.PHP_EOL."        App\Providers\TenancyServiceProvider::class, // <-- here", config_path('app.php'));
+        $this->installPluginProviderAfter('App\Providers\AppServiceProvider::class', 'App\Providers\TenancyServiceProvider::class, // <-- here', config_path('app.php'));
     }
 
     public function registerRoutes()
@@ -337,5 +367,40 @@ class SaasInstallCommand extends Command
                 ]);
             }
         TXT, app_path('Http/Controllers/Auth/AuthenticatedSessionController.php'));
+    }
+
+    public function registerInteriaFlashMessage()
+    {
+        $this->replaceInFile(<<<'TXT'
+            public function share(Request $request): array
+            {
+                return array_merge(parent::share($request), [
+                    'auth' => [
+                        'user' => $request->user(),
+                    ],
+                    'ziggy' => function () use ($request) {
+                        return array_merge((new Ziggy)->toArray(), [
+                            'location' => $request->url(),
+                        ]);
+                    },
+                ]);
+            }
+        TXT,
+        <<<'TXT'
+            public function share(Request $request): array
+            {
+                return array_merge(parent::share($request), [
+                    'auth' => [
+                        'user' => $request->user(),
+                    ],
+                    'ziggy' => function () use ($request) {
+                        return array_merge((new Ziggy)->toArray(), [
+                            'location' => $request->url(),
+                        ]);
+                    },
+                    'flash' => session()->all(),
+                ]);
+            }
+        TXT, app_path('Http/Middleware/HandleInertiaRequests.php'));
     }
 }
