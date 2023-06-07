@@ -90,7 +90,7 @@ class SaasInstallCommand extends Command
 
     public function registerProvider()
     {
-        $this->installPluginProviderAfter('App\Providers\AppServiceProvider::class', 'App\Providers\TenancyServiceProvider::class, // <-- here', config_path('app.php'));
+        $this->installPluginProviderAfter('App\Providers\RouteServiceProvider::class', 'App\Providers\TenancyServiceProvider::class, // <-- here', config_path('app.php'));
     }
 
     public function registerRoutes()
