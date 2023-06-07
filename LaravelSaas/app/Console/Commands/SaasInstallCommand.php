@@ -88,6 +88,35 @@ class SaasInstallCommand extends Command
         }
     }
 
+    /**
+     * Install the provider in the plugin.json file.
+     *
+     * @param  string  $after
+     * @param  string  $name
+     * @param  string  $group
+     */
+    protected function installBuildCommandAfter(string $after, string $name, string $packageJsonPath): void
+    {
+        $packageJson = file_get_contents($packageJsonPath);
+
+        $scripts = Str::before(Str::after($packageJson, '"build": "'), sprintf('"', PHP_EOL));
+
+        if (! Str::contains($scripts, $name)) {
+            $modifiedScripts = preg_replace(
+                sprintf('/"?%s/', $after),
+                sprintf('%s', $after).' && '.sprintf('%s', $name),
+                $scripts,
+                1,
+            );
+
+            $this->replaceInFile(
+                $scripts,
+                $modifiedScripts,
+                $packageJsonPath,
+            );
+        }
+    }
+
     public function registerProvider()
     {
         $this->installPluginProviderAfter('App\Providers\RouteServiceProvider::class', 'App\Providers\TenancyServiceProvider::class, // <-- here', config_path('app.php'));
@@ -326,6 +355,10 @@ class SaasInstallCommand extends Command
 
     public function initTenantPublicAssets()
     {
+        if (is_dir(base_path('public/build')) && is_dir(base_path('public/tenancy/assets'))) {
+            $this->installBuildCommandAfter('vite build', 'cp -r public/build public/tenancy/assets/build', base_path('package.json'));
+        }
+
         tap(new Filesystem, function ($files) {
             $path = public_path('tenancy/assets');
             $files->ensureDirectoryExists($path);
@@ -336,6 +369,8 @@ class SaasInstallCommand extends Command
 
             $files->copyDirectory($build, $buildWithTenancy);
         });
+
+
     }
 
     public function resetLoginLogic()
