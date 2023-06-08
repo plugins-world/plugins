@@ -37,7 +37,7 @@ class RouteServiceProvider extends BaseServiceProvider
 
         try {
             if (class_exists(Plugin::class)) {
-                $pluginHost = Plugin::findByUnikey('Editor')?->plugin_host;
+                $pluginHost = Plugin::findByFskey('Editor')?->plugin_host;
                 $host = str_replace(['http://', 'https://'], '', rtrim($pluginHost, '/'));
             }
         } catch (\Throwable $e) {

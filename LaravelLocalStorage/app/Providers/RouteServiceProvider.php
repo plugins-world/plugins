@@ -28,7 +28,7 @@ class RouteServiceProvider extends BaseServiceProvider
     public function map()
     {
         try {
-            $pluginHost = Plugin::findByUnikey('Market')?->plugin_host;
+            $pluginHost = Plugin::findByFskey('Market')?->plugin_host;
             $host = str_replace(['http://', 'https://'], '', rtrim($pluginHost, '/'));
         } catch (\Throwable $e) {
             $host = null;
