@@ -9,7 +9,7 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 {
     use \Fresns\CmdWordManager\Traits\CmdWordProviderTrait;
 
-    protected $unikeyName = 'LaravelLocalStorage';
+    protected $fskey = 'LaravelLocalStorage';
 
     /**
      *
