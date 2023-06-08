@@ -1,7 +1,7 @@
 @extends('Tenant::layouts.master')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="card mx-auto mt-5" style="width: 75%;">
         <div class="card-body">
             <h1 class="card-title">Tenant Settings</h1>
