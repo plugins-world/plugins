@@ -14,7 +14,7 @@ class CmdWordServiceProvider extends ServiceProvider implements \Fresns\CmdWordM
 {
     use \Fresns\CmdWordManager\Traits\CmdWordProviderTrait;
 
-    protected $fskey = 'SsoClient';
+    protected $fsKeyName = 'SsoClient';
 
     /**
      *
