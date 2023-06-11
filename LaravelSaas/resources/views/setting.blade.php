@@ -1,13 +1,13 @@
-@extends('Tenant::layouts.master')
+@extends('LaravelSaas::layouts.master')
 
 @section('content')
 <div class="container-fluid">
     <div class="card mx-auto mt-5" style="width: 75%;">
         <div class="card-body">
-            <h1 class="card-title">Tenant Settings</h1>
-            <a href="{{ route('tenant.index') }}">Back to Tenant plugin homepage.</a>
+            <h1 class="card-title">LaravelSaas Settings</h1>
+            <a href="{{ route('laravel-saas.index') }}">Back to Tenant plugin homepage.</a>
 
-            <form class="row g-3 mt-5" action="{{ route('tenant.setting') }}" method="post">
+            <form class="row g-3 mt-5" action="{{ route('laravel-saas.setting') }}" method="post">
                 @csrf
 
                 <div class="mb-3 row">
