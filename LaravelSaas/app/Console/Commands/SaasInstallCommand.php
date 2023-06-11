@@ -29,17 +29,20 @@ class SaasInstallCommand extends Command
      */
     public function handle()
     {
-        $this->registerProvider();
-        $this->registerRoutes();
-        // $this->registerDomains($this->option('domain')); # 已经通过 setTenantPrefix 初始化了
+        $this->call('migrate');
+        $this->call('tenancy:install');
+
+        $this->initTenantMigrations();
+        $this->initTenantPublicAssets();
         $this->setTenantPrefix();
+        // $this->registerDomains($this->option('domain')); # 已经通过 setTenantPrefix 初始化了
         $this->addInitTenantAction();
         $this->resetRegisterPasswordLength();
         $this->createTenantMigrationsDir();
-        $this->initTenantMigrations();
-        $this->initTenantPublicAssets();
         $this->resetLoginLogic();
         $this->registerInteriaFlashMessage();
+        $this->registerProvider();
+        $this->registerRoutes();
 
         $this->call('tenants:migrate');
     }
@@ -54,6 +57,10 @@ class SaasInstallCommand extends Command
      */
     protected function replaceInFile($search, $replace, $path)
     {
+        if (!is_file($path)) {
+            return;
+        }
+
         $content = file_get_contents($path);
         if (! str_contains($content, $replace)) {
             file_put_contents($path, str_replace($search, $replace, $content));
@@ -183,12 +190,12 @@ class SaasInstallCommand extends Command
         
                 $this->routes(function () {
                     foreach ($this->centralDomains() as $domain) {
-                        Route::middleware(['api', \Plugins\LaravelSaas\Http\Middleware\AuthenticateTenantSession::class])
+                        Route::middleware(['api', \App\Http\Middleware\AuthenticateTenantSession::class])
                             ->domain($domain)
                             ->prefix('api')
                             ->group(base_path('routes/api.php'));
         
-                        Route::middleware(['web', \Plugins\LaravelSaas\Http\Middleware\AuthenticateTenantSession::class])
+                        Route::middleware(['web', \App\Http\Middleware\AuthenticateTenantSession::class])
                             ->domain($domain)
                             ->group(base_path('routes/web.php'));
                     }
