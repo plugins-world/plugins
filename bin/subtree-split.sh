@@ -22,6 +22,7 @@ git pull origin $CURRENT_BRANCH || true
 
 
 # remote foundation git@github.com:mouyong/laravel-foundation.git
+remote LaravelSaas git@github.com:plugins-world/LaravelSaas.git
 remote DcatSaas git@github.com:plugins-world/DcatSaas.git
 remote LaravelJwtAuth git@github.com:plugins-world/LaravelJwtAuth.git
 remote LaravelQiNiu git@github.com:plugins-world/LaravelQiNiu.git
@@ -35,6 +36,7 @@ remote WuKongAuthCode git@github.com:plugins-world/WuKongAuthCode.git
 remote Editor git@github.com:plugins-world/Editor.git
 
 # split 'src/Illuminate/Foundation' foundation
+split 'LaravelSaas' LaravelSaas
 split 'DcatSaas' DcatSaas
 split 'LaravelJwtAuth' LaravelJwtAuth
 split 'LaravelQiNiu' LaravelQiNiu
