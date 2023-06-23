@@ -27,6 +27,6 @@
         "zhenmu/support": "dev-master",
         "mouyong/laravel-config": "dev-master",
         "overtrue/laravel-filesystem-qiniu": "^2.0",
-        "fresns/cmd-word-manager": "^1.2 | dev-master"
+        "fresns/cmd-word-manager": "^1.0"
     }
 }

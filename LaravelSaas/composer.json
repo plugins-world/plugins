@@ -25,7 +25,7 @@
     "require": {
         "php": ">= 8.0",
         "mouyong/laravel-config": "dev-master",
-        "fresns/cmd-word-manager": "dev-master",
+        "fresns/cmd-word-manager": "^1.0",
         "stancl/tenancy": "^3.7"
     }
 }
