@@ -29,7 +29,6 @@ class SaasInstallCommand extends Command
      */
     public function handle()
     {
-        $this->call('migrate');
         $this->call('tenancy:install');
 
         $this->initTenantMigrations();
@@ -44,6 +43,7 @@ class SaasInstallCommand extends Command
         $this->registerProvider();
         $this->registerRoutes();
 
+        $this->call('migrate');
         $this->call('tenants:migrate');
     }
 
