@@ -270,7 +270,7 @@ class SaasInstallCommand extends Command
                 "'tenant_model' => \App\Models\Tenant::class,",
                 "'localhost',\n\t\tstr_replace(['http://', 'https://'], '', trim(env('APP_URL', ''), '/')),\n    ],",
                 "'prefix' => \$prefix,",
-                "'suffix_base' => \$prefix,",
+                "'suffix_base' => \"tenants/\".\$prefix,",
                 "_base' => \$prefix,",
                 "'--force' => true,",
                 "'public' => '%storage_path%/app/public/',
