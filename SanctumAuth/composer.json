@@ -1,0 +1,30 @@
+{
+    "name": "plugins-world/sanctum-auth",
+    "description": "SanctumAuth plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SanctumAuth\\": "app",
+            "Plugins\\SanctumAuth\\Database\\Factories\\": "database/factories/",
+            "Plugins\\SanctumAuth\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\SanctumAuth\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "laravel/sanctum": "^3.0",
+        "zhenmu/support": "^1.3"
+    }
+}

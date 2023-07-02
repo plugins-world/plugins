@@ -1,0 +1,17 @@
+{
+    "fskey": "SanctumAuth",
+    "name": "SanctumAuth",
+    "description": "SanctumAuth plugin made by fresns",
+    "author": "Fresns",
+    "authorLink": "https://fresns.org",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/sanctum-auth",
+    "settingsPath": "/sanctum-auth/setting",
+    "providers": [
+        "Plugins\\SanctumAuth\\Providers\\SanctumAuthServiceProvider",
+        "Plugins\\SanctumAuth\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
