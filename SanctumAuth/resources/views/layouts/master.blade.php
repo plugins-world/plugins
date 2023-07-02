@@ -14,7 +14,7 @@
 
     <body>
         <header>
-            @include('SanctumAuth::layouts.header')
+            <!-- @include('SanctumAuth::layouts.header') -->
         </header>
 
         <main>
