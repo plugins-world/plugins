@@ -1,0 +1,18 @@
+{
+    "fskey": "FileStorage",
+    "name": "FileStorage",
+    "description": "FileStorage plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.cn/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/file-storage",
+    "settingsPath": "/file-storage/setting",
+    "providers": [
+        "Plugins\\FileStorage\\Providers\\FileStorageServiceProvider",
+        "Plugins\\FileStorage\\Providers\\CmdWordServiceProvider",
+        "Plugins\\FileStorage\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

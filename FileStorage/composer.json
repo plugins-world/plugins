@@ -1,0 +1,29 @@
+{
+    "name": "plugins-world/file-storage",
+    "description": "FileStorage plugin made by fresns",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\FileStorage\\": "app",
+            "Plugins\\FileStorage\\Database\\Factories\\": "database/factories/",
+            "Plugins\\FileStorage\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\FileStorage\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "overtrue/laravel-filesystem-cos": "^3.4"
+    }
+}
