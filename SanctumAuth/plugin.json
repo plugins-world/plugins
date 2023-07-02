@@ -1,9 +1,9 @@
 {
     "fskey": "SanctumAuth",
     "name": "SanctumAuth",
-    "description": "SanctumAuth plugin made by fresns",
-    "author": "Fresns",
-    "authorLink": "https://fresns.org",
+    "description": "SanctumAuth plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.cn/",
     "version": "1.0.0",
     "scene": [],
     "accessPath": "/sanctum-auth",
