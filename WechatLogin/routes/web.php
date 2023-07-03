@@ -21,9 +21,9 @@ use Plugins\WechatLogin\Http\Controllers as WebController;
 */
 
 Route::prefix('wechat-login')->group(function() {
-    Route::get('/', [WebController\WechatLoginController::class, 'index'])->name('wechat-login.index');
-    Route::get('setting', [WebController\WechatLoginController::class, 'showSettingView'])->name('wechat-login.setting');
-    Route::post('setting', [WebController\WechatLoginController::class, 'saveSetting']);
+    Route::get('/', [WebController\WechatLoginSettingController::class, 'index'])->name('wechat-login.index');
+    Route::get('setting', [WebController\WechatLoginSettingController::class, 'showSettingView'])->name('wechat-login.setting');
+    Route::post('setting', [WebController\WechatLoginSettingController::class, 'saveSetting']);
 });
 
 // without VerifyCsrfToken
@@ -31,5 +31,5 @@ Route::prefix('wechat-login')->group(function() {
 //     \App\Http\Middleware\EncryptCookies::class,
 //     \App\Http\Middleware\VerifyCsrfToken::class,
 // ])->group(function() {
-//     Route::get('/', [WebController\WechatLoginController::class, 'index']);
+//     Route::get('/', [WebController\WechatLoginSettingController::class, 'index']);
 // });

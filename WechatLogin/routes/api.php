@@ -25,6 +25,6 @@ use Plugins\WechatLogin\Http\Controllers as ApiController;
 //     return $request->user();
 // });
 
-// Route::prefix('wechat-login')->group(function() {
-//     Route::get('/', [ApiController\WechatLoginController::class, 'index']);
-// });
+Route::prefix('wechat-login')->group(function() {
+    Route::post('login/code', [ApiController\WechatLoginController::class, 'login']);
+});

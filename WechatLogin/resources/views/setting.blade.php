@@ -4,8 +4,18 @@
     <div class="container">
         <div class="card mx-auto mt-5" style="width: 75%;">
             <div class="card-body">
-                <h1 class="card-title">WechatLogin Settings</h1>
-                <a href="{{ route('wechat-login.index') }}">Back to WechatLogin plugin homepage.</a>
+                <!-- top -->
+                <div class="row mb-2">
+                    <div class="col-8">
+                        <h3 class="card-title">WechatLogin <span class="badge bg-secondary" style="font-size: .5rem;">{{ $version }}</span></h3>
+                        <p class="text-secondary">「微信登录」插件，支持网站、小程序、App 等各端的微信登录。</p>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group mt-2 mb-4 justify-content-lg-end px-1" role="group">
+                            <a class="btn btn-outline-secondary" href="https://github.com/plugins-world/plugins/tree/master/WechatLogin" target="_blank" role="button"><i class="bi bi-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Menu -->
                 <div class="mb-3 mt-5">

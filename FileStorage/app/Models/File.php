@@ -2,7 +2,7 @@
 
 namespace Plugins\FileStorage\Models;
 
-class File extends \Plugins\MarketManager\Models\Model
+class File extends Model
 {
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
