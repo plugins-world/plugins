@@ -1,0 +1,17 @@
+{
+    "fskey": "WechatLogin",
+    "name": "WechatLogin",
+    "description": "WechatLogin plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/wechat-login",
+    "settingsPath": "/wechat-login/setting",
+    "providers": [
+        "Plugins\\WechatLogin\\Providers\\WechatLoginServiceProvider",
+        "Plugins\\WechatLogin\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

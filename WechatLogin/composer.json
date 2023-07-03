@@ -1,0 +1,29 @@
+{
+    "name": "plugins-world/wechat-login",
+    "description": "WechatLogin plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\WechatLogin\\": "app",
+            "Plugins\\WechatLogin\\Database\\Factories\\": "database/factories/",
+            "Plugins\\WechatLogin\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\WechatLogin\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">= 8.0",
+        "w7corp/easywechat": "^6.0"
+    }
+}
