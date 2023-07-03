@@ -26,6 +26,7 @@ class FileStorageSettingController extends Controller
         config(['session.secure' => uniqid()]);
 
         $itemKeys = [
+            'file_storage_timezone',
             'is_use_center_config',
             'app_id',
             'secret_id',
@@ -48,6 +49,7 @@ class FileStorageSettingController extends Controller
     public function saveSetting(Request $request)
     {
         $request->validate([
+            'file_storage_timezone' => 'nullable|string',
             'is_use_center_config' => 'nullable|boolean:0,1',
             'app_id' => 'nullable|string',
             'secret_id' => 'nullable|string',
@@ -62,11 +64,14 @@ class FileStorageSettingController extends Controller
 
         $bucket = CosUtility::cleanBucketName(\request('bucket'), \request('app_id'));
         $host = CosUtility::cleanHost(\request('domain'));
+        $file_storage_timezone = \request('file_storage_timezone', 'PRC');
 
+        \request()->offsetSet('file_storage_timezone', $file_storage_timezone);
         \request()->offsetSet('bucket', $bucket);
         \request()->offsetSet('domain', $host);
 
         $itemKeys = [
+            'file_storage_timezone',
             'is_use_center_config',
             'app_id',
             'secret_id',

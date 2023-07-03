@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'file_storage_timezone' => '时区',
     'is_use_center_config' => '使用平台配置',
     'app_id' => 'APPID',
     'secret_id' => 'SecretId',

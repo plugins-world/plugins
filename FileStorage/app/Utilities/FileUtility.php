@@ -16,7 +16,7 @@ class FileUtility
 {
     public static function initTimezone()
     {
-        $timezone = Config::getValueByKey('timezone') ?? 'PRC';
+        $timezone = Config::getValueByKey('file_storage_timezone') ?? 'PRC';
 
         date_default_timezone_set($timezone);
     }
