@@ -2,7 +2,7 @@
 
 namespace Plugins\FileStorage\Models;
 
-class FileUsage extends Model
+class FileUsage extends \Plugins\MarketManager\Models\Model
 {
     public function scopeFileType($query, int $type)
     {

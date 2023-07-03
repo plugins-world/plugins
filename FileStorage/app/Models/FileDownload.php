@@ -2,6 +2,6 @@
 
 namespace Plugins\FileStorage\Models;
 
-class File extends Model
+class FileDownload extends \Plugins\MarketManager\Models\Model
 {
 }
