@@ -26,6 +26,10 @@ Route::prefix('sanctum-auth')->middleware('plugin.auth')->group(function() {
     Route::post('setting', [WebController\SanctumAuthController::class, 'saveSetting']);
 });
 
+Route::get('logout', function () {
+    return response()->noContent(401);
+})->name('basic.logout');
+
 Route::get('/', function () {
     return [
         'Laravel' => app()->version()
