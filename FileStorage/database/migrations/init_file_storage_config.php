@@ -68,13 +68,13 @@ return new class extends Migration
             'item_tag' => 'file_storage',
             'item_key' => 'signed_url',
             'item_type' => 'boolean',
-            'item_value' => false,
+            'item_value' => true,
         ],
         [
             'item_tag' => 'file_storage',
             'item_key' => 'use_https',
             'item_type' => 'boolean',
-            'item_value' => false,
+            'item_value' => true,
         ],
         [
             'item_tag' => 'file_storage',
