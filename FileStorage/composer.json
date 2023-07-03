@@ -24,6 +24,7 @@
     },
     "require": {
         "php": ">= 8.0",
-        "overtrue/laravel-filesystem-cos": "^3.4"
+        "overtrue/laravel-filesystem-cos": "^3.4",
+        "zhenmu/support": "^1.3"
     }
 }

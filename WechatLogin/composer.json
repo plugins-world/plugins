@@ -24,6 +24,7 @@
     },
     "require": {
         "php": ">= 8.0",
-        "w7corp/easywechat": "^6.0"
+        "w7corp/easywechat": "^6.0",
+        "zhenmu/support": "^1.3"
     }
 }

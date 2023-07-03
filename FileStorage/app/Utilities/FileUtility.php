@@ -235,7 +235,7 @@ class FileUtility
                     $data['image_width'] = $imageInfo[0];
                     $data['image_height'] = $imageInfo[1];
                     $data['bits'] = $imageInfo['bits'];
-                    $data['channels'] = $imageInfo['channels'];
+                    $data['channels'] = $imageInfo['channels'] ?? null;
                     $data['mime'] = $imageInfo['mime'];
                 }
                 break;

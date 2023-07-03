@@ -26,5 +26,12 @@ use Plugins\WechatLogin\Http\Controllers as ApiController;
 // });
 
 Route::prefix('wechat-login')->group(function() {
-    Route::post('login/code', [ApiController\WechatLoginController::class, 'login']);
+    Route::post('login/code', [ApiController\WechatLoginController::class, 'miniAppLoginCode']);
+    Route::post('userinfo/bind-phone', [ApiController\WechatLoginController::class, 'miniAppBindPhone']);
+
+    Route::group([
+        'middleware' => ['auth:sanctum'],
+    ],function () {
+        Route::post('userinfo/update', [ApiController\WechatLoginController::class, 'miniAppUpdateUserInfo']);
+    });
 });

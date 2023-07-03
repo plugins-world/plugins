@@ -29,6 +29,7 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         // ['word' => BWordService::CMD_STATIC_TEST, 'provider' => [BWordService::class, 'handleStaticTest']],
         // ['word' => TestModel::CMD_MODEL_TEST, 'provider' => [TestModel::class, 'handleModelTest']],
         // ['word' => 'cmdWord', 'provider' => [CmdWordService::class, 'cmdWord']],
+        ['word' => 'fresnsFileStoragePath', 'provider' => [CmdWordService::class, 'fresnsFileStoragePath']],
         ['word' => 'uploadFile', 'provider' => [CmdWordService::class, 'uploadFile']],
     ];
 

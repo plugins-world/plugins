@@ -47,7 +47,7 @@ class WechatUtility
 
         /** @see https://easywechat.com/6.x/mini-app/index.html */
         $httpConfig = [
-            'throw'  => true, // 状态码非 200、300 时是否抛出异常，默认为开启
+            'throw'  => false, // 状态码非 200、300 时是否抛出异常，默认为开启
             'timeout' => 5.0,
             // 'base_uri' => 'https://api.weixin.qq.com/', // 如果你在国外想要覆盖默认的 url 的时候才使用，根据不同的模块配置不同的 uri
     
@@ -88,5 +88,14 @@ class WechatUtility
         };
 
         return $app;
+    }
+
+    public static function checkCodeUsed(\Throwable $exception, string $code)
+    {
+        $message = $exception->getMessage();
+
+        $codeUsed = str_contains($message, 'code been used');
+
+        throw_if($codeUsed, "登录 code: {$code} 失效，请重新获取");
     }
 }

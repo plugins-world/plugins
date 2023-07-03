@@ -16,6 +16,18 @@ class CmdWordService
 {
     use CmdWordResponseTrait;
 
+    public function fresnsFileStoragePath($wordBody)
+    {
+        $type = $wordBody['type'];
+        $usageType = $wordBody['usageType'];
+
+        $path = FileUtility::fresnsFileStoragePath($type, $usageType);
+
+        return $this->success([
+            'path' => $path,
+        ]);
+    }
+
     /**
         $resp = \FresnsCmdWord::plugin('FileStorage')->uploadFile([
             'file' => $uploadFile,
@@ -36,6 +48,7 @@ class CmdWordService
             return $this->failure("保存路径不能为空");
         }
 
+        FileUtility::initConfig($options['disk'] ?? null);
         $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $options);
         $file = FileUtility::create($fileMetaInfo);
 
