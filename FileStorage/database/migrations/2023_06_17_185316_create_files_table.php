@@ -54,8 +54,13 @@ return new class extends Migration
 
         Schema::create('file_downloads', function (Blueprint $table) {
             $table->id();
-            $table->string('file_id')->comment('文件编号');
-            $table->string('download_user_id')->comment('下载用户');
+            $table->string('file_id')->comment('文件 ID');
+            $table->string('file_type')->comment('文件类型');
+            $table->string('account_id')->comment('下载者账号 ID');
+            $table->string('user_id')->nullable()->comment('下载者用户 ID');
+            $table->string('plugin_fskey')->nullable()->comment('下载者插件');
+            $table->string('object_type')->comment('下载来源类型');
+            $table->string('object_id')->comment('来源目标主键 ID');
             $table->datetime('download_time')->comment('下载时间');
             $table->timestamps();
             $table->softDeletes();
