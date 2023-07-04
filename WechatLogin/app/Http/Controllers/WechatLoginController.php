@@ -58,7 +58,7 @@ class WechatLoginController extends Controller
             $data['connect_refresh_token'] = $accountConnect['connect_refresh_token'];
             $data['connect_username'] = $accountConnect['connect_username'];
             $data['connect_nickname'] = $accountConnect['connect_nickname'];
-            $data['connect_avatar'] = $accountConnect['connect_avatar'];
+            $data['connect_avatar'] = $accountConnect->getRawOriginal('connect_avatar');
             $data['is_enabled'] = $accountConnect['is_enabled'];
 
             $accountConnect->update($data);
@@ -225,7 +225,7 @@ class WechatLoginController extends Controller
 
         $accountConnect?->update([
             'connect_nickname' => \request('nickname') ?? $accountConnect?->connect_nickname ?? null,
-            'connect_avatar' => $avatar ?? $accountConnect?->connect_avatar ?? null,
+            'connect_avatar' => $avatar ?? $accountConnect?->getRawOriginal('connect_avatar') ?? null,
         ]);
 
         return $this->success([
