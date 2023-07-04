@@ -13,6 +13,8 @@ return new class extends Migration
     {
         if (! Schema::hasTable('accounts')) {
             Schema::create('accounts', function (Blueprint $table) {
+                $table->comment('账号主表');
+
                 $table->bigIncrements('id');
                 $table->string('aid', 32)->unique('aid');
                 $table->unsignedTinyInteger('type')->default(3);
@@ -41,6 +43,8 @@ return new class extends Migration
         }
         if (! Schema::hasTable('account_users')) {
             Schema::create('account_users', function (Blueprint $table) {
+                $table->comment('账号关联用户表');
+
                 $table->id();
                 $table->unsignedBigInteger('account_id');
                 $table->unsignedBigInteger('user_id');
@@ -51,6 +55,8 @@ return new class extends Migration
 
         if (! Schema::hasTable('account_connects')) {
             Schema::create('account_connects', function (Blueprint $table) {
+                $table->comment('账号互联凭证表');
+
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('account_id')->nullable();
                 $table->unsignedTinyInteger('connect_platform_id');

@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('files', function (Blueprint $table) {
+            $table->comment('文件元数据信息表');
+
             $table->id();
             $table->string('fid')->comment('对外公开编号');
             $table->string('type')->comment('文件类型');
@@ -38,6 +40,8 @@ return new class extends Migration
         });
 
         Schema::create('file_usages', function (Blueprint $table) {
+            $table->comment('文件关联使用表');
+
             $table->id();
             $table->unsignedBigInteger('file_id')->comment('文件编码');
             $table->string('file_type')->comment('文件类型');
@@ -53,6 +57,8 @@ return new class extends Migration
         });
 
         Schema::create('file_downloads', function (Blueprint $table) {
+            $table->comment('文件下载记录表');
+
             $table->id();
             $table->string('file_id')->comment('文件 ID');
             $table->string('file_type')->comment('文件类型');
