@@ -2,8 +2,6 @@
 
 namespace Plugins\WechatLogin\Models;
 
-use Plugins\MarketManager\Models\Traits\FsidTrait;
-
 class Account extends Model
 {
     const TYPE_1 = 1;
@@ -14,8 +12,6 @@ class Account extends Model
         Account::TYPE_2 => '普通管理员',
         Account::TYPE_3 => '普通用户',
     ];
-
-    use FsidTrait;
 
     public function getFsidKey()
     {

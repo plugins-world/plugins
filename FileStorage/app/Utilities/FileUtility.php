@@ -247,7 +247,6 @@ class FileUtility
     public static function getFileMeta(array $fileInfo)
     {
         // 必须提供的字段
-        $fid = $fileInfo['fid'] ?? null;
         $type = $fileInfo['type'];
         $name = $fileInfo['name'];
         $mime = $fileInfo['mime'];
@@ -255,7 +254,6 @@ class FileUtility
         $size = $fileInfo['size'];
 
         // 文件元数据信息
-        $fileData['fid'] = $fid;
         $fileData['type'] = $type;
         $fileData['name'] = $name;
         $fileData['mime'] = $mime;
@@ -287,7 +285,6 @@ class FileUtility
         $file = File::where('md5', $params['md5'])->first();
 
         $data = collect($params)->only([
-            'fid',
             'type',
             'name',
             'mime',
@@ -308,10 +305,6 @@ class FileUtility
             'original_path',
             'is_physical_delete',
         ])->all();
-
-        if (!$file) {
-            $data['fid'] = $data['fid'] ?? Str::random(10);
-        }
 
         $file = File::updateOrCreate([
             'md5' => $data['md5'],
