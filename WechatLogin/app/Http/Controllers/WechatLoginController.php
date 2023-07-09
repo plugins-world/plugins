@@ -218,18 +218,11 @@ class WechatLoginController extends Controller
         $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('account_id', $account['id'])->first();
 
         if (\request()->file('avatar')?->isValid()) {
-            $resp = \FresnsCmdWord::plugin('FileStorage')->fresnsFileStoragePath([
+            $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
                 'type' => 'image',
                 'usageType' => 'avatar',
-            ]);
-
-            $avatarFile = \request()->file('avatar');
-            $savePath = $resp->getData('path');
-            $options = ['disk' => 'cos'];
-            $resp = \FresnsCmdWord::plugin('FileStorage')->uploadFile([
-                'file' => $avatarFile,
-                'savePath' => $savePath,
-                'options' => $options,
+                'file' => \request()->file('avatar'),
+                'disk' => 'cos',
             ]);
 
             $avatar = $resp->getData('path');
