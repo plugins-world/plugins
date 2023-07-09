@@ -312,4 +312,44 @@ class FileUtility
 
         return $file;
     }
+
+    public static function getFileInfo(?string $fileId = null, ?string $filepath = null)
+    {
+        if (!$fileId && !$filepath) {
+            return null;
+        }
+
+        if ($filepath && filter_var($filepath, FILTER_VALIDATE_URL)) {
+            return $filepath;
+        }
+
+        if ($fileId) {
+            $file = File::where('id', $fileId)->first();
+        } else if ($filepath) {
+            $file = File::where('path', $filepath)->first();
+        } else {
+            $file = null;
+        }
+
+        if (!$file) {
+            return null;
+        }
+
+        $fileInfo = $file->getFileInfo();
+
+        return $fileInfo;
+    }
+
+    public static function getFileUrl(?string $fileId = null, ?string $filepath = null, $disk = 'local')
+    {
+        $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
+        if (!$fileInfo) {
+            return null;
+        }
+
+        FileUtility::initConfig($disk);
+        $url = FileUtility::getStorage($disk)->url($fileInfo['path']);
+
+        return $url;
+    }
 }

@@ -16,31 +16,18 @@ class CmdWordService
 {
     use CmdWordResponseTrait;
 
-    public function fresnsFileStoragePath($wordBody)
+    public function upload(array $wordBody)
     {
         $type = $wordBody['type'];
         $usageType = $wordBody['usageType'];
-
-        $path = FileUtility::fresnsFileStoragePath($type, $usageType);
-
-        return $this->success([
-            'path' => $path,
-        ]);
-    }
-
-    /**
-        $resp = \FresnsCmdWord::plugin('FileStorage')->uploadFile([
-            'file' => $uploadFile,
-            'savePath' => $savePath,
-        ]);
-     */
-    public function uploadFile($wordBody)
-    {
         $file = $wordBody['file'];
-        $savePath = $wordBody['savePath'];
-        $options = $wordBody['options'] ?? [];
+        $disk = $wordBody['disk'];
 
-        if (! $file instanceof UploadedFile) {
+
+        $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
+        $options = ['disk' => $disk];
+
+        if (!$file instanceof UploadedFile) {
             return $this->failure("文件类型不正确");
         }
 
@@ -53,5 +40,64 @@ class CmdWordService
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());
+    }
+
+    public function fresnsFileStoragePath(array $wordBody)
+    {
+        $type = $wordBody['type'];
+        $usageType = $wordBody['usageType'];
+
+        $path = FileUtility::fresnsFileStoragePath($type, $usageType);
+
+        return $this->success([
+            'path' => $path,
+        ]);
+    }
+
+    public function uploadFile(array $wordBody)
+    {
+        $file = $wordBody['file'];
+        $savePath = $wordBody['savePath'];
+        $options = $wordBody['options'] ?? [];
+
+        if (!$file instanceof UploadedFile) {
+            return $this->failure("文件类型不正确");
+        }
+
+        if (empty($savePath)) {
+            return $this->failure("保存路径不能为空");
+        }
+
+        FileUtility::initConfig($options['disk'] ?? null);
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $options);
+        $file = FileUtility::create($fileMetaInfo);
+
+        return $this->success($file->getFileInfo());
+    }
+
+    public function getFileInfo(array $wordBody)
+    {
+        $fileId = $wordBody['fileId'];
+        $filepath = $wordBody['filepath'];
+
+        $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
+
+        return $this->success([
+            'fileinfo' => $fileInfo,
+        ]);
+    }
+
+    public function getFileUrl(array $wordBody)
+    {
+        $fileId = $wordBody['fileId'];
+        $filepath = $wordBody['filepath'];
+        $disk = $wordBody['disk'];
+
+        FileUtility::initConfig($disk ?? null);
+        $url = FileUtility::getFileUrl($fileId, $filepath, $disk);
+
+        return $this->success([
+            'file_url' => $url,
+        ]);
     }
 }

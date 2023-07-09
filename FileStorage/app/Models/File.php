@@ -2,8 +2,12 @@
 
 namespace Plugins\FileStorage\Models;
 
+use Plugins\MarketManager\Models\Traits\FsidTrait;
+
 class File extends Model
 {
+    use FsidTrait;
+
     const TYPE_IMAGE = 'image';
     const TYPE_VIDEO = 'video';
     const TYPE_AUDIO = 'audio';
@@ -40,6 +44,11 @@ class File extends Model
     protected $casts = [
         'more_json' => 'json',
     ];
+
+    public function getFsidKey()
+    {
+        return 'fid';
+    }
 
     public function usages()
     {

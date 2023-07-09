@@ -46,6 +46,7 @@ use Plugins\FileStorage\Models\FileUsage;
      {
          $file = $this;
  
+         $fileInfo['id'] = $file['id'];
          $fileInfo['fid'] = $file['fid'];
          $fileInfo['type'] = $file['type'];
          $fileInfo['name'] = $file['name'];
