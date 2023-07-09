@@ -17,10 +17,10 @@ class WechatUtility
         WechatUtility::TYPE_MINI_PROGRAM => '微信小程序',
         WechatUtility::TYPE_OPEN_PLATFORM => '微信开放平台',
     ];
-    
+
     public static function getConfig(?string $type = null): ?array
     {
-        if (! array_key_exists($type, WechatUtility::TPYE_MAP)) {
+        if (!array_key_exists($type, WechatUtility::TPYE_MAP)) {
             return null;
         }
 
@@ -50,7 +50,7 @@ class WechatUtility
             'throw'  => false, // 状态码非 200、300 时是否抛出异常，默认为开启
             'timeout' => 5.0,
             // 'base_uri' => 'https://api.weixin.qq.com/', // 如果你在国外想要覆盖默认的 url 的时候才使用，根据不同的模块配置不同的 uri
-    
+
             'retry' => true, // 使用默认重试配置
             //  'retry' => [
             //      // 仅以下状态码重试
@@ -69,9 +69,16 @@ class WechatUtility
         return $config;
     }
 
+    public static function checkConfigAvaliable(?string $systemConfigAppId = null, ?string $clientAppId = null)
+    {
+        throw_if(!$systemConfigAppId, '系统配置错误，未配置服务端的小程序 AppId');
+        throw_if(!$systemConfigAppId, '系统配置错误，客户端的小程序 AppId 获取失败');
+        throw_if($systemConfigAppId !== $clientAppId, '系统配置错误，小程序 AppId 不匹配');
+    }
+
     public static function getApp(?string $type = null): null|OfficialAccountApplication|MiniAppApplication|OpenPlatformApplication
     {
-        if (! array_key_exists($type, WechatUtility::TPYE_MAP)) {
+        if (!array_key_exists($type, WechatUtility::TPYE_MAP)) {
             return null;
         }
 

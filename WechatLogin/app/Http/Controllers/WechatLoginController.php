@@ -9,18 +9,19 @@ use Plugins\WechatLogin\Models\Account;
 use ZhenMu\Support\Traits\ResponseTrait;
 use Plugins\WechatLogin\Models\AccountUser;
 use Plugins\WechatLogin\Models\AccountConnect;
+use Plugins\MarketManager\Utilities\StrUtility;
 use Plugins\WechatLogin\Utilities\WechatUtility;
 
 class WechatLoginController extends Controller
 {
     use ResponseTrait;
-    
+
     public function miniAppLoginCode()
     {
         \request()->validate([
             'code' => ['required', 'string'],
         ]);
-        
+
         $code = \request('code');
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
         /** @var \EasyWeChat\MiniApp\Utils */
@@ -72,6 +73,7 @@ class WechatLoginController extends Controller
             'connect_username' => $accountConnect['connect_username'],
             'connect_nickname' => $accountConnect['connect_nickname'],
             'connect_avatar' => $accountConnect['connect_avatar'],
+            'mobile' => null,
         ]);
     }
 
@@ -86,7 +88,7 @@ class WechatLoginController extends Controller
 
         $accountConnectId = \request('account_connect_id');
         $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('id', $accountConnectId)->first();
-        throw_if(! $accountConnect, "{$accountConnectId} 不存在");
+        throw_if(!$accountConnect, "{$accountConnectId} 不存在");
 
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
         /** @var \EasyWeChat\MiniApp\Utils */
@@ -106,6 +108,10 @@ class WechatLoginController extends Controller
         //       "appid" => "wx92xxxd57a"
         //     ]
         // ]
+
+        $systemConfigAppId = WechatUtility::getConfig(WechatUtility::TYPE_MINI_PROGRAM)['app_id'] ?? null;
+        $clientAppId = $session['watermark']['appid'] ?? null;
+        WechatUtility::checkConfigAvaliable($systemConfigAppId, $clientAppId);
 
         $countryCode = $session['countryCode'];
         $phoneNumber = $session['phoneNumber'];
@@ -149,14 +155,15 @@ class WechatLoginController extends Controller
                 'account_id' => $account['id'],
             ]);
         } else {
-            $account = Account::find($accountConnect['id']);
+            $account = Account::find($accountConnect['account_id']);
         }
+        throw_if(!$account, '未找到注册用户，登录失败');
 
         $accountUser = AccountUser::where('account_id', $account['id'])->first();
         if (empty($accountUser)) {
             $userAttrs['name'] = uniqid();
-            $userAttrs['email'] = $userAttrs['name']."@example.com";
-            $userAttrs['password'] = Hash::make($account['aid'].'168');
+            $userAttrs['email'] = $userAttrs['name'] . "@example.com";
+            $userAttrs['password'] = Hash::make($account['aid'] . '168');
 
             $user = User::create($userAttrs);
 
@@ -177,6 +184,7 @@ class WechatLoginController extends Controller
             'connect_username' => $accountConnect['connect_username'],
             'connect_nickname' => $accountConnect['connect_nickname'],
             'connect_avatar' => $accountConnect['connect_avatar'],
+            'mobile' => StrUtility::maskNumber($account['pure_phone']),
         ]);
     }
 
@@ -199,11 +207,17 @@ class WechatLoginController extends Controller
         ]);
 
         $user = auth()->user();
+        throw_if(!$user, '未登录');
+
         $accountUser = AccountUser::where('user_id', $user['id'])->first();
+        throw_if(!$accountUser, '用户未绑定账户信息');
+
         $account = Account::where('id', $accountUser['account_id'])->first();
+        throw_if(!$account, '未找到注册用户信息');
+
         $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('account_id', $account['id'])->first();
 
-        if (\request()->file('avatar')->isValid()) {
+        if (\request()->file('avatar')?->isValid()) {
             $resp = \FresnsCmdWord::plugin('FileStorage')->fresnsFileStoragePath([
                 'type' => 'image',
                 'usageType' => 'avatar',
@@ -234,6 +248,7 @@ class WechatLoginController extends Controller
             'connect_username' => $accountConnect['connect_username'],
             'connect_nickname' => $accountConnect['connect_nickname'],
             'connect_avatar' => $accountConnect['connect_avatar'],
+            'mobile' => StrUtility::maskNumber($account['pure_phone']),
         ]);
     }
 }
