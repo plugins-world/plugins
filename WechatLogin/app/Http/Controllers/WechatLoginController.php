@@ -88,7 +88,7 @@ class WechatLoginController extends Controller
 
         $accountConnectId = \request('account_connect_id');
         $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('id', $accountConnectId)->first();
-        throw_if(!$accountConnect, "{$accountConnectId} 不存在");
+        throw_if(!$accountConnect, "授权信息 account_connect_id: {$accountConnectId} 不存在");
 
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
         /** @var \EasyWeChat\MiniApp\Utils */
