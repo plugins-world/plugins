@@ -11,7 +11,7 @@ class PayCenterController extends Controller
 {
     use ResponseTrait;
 
-    public function pay(string $payType)
+    public function wechatPay(string $payType)
     {
         request()->validate([
             'fskey' => ['required', 'string'],
@@ -41,8 +41,6 @@ class PayCenterController extends Controller
         //     ]
         // ];
         $order = $resp->getData();
-
-        // 通过命令字获取订单信息
 
         $wechat = Pay::wechat();
         if (! is_callable([$wechat, $payType])) {

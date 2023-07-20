@@ -35,5 +35,5 @@ Route::group([], function() {
     Route::any('pay-center/callback/unipay', [ApiController\PayCenterCallbackController::class, 'uniPayCallback'])->name('pay-center.callback.unipay');
 
 
-    Route::any('pay-center/wechatpay/{payType}', [ApiController\PayCenterController::class, 'pay'])->name('pay-center.pay');
+    Route::any('pay-center/wechatpay/{payType}', [ApiController\PayCenterController::class, 'wechatPay'])->name('pay-center.pay');
 });

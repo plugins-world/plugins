@@ -10,6 +10,7 @@
     "settingsPath": "/pay-center/setting",
     "providers": [
         "Plugins\\PayCenter\\Providers\\PayCenterServiceProvider",
+        "Plugins\\PayCenter\\Providers\\CmdWordServiceProvider",
         "Plugins\\PayCenter\\Providers\\ExceptionServiceProvider"
     ],
     "autoloadFiles": [],
