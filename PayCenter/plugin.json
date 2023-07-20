@@ -1,0 +1,17 @@
+{
+    "fskey": "PayCenter",
+    "name": "PayCenter",
+    "description": "PayCenter plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/pay-center",
+    "settingsPath": "/pay-center/setting",
+    "providers": [
+        "Plugins\\PayCenter\\Providers\\PayCenterServiceProvider",
+        "Plugins\\PayCenter\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

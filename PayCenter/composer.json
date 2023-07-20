@@ -1,0 +1,28 @@
+{
+    "name": "plugins-world/pay-center",
+    "description": "PayCenter plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\PayCenter\\": "app",
+            "Plugins\\PayCenter\\Database\\Factories\\": "database/factories/",
+            "Plugins\\PayCenter\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\PayCenter\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "yansongda/pay": "^3.0"
+    }
+}
