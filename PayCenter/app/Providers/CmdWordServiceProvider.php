@@ -30,6 +30,8 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         // ['word' => TestModel::CMD_MODEL_TEST, 'provider' => [TestModel::class, 'handleModelTest']],
         // ['word' => 'cmdWord', 'provider' => [CmdWordService::class, 'cmdWord']],
         ['word' => 'wechatPay', 'provider' => [CmdWordService::class, 'wechatPay']],
+        ['word' => 'callbackParse', 'provider' => [CmdWordService::class, 'callbackParse']],
+        ['word' => 'callbackResponse', 'provider' => [CmdWordService::class, 'callbackResponse']],
     ];
 
     /**

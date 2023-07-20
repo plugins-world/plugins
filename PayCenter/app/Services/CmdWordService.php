@@ -32,11 +32,29 @@ class CmdWordService
 
         $config = PayUtility::init('pay_center_wechatpay');
         $wechat = Pay::wechat($config);
-        if (! is_callable([$wechat, $payType])) {
+        if (!is_callable([$wechat, $payType])) {
             return $this->failure(400, "支付类型 {$payType} 不存在");
         }
 
         $result = $wechat->$payType($order);
+
+        return $this->success($result);
+    }
+
+    public function callbackParse(array $wordBody)
+    {
+        $type = $wordBody['type'];
+
+        $result = PayUtility::callback($type);
+
+        return $this->success($result);
+    }
+
+    public function callbackResponse(array $wordBody)
+    {
+        $type = $wordBody['type'];
+
+        $result = PayUtility::success($type);
 
         return $this->success($result);
     }

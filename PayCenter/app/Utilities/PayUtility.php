@@ -63,4 +63,18 @@ class PayUtility
         $configModel->item_value = $newConfig;
         $configModel->save();
     }
+
+    public static function callback(string $type)
+    {
+        PayUtility::init($type);
+
+        return Pay::wechat()->callback();
+    }
+
+    public static function success(string $type)
+    {
+        PayUtility::init($type);
+
+        return Pay::wechat()->success();
+    }
 }
