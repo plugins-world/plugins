@@ -21,11 +21,11 @@ use Plugins\PayCenter\Http\Controllers as WebController;
 */
 
 Route::group([], function() {
-    Route::get('pay-center', [WebController\PayCenterController::class, 'index'])->name('pay-center.index');
-    Route::get('pay-center/setting', [WebController\PayCenterController::class, 'showSettingView'])->name('pay-center.setting');
-    Route::post('pay-center/setting', [WebController\PayCenterController::class, 'saveSetting']);
-    Route::post('pay-center/wechatpay/upload-File', [WebController\PayCenterController::class, 'uploadFile'])->name('pay-center.wechatpay.upload-file');
-    Route::get('pay-center/wechatpay/download-public-cert', [WebController\PayCenterController::class, 'downloadPublicCert'])->name('pay-center.wechatpay.download-public-cert');
+    Route::get('pay-center', [WebController\PayCenterSettingController::class, 'index'])->name('pay-center.index');
+    Route::get('pay-center/setting', [WebController\PayCenterSettingController::class, 'showSettingView'])->name('pay-center.setting');
+    Route::post('pay-center/setting', [WebController\PayCenterSettingController::class, 'saveSetting']);
+    Route::post('pay-center/wechatpay/upload-File', [WebController\PayCenterSettingController::class, 'uploadFile'])->name('pay-center.wechatpay.upload-file');
+    Route::get('pay-center/wechatpay/download-public-cert', [WebController\PayCenterSettingController::class, 'downloadPublicCert'])->name('pay-center.wechatpay.download-public-cert');
 });
 
 // without VerifyCsrfToken
@@ -33,5 +33,5 @@ Route::group([], function() {
 //         \App\Http\Middleware\EncryptCookies::class,
 //         \App\Http\Middleware\VerifyCsrfToken::class,
 // ])->group(function() {
-//     Route::get('pay-center', [WebController\PayCenterController::class, 'index']);
+//     Route::get('pay-center', [WebController\PayCenterSettingController::class, 'index']);
 // });

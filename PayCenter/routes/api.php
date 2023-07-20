@@ -33,4 +33,7 @@ Route::group([], function() {
     Route::any('pay-center/callback/wechatpay', [ApiController\PayCenterCallbackController::class, 'wechatPayCallback'])->name('pay-center.callback.wechatpay');
     Route::any('pay-center/callback/alipay', [ApiController\PayCenterCallbackController::class, 'aliPayCallback'])->name('pay-center.callback.alipay');
     Route::any('pay-center/callback/unipay', [ApiController\PayCenterCallbackController::class, 'uniPayCallback'])->name('pay-center.callback.unipay');
+
+
+    Route::any('pay-center/wechatpay/{payType}', [ApiController\PayCenterController::class, 'pay'])->name('pay-center.pay');
 });
