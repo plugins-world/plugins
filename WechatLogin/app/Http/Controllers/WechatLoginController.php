@@ -210,12 +210,13 @@ class WechatLoginController extends Controller
         throw_if(!$user, '未登录');
 
         $accountUser = AccountUser::where('user_id', $user['id'])->first();
-        throw_if(!$accountUser, '用户未绑定账户信息');
+        throw_if(!$accountUser, "用户 {$user['id']} 未绑定账户信息");
 
         $account = Account::where('id', $accountUser['account_id'])->first();
-        throw_if(!$account, '未找到注册用户信息');
+        throw_if(!$account, "未找到 {$accountUser['account_id']} 的账户信息");
 
         $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('account_id', $account['id'])->first();
+        throw_if(!$accountConnect, "未找到 {$account['id']} 的用户授权信息");
 
         if (\request()->file('avatar')?->isValid()) {
             $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
