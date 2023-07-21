@@ -22,7 +22,7 @@ class PayUtility
         foreach($config['wechat_public_cert_path'] ?? [] as $serialNo => $file) {
             $config['wechat_public_cert_path'][$serialNo] = base_path($file);
 
-            throw_if(! is_file($config['wechat_public_cert_path'][$serialNo]), "文件 {$serialNo}.crt 不存在");
+            // throw_if(! is_file($config['wechat_public_cert_path'][$serialNo]), "文件 {$serialNo}.crt 不存在");
         }
 
         $payConfig = [

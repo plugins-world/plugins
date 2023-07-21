@@ -239,7 +239,10 @@
                                 @foreach ($wechatPay['wechat_public_cert_path'] as $serialNo => $content)
                                 <div class="input-group">
                                     <div class="input-group-text">wechat_public_cert_path</div>
-                                    <textarea type="text" class="form-control" name="wechatPay[wechat_public_cert_path][$serialNo]" placeholder="微信平台公钥证书路径, optional，强烈建议 php-fpm 模式下配置此参数" readonly>{{$content}}</textarea>
+                                    <input type="text" class="form-control" name="wechatPay[wechat_public_cert_path][{{$serialNo}}]" value="{{$content}}" placeholder="微信平台公钥证书路径, optional，强烈建议 php-fpm 模式下配置此参数">
+                                    <button type="button" class="input-group-text" style="display:block;" onclick="removeCert(this)">
+                                        删除
+                                    </button>
                                 </div>
                                 @endforeach
                             </div>
@@ -338,6 +341,10 @@
                 window.tips(error.responseJSON.message || error.responseJSON.err_msg || '未知错误')
             },
         });
+    }
+
+    function removeCert(obj) {
+        $(obj).parent().parent().parent().remove();
     }
 </script>
 @endpush
