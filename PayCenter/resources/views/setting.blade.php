@@ -335,6 +335,8 @@
                 console.log(response);
 
                 window.tips(response.err_msg)
+
+                window.location.reload()
             },
             error: function(error) {
                 console.error(error);
