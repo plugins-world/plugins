@@ -5,13 +5,18 @@
 1. 通过命令字获取微信支付预下单信息:
 ```php
 $wordBody = [
-    'fskey' => 'DianCan',
-    'cmdWord' => 'getOrderInfo',
-    'wordBody' => [
-        'account_id' => request('account_id'),
-        'batchNo' => $batchNo,
-    ],
-    'payType' => 'mini',
+    'payPlatform' => 'wechat',
+    'orderAction' => 'mini',
+    'init_config_key' => 'pay_center_wechatpay',
+
+    'rpc' => [
+        'fskey' => 'DianCan',
+        'cmdWord' => 'getOrderInfo',
+        'wordBody' => [
+            'account_id' => request('account_id'),
+            'batchNo' => $batchNo,
+        ],
+    ]
 ];
 
 $resp = \FresnsCmdWord::plugin('PayCenter')->wechatPay($wordBody);
