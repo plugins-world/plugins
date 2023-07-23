@@ -63,6 +63,10 @@ class CmdWordService
             return $this->failure(400, "订单 {$orderAction} 操作不存在");
         }
         $result = $platform->{$orderAction}($order);
+        info('handle result', $result->toArray());
+        if (!empty($result->code)) {
+            return $this->failure(400, "code: {$result->code}, message: {$result->message}");
+        }
 
         return $this->success($result);
     }
