@@ -19,7 +19,7 @@ $wordBody = [
     ]
 ];
 
-$resp = \FresnsCmdWord::plugin('PayCenter')->wechatPay($wordBody);
+$resp = \FresnsCmdWord::plugin('PayCenter')->handle($wordBody);
 
 dd($resp->getData());
 ```
