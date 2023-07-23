@@ -239,7 +239,7 @@
                                 @foreach ($wechatPay['wechat_public_cert_path'] as $serialNo => $content)
                                 <div class="input-group">
                                     <div class="input-group-text">wechat_public_cert_path</div>
-                                    <input type="text" class="form-control" name="wechatPay[wechat_public_cert_path][{{$serialNo}}]" value="{{$content}}" placeholder="微信平台公钥证书路径, optional，强烈建议 php-fpm 模式下配置此参数">
+                                    <input type="text" class="form-control" name="wechatPay[wechat_public_cert_path][{{$serialNo}}]" value="{{$content}}" placeholder="微信平台公钥证书路径, optional，强烈建议 php-fpm 模式下配置此参数" disabled>
                                     <button type="button" class="input-group-text" style="display:block;" onclick="removeCert(this)">
                                         删除
                                     </button>

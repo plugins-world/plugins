@@ -19,8 +19,8 @@ class PayUtility
 
         throw_if(! is_file($config['mch_secret_cert']), '文件 apiclient_key.pem 不存在');
         throw_if(! is_file($config['mch_public_cert_path']), '文件 apiclient_cert.pem 不存在');
-        foreach($config['wechat_public_cert_path'] ?? [] as $serialNo => $file) {
-            $config['wechat_public_cert_path'][$serialNo] = base_path($file);
+        foreach($config['wechat_public_cert_path'] ?? [] as $serialNo => $content) {
+            $config['wechat_public_cert_path'][$serialNo] = $content;
 
             // throw_if(! is_file($config['wechat_public_cert_path'][$serialNo]), "文件 {$serialNo}.crt 不存在");
         }
@@ -53,7 +53,8 @@ class PayUtility
         $data = [];
         foreach ($files as $filepath) {
             $serialNo = pathinfo($filepath, PATHINFO_FILENAME);
-            $data[$serialNo] = str_replace(base_path(). '/', '', $filepath);
+            $content = file_get_contents($filepath);
+            $data[$serialNo] = $content;
         }
 
         $configModel = Config::where('item_key', 'pay_center_wechatpay')->where('item_tag', 'pay_center')->first();
