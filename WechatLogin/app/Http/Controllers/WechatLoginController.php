@@ -56,6 +56,7 @@ class WechatLoginController extends Controller
             'connect_account_id' => $data['connect_account_id'],
         ])->first();
         if ($accountConnect) {
+            $data['account_id'] = $data['account_id'] ?? $accountConnect['account_id'];
             $data['connect_refresh_token'] = $accountConnect['connect_refresh_token'];
             $data['connect_username'] = $accountConnect['connect_username'];
             $data['connect_nickname'] = $accountConnect['connect_nickname'];
