@@ -27,6 +27,9 @@ class WechatUtility
         $itemKey = "wechat_login_{$type}";
 
         $itemValue = Config::getValueByKey($itemKey);
+        if (empty($itemValue)) {
+            return null;
+        }
 
         $config = match ($type) {
             default => [],

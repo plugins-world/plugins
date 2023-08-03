@@ -24,6 +24,10 @@ class WechatLoginController extends Controller
 
         $code = \request('code');
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
+        if (!$app) {
+            return $this->fail('请先配置小程序信息');
+        }
+
         /** @var \EasyWeChat\MiniApp\Utils */
         $utils = $app->getUtils();
 
@@ -92,6 +96,10 @@ class WechatLoginController extends Controller
         throw_if(!$accountConnect, "授权信息 account_connect_id: {$accountConnectId} 不存在");
 
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
+        if (!$app) {
+            return $this->fail('请先配置小程序信息');
+        }
+    
         /** @var \EasyWeChat\MiniApp\Utils */
         $utils = $app->getUtils();
 
