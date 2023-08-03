@@ -99,7 +99,7 @@ class WechatLoginController extends Controller
         if (!$app) {
             return $this->fail('请先配置小程序信息');
         }
-    
+
         /** @var \EasyWeChat\MiniApp\Utils */
         $utils = $app->getUtils();
 
