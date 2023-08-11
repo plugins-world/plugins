@@ -17,4 +17,14 @@ class Account extends Model
     {
         return 'aid';
     }
+
+    public function accountUser()
+    {
+        return $this->hasMany(AccountUser::class);
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, AccountUser::class);
+    }
 }

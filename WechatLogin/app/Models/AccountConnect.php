@@ -21,4 +21,9 @@ class AccountConnect extends Model
         FileUtility::initConfig($disk);
         return FileUtility::getStorage($disk)->url($path);
     }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }
