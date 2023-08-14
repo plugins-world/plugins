@@ -25,6 +25,11 @@ class Account extends Model
 
     public function users()
     {
-        return $this->hasManyThrough(User::class, AccountUser::class);
+        $userModelClass = \App\Models\User::class;
+        if (class_exists(User::class)) {
+            $userModelClass = User::class;
+        }
+
+        return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id');
     }
 }

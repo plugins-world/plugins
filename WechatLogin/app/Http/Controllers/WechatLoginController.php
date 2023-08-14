@@ -56,6 +56,7 @@ class WechatLoginController extends Controller
         $data['is_enabled'] = true;
 
         $accountConnect = AccountConnect::where([
+            'connect_platform_id' => 25,
             'plugin_fskey' => $data['plugin_fskey'],
             'connect_account_id' => $data['connect_account_id'],
         ])->first();
@@ -211,9 +212,12 @@ class WechatLoginController extends Controller
     public function miniAppUpdateUserInfo()
     {
         \request()->validate([
+            'account_connect_id' => ['required', 'integer'],
             'avatar' => ['nullable', 'file'],
             'nickname' => ['nullable', 'string'],
         ]);
+
+        $accountConnectId = request('account_connect_id');
 
         $user = auth()->user();
         throw_if(!$user, '未登录');
@@ -224,7 +228,10 @@ class WechatLoginController extends Controller
         $account = Account::where('id', $accountUser['account_id'])->first();
         throw_if(!$account, "未找到 {$accountUser['account_id']} 的账户信息");
 
-        $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('account_id', $account['id'])->first();
+        $accountConnect = AccountConnect::where('connect_platform_id', 25)
+            ->where('account_connect_id', $accountConnectId)
+            ->where('account_id', $account['id'])
+            ->first();
         throw_if(!$accountConnect, "未找到 {$account['id']} 的用户授权信息");
 
         if (\request()->file('avatar')?->isValid()) {
