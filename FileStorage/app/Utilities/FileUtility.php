@@ -148,7 +148,7 @@ class FileUtility
                 return URL::temporarySignedRoute(
                     'file.download',
                     $expiration,
-                    array_merge($options, ['action' => 'download', 'path' => $path])
+                    array_merge($options, ['action' => 'view', 'path' => $path])
                 );
             }
         );
@@ -177,6 +177,7 @@ class FileUtility
             default => null,
             'get' => $storage->get($path),
             'download' => $storage->download($path),
+            'view' => $storage->download($path, null, ['Content-Disposition' => 'inline']),
             'mime' => $storage->mimeType($path),
         };
     }
