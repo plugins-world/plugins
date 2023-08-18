@@ -10,6 +10,7 @@ use Plugins\FileStorage\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Plugins\LaravelConfig\Models\Config;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Plugins\MarketManager\Utilities\StrUtility;
 use Illuminate\Support\Facades\File as FacadesFile;
 
 class FileUtility
@@ -367,7 +368,7 @@ class FileUtility
 
         $url = FileUtility::getStorage()->url($fileInfo['path']);
 
-        return $url;
+        return StrUtility::qualifyUrl($url);
     }
 
     public static function getFileTemporaryUrl(?string $fileId = null, ?string $filepath = null)
@@ -379,6 +380,6 @@ class FileUtility
 
         $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], now()->addMinutes(20));
 
-        return $url;
+        return StrUtility::qualifyUrl($url);
     }
 }
