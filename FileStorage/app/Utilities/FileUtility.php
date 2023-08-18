@@ -21,7 +21,7 @@ class FileUtility
 
         return $dirver;
     }
-    
+
     public static function initTimezone()
     {
         $timezone = Config::getValueByKey('file_storage_timezone') ?? 'PRC';
