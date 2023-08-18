@@ -229,7 +229,7 @@ class WechatLoginController extends Controller
         throw_if(!$account, "未找到 {$accountUser['account_id']} 的账户信息");
 
         $accountConnect = AccountConnect::where('connect_platform_id', 25)
-            ->where('account_connect_id', $accountConnectId)
+            ->where('id', $accountConnectId)
             ->where('account_id', $account['id'])
             ->first();
         throw_if(!$accountConnect, "未找到 {$account['id']} 的用户授权信息");

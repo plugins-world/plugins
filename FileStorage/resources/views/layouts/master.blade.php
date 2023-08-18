@@ -9,6 +9,15 @@
         <title>FileStorage</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.min.css">
+
+        <style>
+            .required::before {
+                content: "*";
+                color: red;
+                position: absolute;
+                margin-left: -10px;
+            }
+        </style>
         @stack('css')
     </head>
 

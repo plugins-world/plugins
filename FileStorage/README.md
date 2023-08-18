@@ -7,13 +7,11 @@
 $type = 'image';
 $usageType = 'avatars';
 $file = \request()->file('file');
-$disk = 'cos';
 
 $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
     'type' => $type,
     'usageType' => $usageType,
     'file' => $file,
-    'disk' => $disk,
 ]);
 
 $fileInfo = $resp->getData();
@@ -32,16 +30,27 @@ $resp = \FresnsCmdWord::plugin('FileStorage')->getFileInfo([
 $fileinfo = $resp->getData('fileinfo');
 ```
 
-3. 通过 file_id, file_path 获取 fileurl
+3. 通过 file_id, file_path 获取 getFileUrl
 ```php
 $fileId = 1;
 $filepath = null;
-$disk = 'cos';
 
 $resp = \FresnsCmdWord::plugin('FileStorage')->getFileUrl([
     'fileId' => $fileId,
     'filepath' => $filepath,
-    'disk' => $disk,
+]);
+
+$file_url = $resp->getData('file_url');
+```
+
+4. 通过 file_id, file_path 获取 getFileTemporaryUrl
+```php
+$fileId = 1;
+$filepath = null;
+
+$resp = \FresnsCmdWord::plugin('FileStorage')->getFileTemporaryUrl([
+    'fileId' => $fileId,
+    'filepath' => $filepath,
 ]);
 
 $file_url = $resp->getData('file_url');

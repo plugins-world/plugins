@@ -6,24 +6,24 @@
         <div class="card-body">
             <h1 class="card-title">文件存储设置页</h1>
 
-            <form class="row g-3 mt-5" action="{{ route('file-storage.setting') }}" method="post">
+            <form class="mt-5" action="{{ route('file-storage.setting') }}" method="post">
                 @csrf
 
                 <div class="row">
                     <label class="col-lg-3 col-form-label text-lg-end"></label>
                     <div class="col-6">
                         <div class="input-group">
-                            <div class="input-group-text w-25">存储驱动</div>
+                            <div class="input-group-text w-25 required">存储驱动</div>
                             <select class="form-select" name="file_storage_driver">
-                                <option value="local">Local</option>
-                                <option value="cos">腾讯云 COS</option>
+                                <option value="local" @if($file_storage_driver == 'local') selected @endif>Local</option>
+                                <option value="cos" @if($file_storage_driver == 'cos') selected @endif>腾讯云 COS</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-3 form-text pt-1"><i class="bi bi-info-circle"></i> 文件使用的存储驱动</div>
+                    <div class="col-lg-3 form-text"><i class="bi bi-info-circle"></i> 文件使用的存储驱动</div>
                 </div>
 
-                <div class="collapse" id="cosConfig">
+                <div class="collapse @if($file_storage_driver == 'cos') show @endif" id="cosConfig">
                     @foreach($configs as $config)
                     <div class="row mt-2">
                         <label class="col-lg-3 col-form-label text-lg-end"></label>
@@ -54,7 +54,7 @@
                     <div class="col-6">
                         <div class="input-group">
                             <div class="w-25"></div>
-                            <button type="submit" class="btn btn-primary mb-3 rounded-2">{{ __('FileStorage::setting.save') }}</button>
+                            <button type="submit" class="btn btn-primary rounded-2">{{ __('FileStorage::setting.save') }}</button>
                         </div>
                     </div>
                 </div>

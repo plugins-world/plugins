@@ -2,8 +2,6 @@
 
 namespace Plugins\WechatLogin\Models;
 
-use Plugins\FileStorage\Utilities\FileUtility;
-
 class AccountConnect extends Model
 {
     protected $casts = [
@@ -12,14 +10,17 @@ class AccountConnect extends Model
 
     public function getConnectAvatarAttribute()
     {
-        $path = $this->attributes['connect_avatar'];
-        if (! $path) {
+        $filepath = $this->attributes['connect_avatar'];
+        if (!$filepath) {
             return null;
         }
 
-        $disk = 'cos';
-        FileUtility::initConfig($disk);
-        return FileUtility::getStorage($disk)->url($path);
+        $resp = \FresnsCmdWord::plugin('FileStorage')->getFileTemporaryUrl([
+            'fileId' => null,
+            'filepath' => $filepath,
+        ]);
+
+        return $resp->getData('file_url');
     }
 
     public function account()

@@ -16,16 +16,20 @@ class CmdWordService
 {
     use CmdWordResponseTrait;
 
+    public function initConfig()
+    {
+        FileUtility::initConfig();
+
+        return $this->success();
+    }
+
     public function upload(array $wordBody)
     {
         $type = $wordBody['type'];
         $usageType = $wordBody['usageType'];
         $file = $wordBody['file'];
-        $disk = $wordBody['disk'];
-
 
         $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
-        $options = ['disk' => $disk];
 
         if (!$file instanceof UploadedFile) {
             return $this->failure("文件类型不正确");
@@ -35,8 +39,8 @@ class CmdWordService
             return $this->failure("保存路径不能为空");
         }
 
-        FileUtility::initConfig($options['disk'] ?? null);
-        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $options);
+        FileUtility::initConfig();
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath);
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());
@@ -68,7 +72,7 @@ class CmdWordService
             return $this->failure("保存路径不能为空");
         }
 
-        FileUtility::initConfig($options['disk'] ?? null);
+        FileUtility::initConfig();
         $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $options);
         $file = FileUtility::create($fileMetaInfo);
 
@@ -89,12 +93,22 @@ class CmdWordService
 
     public function getFileUrl(array $wordBody)
     {
-        $fileId = $wordBody['fileId'];
-        $filepath = $wordBody['filepath'];
-        $disk = $wordBody['disk'];
+        $fileId = $wordBody['fileId'] ?? null;
+        $filepath = $wordBody['filepath'] ?? null;
 
-        FileUtility::initConfig($disk ?? null);
-        $url = FileUtility::getFileUrl($fileId, $filepath, $disk);
+        $url = FileUtility::getFileUrl($fileId, $filepath);
+
+        return $this->success([
+            'file_url' => $url,
+        ]);
+    }
+
+    public function getFileTemporaryUrl(array $wordBody)
+    {
+        $fileId = $wordBody['fileId'] ?? null;
+        $filepath = $wordBody['filepath'] ?? null;
+
+        $url = FileUtility::getFileTemporaryUrl($fileId, $filepath);
 
         return $this->success([
             'file_url' => $url,

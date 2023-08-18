@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\File as FacadesFile;
 
 class FileUtility
 {
+    public static function getFileStorageDriver()
+    {
+        $dirver = Config::getValueByKey('file_storage_driver') ?? 'local';
+
+        return $dirver;
+    }
+    
     public static function initTimezone()
     {
         $timezone = Config::getValueByKey('file_storage_timezone') ?? 'PRC';
@@ -21,14 +28,18 @@ class FileUtility
         date_default_timezone_set($timezone);
     }
 
-    public static function initConfig(?string $disk = 'local')
+    public static function initConfig()
     {
         FileUtility::initTimezone();
+
+        $disk = FileUtility::getFileStorageDriver();
 
         match ($disk) {
             default => null,
             CosUtility::DISK_KEY => CosUtility::dynamicsConfig(),
         };
+
+        return $disk;
     }
 
     // get file storage path
@@ -112,41 +123,48 @@ class FileUtility
         return $filesize;
     }
 
-    public static function getStorage($disk = null): FilesystemAdapter
+    public static function getStorage(): FilesystemAdapter
     {
+        $disk = FileUtility::initConfig();
+
         if ($disk == 'local') {
-            FileUtility::buildLocalTemporaryUrls($disk);
+            FileUtility::buildLocalTemporaryUrls();
         }
 
+        /** @var FilesystemAdapter */
         return Storage::disk($disk);
     }
 
-    public static function buildLocalTemporaryUrls($disk = 'local')
+    public static function buildLocalTemporaryUrls()
     {
+        $disk = FileUtility::initConfig();
+
         /** @var FilesystemAdapter */
         $storage = Storage::disk($disk);
 
         $storage->buildTemporaryUrlsUsing(
-            function (string $path, DateTime $expiration, array $options) use ($disk) {
+            function (string $path, DateTime $expiration, array $options) {
                 return URL::temporarySignedRoute(
                     'file.download',
                     $expiration,
-                    array_merge($options, ['action' => 'download', 'path' => $path, 'disk' => $disk])
+                    array_merge($options, ['action' => 'download', 'path' => $path])
                 );
             }
         );
     }
 
-    public static function handleFileWithAction($action, $path, $disk = 'local')
+    public static function handleFileWithAction($action, $path)
     {
         if (empty($path)) {
             return null;
         }
 
+        $disk = FileUtility::initConfig();
+
         /** @var FilesystemAdapter */
         $storage = Storage::disk($disk);
 
-        if (is_null($disk) || $disk == 'local') {
+        if ($disk == 'local') {
             $path = "public/$path";
         }
 
@@ -164,8 +182,8 @@ class FileUtility
 
     public static function saveToDiskAndGetFileInfo(UploadedFile $file, $savePath, $options = [])
     {
-        $disk = $options['disk'] ?? null;
-        $storage = FileUtility::getStorage($disk);
+        $storage = FileUtility::getStorage();
+        $disk = FileUtility::getFileStorageDriver();
 
         $md5 = null;
         $sha = null;
@@ -340,15 +358,26 @@ class FileUtility
         return $fileInfo;
     }
 
-    public static function getFileUrl(?string $fileId = null, ?string $filepath = null, $disk = 'local')
+    public static function getFileUrl(?string $fileId = null, ?string $filepath = null)
     {
         $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
         if (!$fileInfo) {
             return null;
         }
 
-        FileUtility::initConfig($disk);
-        $url = FileUtility::getStorage($disk)->url($fileInfo['path']);
+        $url = FileUtility::getStorage()->url($fileInfo['path']);
+
+        return $url;
+    }
+
+    public static function getFileTemporaryUrl(?string $fileId = null, ?string $filepath = null)
+    {
+        $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
+        if (!$fileInfo) {
+            return null;
+        }
+
+        $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], now()->addMinutes(20));
 
         return $url;
     }

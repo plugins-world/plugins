@@ -39,9 +39,11 @@ class FileStorageSettingController extends Controller
             'cdn',
         ];
 
+        $file_storage_driver = Config::getValueByKey('file_storage_driver');
         $configs = Config::whereIn('item_key', $itemKeys)->where('item_tag', 'file_storage')->get();
 
         return view('FileStorage::setting', [
+            'file_storage_driver' => $file_storage_driver,
             'configs' => $configs,
         ]);
     }
@@ -49,6 +51,7 @@ class FileStorageSettingController extends Controller
     public function saveSetting(Request $request)
     {
         $request->validate([
+            'file_storage_driver' => 'required|string',
             'file_storage_timezone' => 'nullable|string',
             'is_use_center_config' => 'nullable|boolean:0,1',
             'app_id' => 'nullable|string',
@@ -71,6 +74,7 @@ class FileStorageSettingController extends Controller
         \request()->offsetSet('domain', $host);
 
         $itemKeys = [
+            'file_storage_driver',
             'file_storage_timezone',
             'is_use_center_config',
             'app_id',

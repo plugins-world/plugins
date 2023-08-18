@@ -59,7 +59,7 @@ class CosUtility
     {
         CosUtility::dynamicsConfig();
 
-        return Storage::disk();
+        return Storage::disk('cos');
     }
 
     public static function cleanBucketName(?string $bucket, ?string $appId)
