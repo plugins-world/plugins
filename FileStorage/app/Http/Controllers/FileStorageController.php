@@ -44,7 +44,7 @@ class FileStorageController extends Controller
             'action' => ['nullable', 'string'],
         ]);
 
-        $action = \request('action', 'view');
+        $action = \request('action', 'download');
         $path = \request('path');
 
         FileUtility::initConfig();
@@ -63,7 +63,7 @@ class FileStorageController extends Controller
             'action' => ['nullable', 'string'],
         ]);
 
-        $action = \request('action', 'download');
+        $action = \request('action', 'view');
         $path = \request('path');
 
         $response = FileUtility::handleFileWithAction($action, $path);
