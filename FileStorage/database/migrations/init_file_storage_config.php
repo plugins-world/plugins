@@ -24,6 +24,12 @@ return new class extends Migration
     protected $fresnsConfigItems = [
         [
             'item_tag' => 'file_storage',
+            'item_key' => 'file_storage_driver',
+            'item_type' => 'string',
+            'item_value' => 'local',
+        ],
+        [
+            'item_tag' => 'file_storage',
             'item_key' => 'file_storage_timezone',
             'item_type' => 'string',
             'item_value' => 'PRC',
