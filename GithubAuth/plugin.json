@@ -1,0 +1,19 @@
+{
+    "fskey": "GithubAuth",
+    "name": "GithubAuth",
+    "description": "GithubAuth plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.cn/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/github-auth",
+    "settingsPath": "/github-auth/setting",
+    "providers": [
+        "Plugins\\GithubAuth\\Providers\\GithubAuthServiceProvider",
+        "Plugins\\GithubAuth\\Providers\\CmdWordServiceProvider",
+        "Plugins\\GithubAuth\\Providers\\EventServiceProvider",
+        "Plugins\\GithubAuth\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

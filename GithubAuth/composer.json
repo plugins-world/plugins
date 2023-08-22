@@ -1,0 +1,28 @@
+{
+    "name": "plugins-world/github-auth",
+    "description": "GithubAuth plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\GithubAuth\\": "app",
+            "Plugins\\GithubAuth\\Database\\Factories\\": "database/factories/",
+            "Plugins\\GithubAuth\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\GithubAuth\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "socialiteproviders/github": "^4.0"
+    }
+}

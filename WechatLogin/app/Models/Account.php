@@ -35,21 +35,15 @@ class Account extends Model
 
     public function firstUser()
     {
-        $userModelClass = \App\Models\User::class;
-        if (class_exists(User::class)) {
-            $userModelClass = User::class;
-        }
+        $users = $this->users;
 
-        return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id')->orderBy('id');
+        return $users->first();
     }
 
     public function lastUser()
     {
-        $userModelClass = \App\Models\User::class;
-        if (class_exists(User::class)) {
-            $userModelClass = User::class;
-        }
+        $users = $this->users;
 
-        return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id')->orderByDesc('id');
+        return $users->sortByDesc('id')->first();
     }
 }
