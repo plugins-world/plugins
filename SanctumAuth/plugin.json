@@ -10,6 +10,7 @@
     "settingsPath": "/sanctum-auth/setting",
     "providers": [
         "Plugins\\SanctumAuth\\Providers\\SanctumAuthServiceProvider",
+        "Plugins\\SanctumAuth\\Providers\\CmdWordServiceProvider",
         "Plugins\\SanctumAuth\\Providers\\ExceptionServiceProvider"
     ],
     "autoloadFiles": [],
