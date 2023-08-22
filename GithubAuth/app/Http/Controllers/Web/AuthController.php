@@ -25,10 +25,13 @@ class AuthController extends Controller
 
     public function callback()
     {
+        request()->validate([
+            'code' => ['required', 'string'],
+            'state' => ['nullable', 'string'],
+        ]);
+
         $accountConnect = GithubUtility::callback();
 
         return back()->with('success', '登录成功：'.$accountConnect['connect_nickname']);
-
-        return view('MarketPlace::pages.auth.index');
     }
 }

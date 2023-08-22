@@ -14,16 +14,16 @@ use Plugins\WechatLogin\Models\AccountConnect;
 class GithubUtility
 {
     public static function getHttpClient()
-    {        
+    {
         $configs = Config::getValueByKeys([
             'is_enable_proxy',
             'proxy_http',
             'proxy_https',
         ]);
-        
+
         $options = [
             'base_uri' => null,
-            'timeout' => 15, // Request 15s timeout
+            'timeout' => 120, // Request 15s timeout
             'http_errors' => false,
             'headers' => [
                 'Accept' => 'application/json',
@@ -39,7 +39,7 @@ class GithubUtility
 
         return new Client($options);
     }
-    
+
     public static function initConfig()
     {
         $configs = Config::getValueByKeys([
@@ -62,7 +62,7 @@ class GithubUtility
         try {
             $driver = Socialite::driver('github')->setHttpClient(static::getHttpClient());
         } catch (\Throwable $e) {
-            throw new \RuntimeException('获取授权链接失败，请稍后再试，原因: '.$e->getMessage());
+            throw new \RuntimeException('获取授权链接失败，请稍后再试，原因: ' . $e->getMessage());
         }
 
         if ($url) {
@@ -133,7 +133,12 @@ class GithubUtility
         try {
             $githubUser = Socialite::driver('github')->setHttpClient(static::getHttpClient())->user();
         } catch (\Throwable $e) {
-            throw new \RuntimeException('登录失败，原因：'.$e->getMessage());
+            $message = $e->getMessage();
+            if (request('error')) {
+                $message = sprintf('error: %s, error_description: %s, server error: %s', request('error'), request('error_description'), $message);
+            }
+
+            throw new \RuntimeException('登录失败，原因：' . $message);
         }
 
         $githubUser = (array) $githubUser;
@@ -246,7 +251,7 @@ class GithubUtility
 
     public static function loginWeb($accountConnect, $guard = null)
     {
-        $user = $accountConnect?->account?->firstUser;
+        $user = $accountConnect?->account->firstUser();
         if ($user) {
             auth($guard)->login($user);
         }

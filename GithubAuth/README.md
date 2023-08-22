@@ -6,12 +6,11 @@
 ```php
 $redirect = route('github-auth.auth.index');
 
-$resp = \FresnsCmdWord::plugin('GithubAuth')->generateTokenForUser([
-    'user' => $user,
-    'tokenName' => $tokenName,
+$resp = \FresnsCmdWord::plugin('GithubAuth')->redirect([
+    'redirect' => $redirect,
 ]);
 
-$token = $resp->getData('token');
+$redirect = $resp->getData('redirect');
 ```
 
 2. 获取授权关联信息 accountConnect:
