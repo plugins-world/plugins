@@ -32,4 +32,24 @@ class Account extends Model
 
         return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id');
     }
+
+    public function firstUser()
+    {
+        $userModelClass = \App\Models\User::class;
+        if (class_exists(User::class)) {
+            $userModelClass = User::class;
+        }
+
+        return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id')->orderBy('id');
+    }
+
+    public function lastUser()
+    {
+        $userModelClass = \App\Models\User::class;
+        if (class_exists(User::class)) {
+            $userModelClass = User::class;
+        }
+
+        return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id')->orderByDesc('id');
+    }
 }
