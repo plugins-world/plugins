@@ -10,6 +10,7 @@
     "settingsPath": "/wechat-login/setting",
     "providers": [
         "Plugins\\WechatLogin\\Providers\\WechatLoginServiceProvider",
+        "Plugins\\WechatLogin\\Providers\\CmdWordServiceProvider",
         "Plugins\\WechatLogin\\Providers\\ExceptionServiceProvider"
     ],
     "autoloadFiles": [],
