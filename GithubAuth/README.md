@@ -2,6 +2,13 @@
 
 ## 使用方式
 
+### 配置插件
+
+- 访问 `/github-auth/setting`
+- 保存配置信息
+
+### 使用命令字
+
 1. 获取用户登录 token:
 ```php
 $redirect = route('github-auth.auth.index');
