@@ -229,7 +229,7 @@ class GithubUtility
         $accountUser = AccountUser::where('account_id', $account['id'])->first();
 
         $userAttrs['name'] = $accountConnect['connect_nickname'];
-        $userAttrs['email'] = $accountUser['email'] ?? $userAttrs['name'] . "@example.com";
+        $userAttrs['email'] = $account['email'] ?? $userAttrs['name'] . "@example.com";
 
         if (empty($accountUser)) {
             $userAttrs['password'] = Hash::make($account['aid'] . '168');
