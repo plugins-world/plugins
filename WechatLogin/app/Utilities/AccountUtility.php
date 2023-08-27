@@ -2,6 +2,7 @@
 
 namespace Plugins\WechatLogin\Utilities;
 
+use Plugins\WechatLogin\Models\AccountConnect;
 use Plugins\WechatLogin\Models\AccountUser;
 
 class AccountUtility
@@ -46,5 +47,23 @@ class AccountUtility
         }
 
         return $accountUser->user;
+    }
+
+    public static function getAccountConnect($account, int $connect_platform_id)
+    {
+        if (!$account) {
+            return null;
+        }
+
+        $accountConnect = AccountConnect::query()
+            ->where('account_id', $account['id'])
+            ->where('connect_platform_id', $connect_platform_id)
+            ->first();
+
+        if (!$accountConnect) {
+            return null;
+        }
+
+        return $accountConnect;
     }
 }

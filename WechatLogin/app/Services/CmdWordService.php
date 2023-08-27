@@ -47,4 +47,16 @@ class CmdWordService
             'user' => $user,
         ]);
     }
+
+    public function getAccountConnect(array $wordBody)
+    {
+        $account = $wordBody['account'];
+        $connect_platform_id = $wordBody['connect_platform_id'];
+
+        $accountConnect = AccountUtility::getAccountConnect($account, $connect_platform_id);
+
+        return $this->success([
+            'accountConnect' => $accountConnect,
+        ]);
+    }
 }

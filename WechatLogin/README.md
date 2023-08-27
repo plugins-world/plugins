@@ -41,3 +41,17 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountLastUser([
 
 $user = $resp->getData('user');
 ```
+
+
+1. 获取 account 的授权信息:
+```php
+$account = null;
+$connect_platform_id = 25;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountConnect([
+    'account' => $account,
+    'connect_platform_id' => $connect_platform_id,
+]);
+
+$accountConnect = $resp->getData('accountConnect');
+```
