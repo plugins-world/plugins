@@ -71,7 +71,7 @@ class FileStorageController extends Controller
         throw_if(!$response, '未找到文件');
 
         $mime = FileUtility::handleFileWithAction('mime', $path);
-        
+
         return \response($response)->header('content-type', $mime);
     }
 }

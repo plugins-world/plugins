@@ -367,7 +367,11 @@ class FileUtility
             return null;
         }
 
-        $url = FileUtility::getStorage()->url($fileInfo['path']);
+        if ($fileInfo && filter_var($fileInfo, FILTER_VALIDATE_URL)) {
+            $url = $fileInfo;
+        } else {
+            $url = FileUtility::getStorage()->url($fileInfo['path']);
+        }
 
         return StrUtility::qualifyUrl($url);
     }
@@ -379,7 +383,11 @@ class FileUtility
             return null;
         }
 
-        $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], now()->addMinutes(20));
+        if ($fileInfo && filter_var($fileInfo, FILTER_VALIDATE_URL)) {
+            $url = $fileInfo;
+        } else {
+            $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], now()->addMinutes(20));
+        }
 
         return StrUtility::qualifyUrl($url);
     }
