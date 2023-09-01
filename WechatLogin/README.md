@@ -20,7 +20,18 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountOfUser([
 $account = $resp->getData('account');
 ```
 
-2. 通过 account 获取 第一个 user:
+2. 通过登录用户获取 account:
+```php
+$accountId = null;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
+    'accountId' => $accountId,
+]);
+
+$account = $resp->getData('account');
+```
+
+3. 通过 account 获取 第一个 user:
 ```php
 $account = null;
 
@@ -31,7 +42,7 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountFirstUser([
 $user = $resp->getData('user');
 ```
 
-3. 通过 account 获取 最后一个 user:
+4. 通过 account 获取 最后一个 user:
 ```php
 $account = null;
 
@@ -43,7 +54,7 @@ $user = $resp->getData('user');
 ```
 
 
-1. 获取 account 的授权信息:
+5. 获取 account 的授权信息:
 ```php
 $account = null;
 $connect_platform_id = 25;

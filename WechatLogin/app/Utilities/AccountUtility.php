@@ -2,8 +2,9 @@
 
 namespace Plugins\WechatLogin\Utilities;
 
-use Plugins\WechatLogin\Models\AccountConnect;
+use Plugins\WechatLogin\Models\Account;
 use Plugins\WechatLogin\Models\AccountUser;
+use Plugins\WechatLogin\Models\AccountConnect;
 
 class AccountUtility
 {
@@ -19,6 +20,20 @@ class AccountUtility
         }
 
         return $accountUser->account;
+    }
+
+    public static function getAccountByAccountId(?int $accountId)
+    {
+        if (!$accountId) {
+            return null;
+        }
+
+        $account = Account::where('id', $accountId)->first();
+        if (!$account) {
+            return null;
+        }
+
+        return $account;
     }
 
     public static function getAccountFirstUser($account)

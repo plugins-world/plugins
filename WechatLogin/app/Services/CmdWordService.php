@@ -26,6 +26,17 @@ class CmdWordService
         ]);
     }
 
+    public function getAccountByAccountId(array $wordBody)
+    {
+        $accountId = $wordBody['accountId'];
+
+        $account = AccountUtility::getAccountByAccountId($accountId);
+
+        return $this->success([
+            'account' => $account,
+        ]);
+    }
+
     public function getAccountFirstUser(array $wordBody)
     {
         $account = $wordBody['account'];
