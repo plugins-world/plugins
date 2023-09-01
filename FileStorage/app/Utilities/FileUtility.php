@@ -173,11 +173,13 @@ class FileUtility
             return null;
         }
 
+        $name = basename($path);
+
         return match ($action) {
             default => null,
             'get' => $storage->get($path),
-            'download' => $storage->download($path),
-            'view' => $storage->download($path, null, ['Content-Disposition' => 'inline']),
+            'download' => $storage->download($path, $name),
+            'view' => $storage->download($path, $name, ['Content-Disposition' => 'inline']),
             'mime' => $storage->mimeType($path),
         };
     }
