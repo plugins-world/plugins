@@ -4,7 +4,7 @@
     "description": "GithubAuth plugin made by MouYong",
     "author": "MouYong",
     "authorLink": "https://plugins-world.cn/",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scene": [],
     "accessPath": "/github-auth",
     "settingsPath": "/github-auth/setting",
