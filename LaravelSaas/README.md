@@ -33,7 +33,7 @@ php artisan saas:install # 需要配置数据库的 root 账号密码
 ```
 
 
-## 使用
+## 命令行
 
 ``` php
 php artisan saas # 查看当前可以使用的与 saas 相关的指令
@@ -44,3 +44,8 @@ php artisan tenants:migrate --tenants=foo # 执行 foo 租户的迁移，开发�
 php artisan tenants:migrate-rollback --tenants=foo # 回滚 foo 租户的迁移，开发阶段建议指定租户，部署阶段可不指定，以批量运行租户迁移的回滚操作
 php artisan ...
 ```
+
+
+## 使用
+
+参考 [tencentforlaravel](https://doc.wyz.xyz/pages/30ee05/) 翻译文档
