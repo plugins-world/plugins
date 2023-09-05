@@ -52,7 +52,7 @@ php artisan saas:install # 需要配置数据库的 root 账号密码
 php artisan saas # 查看当前可以使用的与 saas 相关的指令
 php artisan saas:tenant-add --tenant=foo # 添加租户，默认添加名称为 foo 的租户
 php artisan saas:tenant-del --tenant=foo # 删除租户，默认删除名称为 foo 的租户
-php artisan saas::tenant-list # 当前 saas 列表
+php artisan saas:tenant-list # 当前 saas 列表
 php artisan tenants:migrate --tenants=foo # 执行 foo 租户的迁移，开发阶段建议指定租户，部署阶段可不指定，以批量运行租户迁移
 php artisan tenants:migrate-rollback --tenants=foo # 回滚 foo 租户的迁移，开发阶段建议指定租户，部署阶段可不指定，以批量运行租户迁移的回滚操作
 php artisan ...
