@@ -155,8 +155,8 @@ class GithubUtility
         $data['connect_account_id'] = $githubUser['id'];
         $data['connect_token'] = $githubUser['token'];
         $data['connect_refresh_token'] = $githubUser['refreshToken'];
-        $data['connect_username'] = $githubUser['nickname'];
-        $data['connect_nickname'] = $githubUser['name'];
+        $data['connect_username'] = $githubUser['name'];
+        $data['connect_nickname'] = $githubUser['nickname'] ?? $githubUser['name'];
         $data['connect_avatar'] = $githubUser['avatar'];
         $data['plugin_fskey'] = 'GithubAuth';
         $data['more_json'] = $githubUser;
