@@ -1,13 +1,8 @@
 # GithubAuth
 
-## 使用方式
+Github oauth 登录，通过配置 github oauth 信息后，在业务中使用命令字。快速完成 github 登录集成。
 
-### 配置插件
-
-- 访问 `/github-auth/setting`
-- 保存配置信息
-
-### 使用命令字
+### 命令字
 
 1. 获取用户登录 token:
 ```php

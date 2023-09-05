@@ -1,13 +1,9 @@
 # WechatLogin
 
-## 使用方式
+微信登录插件，目前支持微信小程序登录功能，提供了 api 支持。也是其他第三方登录插件的基础依赖。管理着 accounts、account_connects、account_users 等相关第三方登录基础表。
 
-### 配置插件
 
-- 访问 `/wechat-login/setting`
-- 保存配置信息
-
-### 使用命令字
+### 命令字
 
 1. 通过登录用户获取 account:
 ```php
