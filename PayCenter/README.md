@@ -8,6 +8,10 @@
 详细配置说明见：https://pay.yansongda.cn/docs/v3/quick-start/init.html
 
 
+## 插件流程时序图
+
+<img src="https://marketplace.plugins-world.cn/storage/images/app_images/202309/05/支付流程时序图.jpg" data-image-url="https://marketplace.plugins-world.cn/storage/images/app_images/202309/05/支付流程时序图.jpg" alt="支付流程时序图" title="支付流程时序图" class="w-100 image_preview">
+
 ## 命令字
 
 1. 通过命令字获取微信支付预下单信息:
