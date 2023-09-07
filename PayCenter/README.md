@@ -14,7 +14,7 @@
 
 ## 命令字
 
-1. 获取微信支付预付单信息:
+1. 通过命令字获取微信支付预下单信息:
 ```php
 $wordBody = [
     'payPlatform' => 'wechat',
@@ -56,8 +56,3 @@ $resp = \FresnsCmdWord::plugin('PayCenter')->callbackResponse($wordBody);
 
 dd($resp->getData());
 ```
-
-
-## 使用文档
-
-暂未完善
