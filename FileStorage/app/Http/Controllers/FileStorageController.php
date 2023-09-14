@@ -12,7 +12,7 @@ class FileStorageController extends Controller
 {
     use ResponseTrait;
 
-    public function upload()
+    public function fileUpload()
     {
         request()->validate([
             'type' => ['required', 'string', Rule::in(array_keys(File::TYPE_MAP))],
