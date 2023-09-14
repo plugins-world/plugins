@@ -12,29 +12,22 @@ class FileStorageController extends Controller
 {
     use ResponseTrait;
 
-    public function fileUpload()
+    public function upload()
     {
-        \request()->validate([
+        request()->validate([
             'type' => ['required', 'string', Rule::in(array_keys(File::TYPE_MAP))],
+            'usage_type' => ['required'], // 自行通过文档进行约束说明: usage_type: avatars-头像;...
             'file' => ['required', 'file'],
-            'disk' => ['nullable', 'string'],
         ]);
 
-        $type = \request('type');
-        $uploadFile = \request('file');
-        $savePath = FileUtility::fresnsFileStoragePath($type, 'uploads');
-
-        FileUtility::initConfig();
-        /** @var \Fresns\CmdWordManager\CmdWordResponse $resp */
-        $resp = \FresnsCmdWord::plugin('FileStorage')->uploadFile([
-            'file' => $uploadFile,
-            'savePath' => $savePath,
+        $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
+            'type' => request('type'),
+            'usageType' => request('usage_type'),
+            'file' => request('file'),
         ]);
+        $fileInfo = $resp->getData();
 
-        $data = $resp->getData();
-        $data['url'] = FileUtility::getStorage()->temporaryUrl($data['path'], now()->addHour());
-
-        return $this->success($data);
+        return $this->success($fileInfo);
     }
 
     public function fileDownload()
