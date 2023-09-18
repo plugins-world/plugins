@@ -26,6 +26,7 @@ class FileStorageController extends Controller
             'file' => request('file'),
         ]);
         $fileInfo = $resp->getData();
+        $fileInfo['url'] = FileUtility::getFileTemporaryUrl(null, $fileInfo['path']);
 
         return $this->success($fileInfo);
     }
