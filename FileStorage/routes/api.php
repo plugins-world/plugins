@@ -29,6 +29,6 @@ Route::prefix('file-storage')->group(function() {
     // Route::get('/', [ApiController\FileStorageController::class, 'index']);
 
     Route::post('file/upload', [ApiController\FileStorageController::class, 'fileUpload'])->name('file.upload');
-    Route::get('file/download', [ApiController\FileStorageController::class, 'fileDownload'])->name('file.download')->middleware('signed');
-    Route::get('file/view', [ApiController\FileStorageController::class, 'fileView'])->name('file.view');
+    Route::get('file/download/{filename}', [ApiController\FileStorageController::class, 'fileDownload'])->name('file.download')->middleware('signed');
+    Route::get('file/view/{filename}', [ApiController\FileStorageController::class, 'fileView'])->name('file.view')->middleware('signed');
 });

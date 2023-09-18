@@ -145,10 +145,13 @@ class FileUtility
 
         $storage->buildTemporaryUrlsUsing(
             function (string $path, DateTime $expiration, array $options) {
+                $filename = pathinfo($path, PATHINFO_FILENAME);
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+
                 return URL::temporarySignedRoute(
                     'file.download',
                     $expiration,
-                    array_merge($options, ['action' => 'view', 'path' => $path])
+                    array_merge($options, ['action' => 'view', 'filename' => $filename, 'extension' => $extension, 'path' => $path])
                 );
             }
         );
@@ -173,13 +176,13 @@ class FileUtility
             return null;
         }
 
-        $name = basename($path);
+        $filename = pathinfo($path, PATHINFO_BASENAME);
 
         return match ($action) {
             default => null,
             'get' => $storage->get($path),
-            'download' => $storage->download($path, $name),
-            'view' => $storage->download($path, $name, ['Content-Disposition' => 'inline']),
+            'download' => $storage->download($path, $filename),
+            'view' => $storage->download($path, null, ['Content-Disposition' => sprintf('inline, filename="%s"', $filename)]),
             'mime' => $storage->mimeType($path),
         };
     }

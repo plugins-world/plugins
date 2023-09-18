@@ -31,11 +31,12 @@ class FileStorageController extends Controller
         return $this->success($fileInfo);
     }
 
-    public function fileDownload()
+    public function fileDownload(string $filename)
     {
         \request()->validate([
             'path' => ['required', 'string'],
             'action' => ['nullable', 'string'],
+            'extension' => ['nullable', 'string'],
         ]);
 
         $action = \request('action', 'download');
@@ -49,12 +50,13 @@ class FileStorageController extends Controller
         return $response;
     }
 
-    public function fileView()
+    public function fileView(string $filename)
     {
         \request()->validate([
             'path' => ['required', 'string'],
             'disk' => ['nullable', 'string'],
             'action' => ['nullable', 'string'],
+            'extension' => ['nullable', 'string'],
         ]);
 
         $action = \request('action', 'view');
