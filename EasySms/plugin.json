@@ -1,0 +1,18 @@
+{
+    "fskey": "EasySms",
+    "name": "EasySms",
+    "description": "EasySms plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/easy-sms",
+    "settingsPath": "/easy-sms/setting",
+    "providers": [
+        "Plugins\\EasySms\\Providers\\EasySmsServiceProvider",
+        "Plugins\\EasySms\\Providers\\CmdWordServiceProvider",
+        "Plugins\\EasySms\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

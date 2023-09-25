@@ -1,0 +1,28 @@
+{
+    "name": "plugins-world/easy-sms",
+    "description": "EasySms plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\EasySms\\": "app",
+            "Plugins\\EasySms\\Database\\Factories\\": "database/factories/",
+            "Plugins\\EasySms\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\EasySms\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "overtrue/easy-sms": "^2.5"
+    }
+}
