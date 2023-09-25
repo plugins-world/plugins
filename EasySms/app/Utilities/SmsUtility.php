@@ -37,6 +37,7 @@ class SmsUtility
         $gatewayConfig = null;
         if ($gateway) {
             $gatewayConfig = Config::getValueByKey($gateway, 'easy_sms');
+            $gatewayConfig['sdk_app_id'] = strval($gatewayConfig['sdk_app_id']);
 
             $default = $config['gateways'][$gateway] ?? [];
             $config['default']['gateways'][] = $gateway;
@@ -69,6 +70,8 @@ class SmsUtility
         $message = $e->getMessage();
         
         if (method_exists($e, 'getExceptions')) {
+            $message = '';
+
             foreach ($e->getExceptions() as $gateway => $exception) {
                 $msg = sprintf("【%s】 code: %s, message: %s\n", $gateway, $exception->getCode(), $exception->getMessage());
 
