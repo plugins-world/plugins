@@ -5,7 +5,6 @@ namespace Plugins\EasySms\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Plugins\LaravelConfig\Models\Config;
-use Plugins\EasySms\Utilities\SmsUtility;
 use Plugins\LaravelConfig\Utilities\ConfigUtility;
 
 class EasySmsSettingController extends Controller
