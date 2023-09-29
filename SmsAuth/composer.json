@@ -1,0 +1,26 @@
+{
+    "name": "plugins-world/sms-auth",
+    "description": "SmsAuth plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\SmsAuth\\": "app",
+            "Plugins\\SmsAuth\\Database\\Factories\\": "database/factories/",
+            "Plugins\\SmsAuth\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\SmsAuth\\Tests\\": "tests/"
+        }
+    },
+    "require": []
+}

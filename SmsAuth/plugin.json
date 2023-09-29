@@ -1,0 +1,18 @@
+{
+    "fskey": "SmsAuth",
+    "name": "SmsAuth",
+    "description": "SmsAuth plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/sms-auth",
+    "settingsPath": "/sms-auth/setting",
+    "providers": [
+        "Plugins\\SmsAuth\\Providers\\SmsAuthServiceProvider",
+        "Plugins\\SmsAuth\\Providers\\CmdWordServiceProvider",
+        "Plugins\\SmsAuth\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
