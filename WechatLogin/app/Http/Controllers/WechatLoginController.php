@@ -128,7 +128,7 @@ class WechatLoginController extends Controller
         $purePhoneNumber = $session['purePhoneNumber'];
 
         if (empty($accountConnect['account_id'])) {
-            $data['type'] = 1;
+            $data['type'] = 3; // 1-超级管理员;2-普通管理员;3-普通用户
             $data['country_code'] = $countryCode;
             $data['pure_phone'] = $purePhoneNumber;
             $data['phone'] = $phoneNumber;
@@ -156,6 +156,7 @@ class WechatLoginController extends Controller
                     'country_code',
                     'pure_phone',
                     'phone',
+                    'email',
                 ])->all();
 
                 $account->update($attrs);

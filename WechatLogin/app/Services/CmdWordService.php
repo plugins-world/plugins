@@ -8,12 +8,115 @@
 
 namespace Plugins\WechatLogin\Services;
 
-use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Plugins\WechatLogin\Models\Account;
+use Plugins\WechatLogin\Models\AccountUser;
 use Plugins\WechatLogin\Utilities\AccountUtility;
+use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 
 class CmdWordService
 {
     use CmdWordResponseTrait;
+
+    public function addAccount(array $wordBody)
+    {
+        $data['type'] = $wordBody['type'] ?? 3; // 1.超级管理员 / 2.普通管理员 / 3.普通用户
+        $data['aid'] = $wordBody['aid'] ?? null;
+        $data['country_code'] = $wordBody['countryCode'] ?? null;
+        $data['pure_phone'] = $wordBody['purePhoneNumber'] ?? null;
+        $data['phone'] = $wordBody['phoneNumber'] ?? null;
+        $data['email'] = $wordBody['email'] ?? null;
+        $data['password'] = $wordBody['password'] ?? null;
+        $data['last_login_at'] = now();
+        $data['is_verify'] = false;
+        $data['verify_plugin_fskey'] = null;
+        $data['verify_real_name'] = null; // 1.未知 / 2.男 / 3.女
+        $data['verify_gender'] = 1;
+        $data['verify_cert_type'] = null;
+        $data['verify_cert_number'] = null;
+        $data['verify_identity_type'] = null;
+        $data['verify_at'] = null;
+        $data['verify_log'] = null;
+        $data['is_enabled'] = true;
+        $data['wait_delete'] = false;
+        $data['wait_delete_at'] = null;
+
+        $account = Account::where('pure_phone', $data['pure_phone'])->first();
+        if (!$account) {
+            $account = Account::create($data);
+        } else {
+            $attrs = collect($data)->only([
+                'country_code',
+                'pure_phone',
+                'phone',
+                'email',
+            ])->all();
+
+            $account->update($attrs);
+        }
+
+        $accountUser = AccountUser::where('account_id', $account['id'])->first();
+        if (empty($accountUser)) {
+            $userAttrs['name'] = uniqid();
+            $userAttrs['email'] = $userAttrs['name'] . "@example.com";
+            $userAttrs['password'] = Hash::make($account['aid'] . '168');
+
+            $user = User::create($userAttrs);
+
+            $accountUser = AccountUser::updateOrCreate([
+                'user_id' => $user['id'],
+                'account_id' => $account['id'],
+            ]);
+        } else {
+            $user = User::find($accountUser['user_id']);
+        }
+
+        return $this->success([
+            'user' => $user,
+            'accountUser' => $accountUser,
+            'account' => $account,
+        ]);
+    }
+
+    public function addUser(array $wordBody)
+    {
+        $account['id'] = $wordBody['account_id'] ?? null;
+        $account['aid'] = $wordBody['aid'] ?? uniqid();
+        $account['password'] = $wordBody['password'] ?? $account['aid'] . '168';
+
+        $userAttrs['name'] = $wordBody['name'] ?? uniqid();
+        $userAttrs['email'] = $userAttrs['email'] ?? $userAttrs['name'] . "@example.com";
+        $userAttrs['password'] = Hash::make($account['password']);
+
+        $user = User::create($userAttrs);
+
+        if ($account['id']) {
+            $accountUser = AccountUser::updateOrCreate([
+                'user_id' => $user['id'],
+                'account_id' => $account['id'],
+            ]);
+        }
+
+        return $this->success([
+            'user' => $user,
+            'accountUser' => $accountUser,
+        ]);
+    }
+
+    public function generateTokenForUser(array $wordBody)
+    {
+        $user = $wordBody['user'];
+        $expiresAt = $wordBody['expiresAt'] ?? null;
+        $tokenName = $wordBody['tokenName'] ?? 'api';
+        $abalities = $wordBody['abalities'] ?? ['*'];
+
+        $token = AccountUtility::generateTokenForUser($user, $expiresAt, $tokenName, $abalities);
+
+        return $this->success([
+            'token' => $token,
+        ]);
+    }
 
     public function getAccountOfUser(array $wordBody)
     {
@@ -31,6 +134,39 @@ class CmdWordService
         $accountId = $wordBody['accountId'];
 
         $account = AccountUtility::getAccountByAccountId($accountId);
+
+        return $this->success([
+            'account' => $account,
+        ]);
+    }
+
+    public function getAccountByAId(array $wordBody)
+    {
+        $aid = $wordBody['aid'];
+
+        $account = AccountUtility::getAccountByAId($aid);
+
+        return $this->success([
+            'account' => $account,
+        ]);
+    }
+
+    public function getAccountByMobile(array $wordBody)
+    {
+        $mobile = $wordBody['mobile'];
+
+        $account = AccountUtility::getAccountByMobile($mobile);
+
+        return $this->success([
+            'account' => $account,
+        ]);
+    }
+
+    public function getAccountByEmail(array $wordBody)
+    {
+        $email = $wordBody['email'];
+
+        $account = AccountUtility::getAccountByEmail($email);
 
         return $this->success([
             'account' => $account,

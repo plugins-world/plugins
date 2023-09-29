@@ -1,11 +1,80 @@
 # WechatLogin
 
-微信登录插件，目前支持微信小程序登录功能，提供了 api 支持。也是其他第三方登录插件的基础依赖。管理着 accounts、account_connects、account_users 等相关第三方登录基础表。
+## 使用方式
+
+### 配置插件
+
+- 访问 `/wechat-login/setting`
+- 保存配置信息
+
+### 使用命令字
+
+- 创建 account 与 user
+```php
+$type = 3; // 1.超级管理员 / 2.普通管理员 / 3.普通用户
+$aid = null;
+$country_code = null;
+$pure_phone = null;
+$phone = null;
+$email = null;
+$password = null;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->addAccount([
+    'type' => $type,
+    'aid' => $aid,
+    'country_code' => $country_code,
+    'pure_phone' => $pure_phone,
+    'phone' => $phone,
+    'email' => $email,
+    'password' => $password,
+]);
+
+$user = $resp->getData('user');
+$accountUser = $resp->getData('accountUser');
+$account = $resp->getData('account');
+```
 
 
-### 命令字
+- 创建 user
+```php
+$account_id = null;
+$aid = null;
+$name = null;
+$email = null;
+$password = null;
 
-1. 通过登录用户获取 account:
+$resp = \FresnsCmdWord::plugin('WechatLogin')->addUser([
+    'account_id' => $account_id, // 用于关联账户
+    'aid' => $aid, // 用户生成随机密码
+
+    'name' => $name,
+    'email' => $email,
+    'password' => $password,
+]);
+
+$user = $resp->getData('user');
+$accountUser = $resp->getData('accountUser');
+```
+
+
+- 为 user 生成 token
+```php
+$user = null;
+$expiresAt = now()->addDays(7);
+$tokenName = 'api';
+$abalities = ['*'];
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->generateTokenForUser([
+    'user' => $user,
+    'expiresAt' => $expiresAt,
+    'tokenName' => $tokenName,
+    'abalities' => $abalities,
+]);
+
+$token = $resp->getData('token');
+```
+
+- 通过登录用户获取 account:
 ```php
 $user = null;
 
@@ -16,7 +85,8 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountOfUser([
 $account = $resp->getData('account');
 ```
 
-2. 通过登录用户获取 account:
+
+- 通过 accountId 获取 account:
 ```php
 $accountId = null;
 
@@ -27,7 +97,44 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
 $account = $resp->getData('account');
 ```
 
-3. 通过 account 获取 第一个 user:
+
+- 通过 aid 获取 account:
+```php
+$aid = null;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
+    'aid' => $aid,
+]);
+
+$account = $resp->getData('account');
+```
+
+
+- 通过 mobile 获取 account:
+```php
+$mobile = null;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
+    'mobile' => $mobile,
+]);
+
+$account = $resp->getData('account');
+```
+
+
+- 通过 email 获取 account:
+```php
+$email = null;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
+    'email' => $email,
+]);
+
+$account = $resp->getData('account');
+```
+
+
+- 通过 account 获取 第一个 user:
 ```php
 $account = null;
 
@@ -38,7 +145,8 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountFirstUser([
 $user = $resp->getData('user');
 ```
 
-4. 通过 account 获取 最后一个 user:
+
+- 通过 account 获取 最后一个 user:
 ```php
 $account = null;
 
@@ -50,7 +158,7 @@ $user = $resp->getData('user');
 ```
 
 
-5. 获取 account 的授权信息:
+- 获取 account 的授权信息:
 ```php
 $account = null;
 $connect_platform_id = 25;

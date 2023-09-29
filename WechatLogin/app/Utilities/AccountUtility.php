@@ -36,6 +36,48 @@ class AccountUtility
         return $account;
     }
 
+    public static function getAccountByAId(?string $aid)
+    {
+        if (!$aid) {
+            return null;
+        }
+
+        $account = Account::where('aid', $aid)->first();
+        if (!$account) {
+            return null;
+        }
+
+        return $account;
+    }
+
+    public static function getAccountByMobile(?string $mobile)
+    {
+        if (!$mobile) {
+            return null;
+        }
+
+        $account = Account::where('pure_phone', $mobile)->first();
+        if (!$account) {
+            return null;
+        }
+
+        return $account;
+    }
+
+    public static function getAccountByEmail(?string $email)
+    {
+        if (!$email) {
+            return null;
+        }
+
+        $account = Account::where('email', $email)->first();
+        if (!$account) {
+            return null;
+        }
+
+        return $account;
+    }
+
     public static function getAccountFirstUser($account)
     {
         if (!$account) {
@@ -80,5 +122,14 @@ class AccountUtility
         }
 
         return $accountConnect;
+    }
+
+    public static function generateTokenForUser($user, $expiresAt = null, $tokenName = 'api', $abalities = ['*'])
+    {
+        $expiresAt = $expiresAt ?? now()->addDays(7);
+
+        $token = $user?->createToken($tokenName, $abalities, $expiresAt);
+
+        return $token?->plainTextToken;
     }
 }
