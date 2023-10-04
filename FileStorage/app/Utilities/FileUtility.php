@@ -234,10 +234,6 @@ class FileUtility
 
         if (!$storage->has($relativePath)) {
             $file->storeAs($savePath, $fileSaveName, $options);
-
-            $fileModel?->update([
-                'path' => $relativePath,
-            ]);
         }
 
         $data['name'] = $filename;
@@ -333,6 +329,7 @@ class FileUtility
 
         $file = File::updateOrCreate([
             'md5' => $data['md5'],
+            'path' => $data['path'],
         ], $data);
 
         return $file;
