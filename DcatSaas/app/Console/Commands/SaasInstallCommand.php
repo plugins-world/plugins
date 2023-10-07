@@ -590,6 +590,7 @@ Route::middleware([
 # tenant storage
 extensions/backups/
 {$prefix}*
+!routes/tenant.php
 !database/migrations/tenant
 public-*
 ", FILE_APPEND);
