@@ -20,10 +20,11 @@ class PayUtility
         throw_if(! is_file($config['mch_secret_cert']), '文件 apiclient_key.pem 不存在');
         throw_if(! is_file($config['mch_public_cert_path']), '文件 apiclient_cert.pem 不存在');
         foreach($config['wechat_public_cert_path'] ?? [] as $serialNo => $content) {
-            $config['wechat_public_cert_path'][$serialNo] = $content;
-
-            // throw_if(! is_file($config['wechat_public_cert_path'][$serialNo]), "文件 {$serialNo}.crt 不存在");
+            if (str_starts_with($content, '---')) {
+                $config['wechat_public_cert_path'][$serialNo] = $content;
+            }
         }
+        unset($config['wechat_public_cert_path']);
 
         $payConfig = [
             'wechat' => [
