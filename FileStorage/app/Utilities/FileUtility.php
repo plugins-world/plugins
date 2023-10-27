@@ -38,6 +38,7 @@ class FileUtility
         match ($disk) {
             default => null,
             CosUtility::DISK_KEY => CosUtility::dynamicsConfig(),
+            OssUtility::DISK_KEY => OssUtility::dynamicsConfig(),
         };
 
         return $disk;
@@ -232,8 +233,27 @@ class FileUtility
             }
         }
 
-        if (!$storage->has($relativePath)) {
-            $file->storeAs($savePath, $fileSaveName, $options);
+        try {
+            if (!$storage->has($relativePath)) {
+                $file->storeAs($savePath, $fileSaveName, $options);
+            }
+        } catch (\Throwable $e) {
+            if ($e instanceof \OSS\Core\OssException) {
+                $property = new \ReflectionProperty($e, 'details');
+                $property->setAccessible(true);
+                $messageDataArray = $property->getValue($e);
+                $property->setAccessible(false);
+
+                $code = $e->getErrorCode() ?: $e->getHTTPStatus();
+                $message = $e->getDetails() ?: $e->getErrorMessage() ?: $e->getRequestId();
+                if ($messageDataArray) {
+                    $message = sprintf("JSON.parse('%s');", json_encode($messageDataArray, \JSON_UNESCAPED_SLASHES));
+                }
+
+                throw new \RuntimeException($message, $code);
+            }
+
+            throw $e;
         }
 
         $data['name'] = $filename;
@@ -388,7 +408,15 @@ class FileUtility
         if ($fileInfo && filter_var($fileInfo, FILTER_VALIDATE_URL)) {
             $url = $fileInfo;
         } else {
-            $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], now()->addMinutes(20));
+            $driver = FileUtility::getFileStorageDriver();
+
+            $expiresMinutes = match ($driver) {
+                default => now()->addMinutes(20),
+                CosUtility::DISK_KEY => now()->addMinutes(20),
+                OssUtility::DISK_KEY => 20 * 60,
+            };
+
+            $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], $expiresMinutes);
         }
 
         return StrUtility::qualifyUrl($url);

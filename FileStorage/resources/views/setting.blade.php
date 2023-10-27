@@ -17,6 +17,7 @@
                             <select class="form-select" name="file_storage_driver">
                                 <option value="local" @if($file_storage_driver == 'local') selected @endif>Local</option>
                                 <option value="cos" @if($file_storage_driver == 'cos') selected @endif>腾讯云 COS</option>
+                                <option value="oss" @if($file_storage_driver == 'oss') selected @endif>阿里云 OSS</option>
                             </select>
                         </div>
                     </div>
@@ -24,28 +25,55 @@
                 </div>
 
                 <div class="collapse @if($file_storage_driver == 'cos') show @endif" id="cosConfig">
-                    @foreach($configs as $config)
+                    @foreach($cosConfigs as $config)
                     <div class="row mt-2">
                         <label class="col-lg-3 col-form-label text-lg-end"></label>
                         <div class="col-6">
                             <div class="input-group">
                                 <div class="input-group">
-                                    <label for="{{ $config['item_key'] }}" class="input-group-text w-25">{{ __('FileStorage::setting.'.$config['item_key']) }}</label>
+                                    <label for="cos-{{ $config['item_key'] }}" class="input-group-text @if($config['item_key'] != 'is_use_center_config') w-25 @endif">{{ __('FileStorage::setting.'.$config['item_key']) }}</label>
                                     @if($config['item_type'] == 'string')
-                                    <input type="text" name="{{ $config['item_key'] }}" value="{{ old($config['item_key'], $config['item_value'] ?? '') }}" class="form-control" id="{{ $config['item_key'] }}">
+                                    <input type="text" name="{{ $config['item_key'] }}" value="{{ old($config['item_key'], $config['item_value'] ?? '') }}" class="form-control" id="cos-{{ $config['item_key'] }}">
                                     @endif
 
                                     @if($config['item_type'] == 'boolean')
-                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="{{$config['item_key']}}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
-                                    <label class="btn btn-outline-success" for="{{$config['item_key']}}-success-outlined">是</label>
+                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
+                                    <label class="btn btn-outline-success" for="cos-{{$config['item_key']}}-success-outlined">是</label>
 
-                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="{{$config['item_key']}}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
-                                    <label class="btn btn-outline-danger" for="{{$config['item_key']}}-danger-outlined">否</label>
+                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
+                                    <label class="btn btn-outline-danger" for="cos-{{$config['item_key']}}-danger-outlined">否</label>
                                     @endif
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                </div>
+                <div class="collapse @if($file_storage_driver == 'oss') show @endif" id="ossConfig">
+                    @foreach($ossConfigs as $config)
+                        <div class="row mt-2">
+                            <label class="col-lg-3 col-form-label text-lg-end"></label>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <div class="input-group">
+                                        <label for="oss-{{ $config['item_key'] }}" class="input-group-text @if($config['item_key'] != 'is_use_center_config') w-25 @endif">{{ __('FileStorage::setting.'.$config['item_key']) }}</label>
+                                        @if($config['item_type'] == 'string')
+                                            <input type="text" name="{{ $config['item_key'] }}" value="{{ old($config['item_key'], $config['item_value'] ?? '') }}" class="form-control" id="oss-{{ $config['item_key'] }}">
+                                        @endif
+
+                                        @if($config['item_type'] == 'boolean')
+                                            <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
+                                            <label class="btn btn-outline-success" for="oss-{{$config['item_key']}}-success-outlined">是</label>
+
+                                            <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
+                                            <label class="btn btn-outline-danger" for="oss-{{$config['item_key']}}-danger-outlined">否</label>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 form-text"><i class="bi bi-info-circle"></i>{{ __('FileStorage::setting.'.$config['item_key']. '_msg') }}</div>
+                        </div>
+
                     @endforeach
                 </div>
 
@@ -73,9 +101,15 @@
             switch (value) {
                 case 'local':
                     $('#cosConfig').collapse('hide');
+                    $('#ossConfig').collapse('hide');
                     break;
                 case 'cos':
                     $('#cosConfig').collapse('show');
+                    $('#ossConfig').collapse('hide');
+                    break;
+                case 'oss':
+                    $('#cosConfig').collapse('hide');
+                    $('#ossConfig').collapse('show');
                     break;
             };
         });

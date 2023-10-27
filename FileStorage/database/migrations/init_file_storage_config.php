@@ -94,6 +94,36 @@ return new class extends Migration
             'item_type' => 'string',
             'item_value' => null,
         ],
+        [
+            'item_tag' => 'file_storage',
+            'item_key' => 'oss_root',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
+        [
+            'item_tag' => 'file_storage',
+            'item_key' => 'oss_access_key',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
+        [
+            'item_tag' => 'file_storage',
+            'item_key' => 'oss_secret_key',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
+        [
+            'item_tag' => 'file_storage',
+            'item_key' => 'oss_endpoint',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
+        [
+            'item_tag' => 'file_storage',
+            'item_key' => 'oss_bucket',
+            'item_type' => 'string',
+            'item_value' => null,
+        ],
     ];
 
     /**
