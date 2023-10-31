@@ -22,9 +22,8 @@ return [
     'oss_root_msg' => 'File Prefix',
     'oss_access_key_msg' => 'Access Key ID',
     'oss_secret_key_msg' => 'Access Secret Key',
-    'oss_endpoint_msg' => 'Endpoint',
+    'oss_endpoint_msg' => 'Endpoint, Example: https://oss-cn-beijing.aliyuncs.com',
     'oss_bucket_msg' => 'Bucket',
-
 
     'save' => 'Save',
 ];

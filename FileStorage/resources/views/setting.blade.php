@@ -37,10 +37,10 @@
                                     @endif
 
                                     @if($config['item_type'] == 'boolean')
-                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
+                                    <input type="radio" class="btn-check" name="cos-{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
                                     <label class="btn btn-outline-success" for="cos-{{$config['item_key']}}-success-outlined">是</label>
 
-                                    <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
+                                    <input type="radio" class="btn-check" name="cos-{{ $config['item_key'] }}" id="cos-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
                                     <label class="btn btn-outline-danger" for="cos-{{$config['item_key']}}-danger-outlined">否</label>
                                     @endif
                                 </div>
@@ -62,10 +62,10 @@
                                         @endif
 
                                         @if($config['item_type'] == 'boolean')
-                                            <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
+                                            <input type="radio" class="btn-check" name="oss-{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-success-outlined" autocomplete="off" @if($config['item_value']==true) checked @endif value="1">
                                             <label class="btn btn-outline-success" for="oss-{{$config['item_key']}}-success-outlined">是</label>
 
-                                            <input type="radio" class="btn-check" name="{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
+                                            <input type="radio" class="btn-check" name="oss-{{ $config['item_key'] }}" id="oss-{{ $config['item_key'] }}-danger-outlined" autocomplete="off" @if($config['item_value']==false) checked @endif value="0">
                                             <label class="btn btn-outline-danger" for="oss-{{$config['item_key']}}-danger-outlined">否</label>
                                         @endif
                                     </div>

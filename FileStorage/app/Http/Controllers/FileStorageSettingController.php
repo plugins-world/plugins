@@ -85,12 +85,20 @@ class FileStorageSettingController extends Controller
         $bucket = CosUtility::cleanBucketName(\request('bucket'), \request('app_id'));
         $host = CosUtility::cleanHost(\request('domain'));
         $ossBucket = OssUtility::cleanBucketName(\request('oss_bucket'), \request('oss_access_key'));
+        $ossEndpoint = OssUtility::appendHTTP(\request('oss_endpoint'));
         $file_storage_timezone = \request('file_storage_timezone', 'PRC');
 
         \request()->offsetSet('file_storage_timezone', $file_storage_timezone);
         \request()->offsetSet('bucket', $bucket);
         \request()->offsetSet('domain', $host);
         \request()->offsetSet('oss_bucket', $ossBucket);
+        \request()->offsetSet('oss_endpoint', $ossEndpoint);
+
+        $driver = \request('file_storage_driver');
+
+        \request()->offsetSet('is_use_center_config',request("{$driver}-is_use_center_config"));
+        \request()->offsetSet('signed_url',request("cos-signed_url"));
+        \request()->offsetSet('use_https',request("cos-use_https"));
 
         $itemKeys = [
             'file_storage_driver',

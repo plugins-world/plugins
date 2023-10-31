@@ -20,10 +20,10 @@ return [
     'oss_endpoint' => 'Endpoint',
     'oss_bucket' => 'Bucket',
 
-    'oss_root_msg' => '文件根前缀',
+    'oss_root_msg' => '设置上传时根前缀',
     'oss_access_key_msg' => 'Access Key ID',
     'oss_secret_key_msg' => 'Access Secret Key',
-    'oss_endpoint_msg' => 'Endpoint',
+    'oss_endpoint_msg' => '使用 ssl 这里设置如: https://oss-cn-beijing.aliyuncs.com',
     'oss_bucket_msg' => 'Bucket',
 
     'save' => '保存',

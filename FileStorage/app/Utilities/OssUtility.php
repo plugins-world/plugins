@@ -85,4 +85,16 @@ class OssUtility
 
         return $host;
     }
+
+    public static function appendHTTP(?string $url)
+    {
+        if (!$url) {
+            return false;
+        }
+
+        if (!preg_match('/^(http:\/\/|https:\/\/)/', $url)) {
+            return sprintf('%s%s', 'https://', $url);
+        }
+        return $url;
+    }
 }
