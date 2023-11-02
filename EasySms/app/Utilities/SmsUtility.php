@@ -37,7 +37,9 @@ class SmsUtility
         $gatewayConfig = null;
         if ($gateway) {
             $gatewayConfig = Config::getValueByKey($gateway, 'easy_sms');
-            $gatewayConfig['sdk_app_id'] = strval($gatewayConfig['sdk_app_id']);
+            if ('qcloud' == $gateway) {
+                $gatewayConfig['sdk_app_id'] = strval($gatewayConfig['sdk_app_id']);
+            }
 
             $default = $config['gateways'][$gateway] ?? [];
             $config['default']['gateways'][] = $gateway;

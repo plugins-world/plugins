@@ -25,15 +25,14 @@ class EasySmsSettingController extends Controller
         config(['session.secure' => uniqid()]);
 
         // code
-        $itemKeys = [
-            'sms_default_gateway',
-            'qcloud',
-        ];
-
-        $configs = Config::getValueByKeys($itemKeys);
+        $smsDefaultGateway = Config::getValueByKey('sms_default_gateway');
+        $qcloudConfig = Config::getValueByKey('qcloud');
+        $aliyunConfig = Config::getValueByKey('aliyun');
 
         return view('EasySms::setting', [
-            'configs' => $configs,
+            'sms_default_gateway' => $smsDefaultGateway,
+            'qcloudConfig' => $qcloudConfig,
+            'aliyunConfig' => $aliyunConfig
         ]);
     }
 
@@ -42,11 +41,13 @@ class EasySmsSettingController extends Controller
         $request->validate([
             'sms_default_gateway' => 'required|string',
             'qcloud' => 'required|array',
+            'aliyun' => 'required|array'
         ]);
 
         $itemKeys = [
             'sms_default_gateway',
             'qcloud',
+            'aliyun'
         ];
 
         ConfigUtility::updateConfigs($itemKeys, 'easy_sms');

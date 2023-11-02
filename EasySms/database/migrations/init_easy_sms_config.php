@@ -39,6 +39,16 @@ return new class extends Migration
                 'secret_key' => null,
             ],
         ],
+        [
+            'item_tag' => 'easy_sms',
+            'item_key' => 'aliyun',
+            'item_type' => 'json',
+            'item_value' => [
+                'sign_name' => null,
+                'access_key_id' => null,
+                'access_key_secret' => null,
+            ],
+        ]
     ];
 
     /**
