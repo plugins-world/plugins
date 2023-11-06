@@ -15,7 +15,7 @@
                         <div class="input-group">
                             <div class="input-group-text w-25 required">存储驱动</div>
                             <select class="form-select" name="file_storage_driver">
-                                <option value="local" @if($file_storage_driver == 'local') selected @endif>Local</option>
+                                <option value="local" @if($file_storage_driver == 'local') selected @endif>本地存储</option>
                                 <option value="cos" @if($file_storage_driver == 'cos') selected @endif>腾讯云 COS</option>
                                 <option value="oss" @if($file_storage_driver == 'oss') selected @endif>阿里云 OSS</option>
                             </select>
