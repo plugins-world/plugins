@@ -1,0 +1,26 @@
+{
+    "name": "plugins-world/easy-map",
+    "description": "EasyMap plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\EasyMap\\": "app",
+            "Plugins\\EasyMap\\Database\\Factories\\": "database/factories/",
+            "Plugins\\EasyMap\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\EasyMap\\Tests\\": "tests/"
+        }
+    },
+    "require": []
+}

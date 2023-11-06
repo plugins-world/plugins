@@ -1,0 +1,18 @@
+{
+    "fskey": "EasyMap",
+    "name": "EasyMap",
+    "description": "EasyMap plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/easy-map",
+    "settingsPath": "/easy-map/setting",
+    "providers": [
+        "Plugins\\EasyMap\\Providers\\EasyMapServiceProvider",
+        "Plugins\\EasyMap\\Providers\\CmdWordServiceProvider",
+        "Plugins\\EasyMap\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
