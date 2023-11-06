@@ -11,5 +11,6 @@ zip -r apps/PayCenter.zip PayCenter -x "*node_modules/*" -x "*vendor/*"
 zip -r apps/GithubAuth.zip GithubAuth -x "*node_modules/*" -x "*vendor/*"
 zip -r apps/EasySms.zip EasySms -x "*node_modules/*" -x "*vendor/*"
 zip -r apps/SmsAuth.zip SmsAuth -x "*node_modules/*" -x "*vendor/*"
+zip -r apps/EasyMap.zip EasyMap -x "*node_modules/*" -x "*vendor/*"
 
 # mv apps/* /path/to/apps/public/
