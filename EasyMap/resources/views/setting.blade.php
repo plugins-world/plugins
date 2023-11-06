@@ -23,7 +23,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="amap[request_url]" value="{{ old('request_url', $amapConfig['request_url'] ?? 'https://restapi.amap.com') }}" class="form-control" id="request-url" placeholder="请输入请求URL">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://lbs.amap.com/api/webservice/guide/api/georegeo" target="_blank">查看请求地址</a> </div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看 <a href="https://lbs.amap.com/api/webservice/guide/api/georegeo" target="_blank">请求地址</a> </div>
                     </div>
 
                     <div class="mb-3 row">
