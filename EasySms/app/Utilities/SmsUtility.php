@@ -21,6 +21,7 @@ class SmsUtility
                 // 默认可用的发送网关
                 'gateways' => [
                     // 'qcloud',
+                    // 'aliyun',
                     // 'errorlog',
                 ],
             ],

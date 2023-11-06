@@ -13,8 +13,8 @@
                     <label for="sms_default_gateway" class="col-sm-2 col-form-label">发信网关</label>
                     <div class="col-sm-6">
                         <select name="sms_default_gateway" class="form-select" aria-label="Default select example">
-                            <option  @if($sms_default_gateway == 'qcloud') selected @endif>qcloud</option>
-                            <option  @if($sms_default_gateway == 'aliyun') selected @endif>aliyun</option>
+                            <option  @if($sms_default_gateway == 'qcloud') selected @endif>腾讯云短信</option>
+                            <option  @if($sms_default_gateway == 'aliyun') selected @endif>阿里云短信</option>
                         </select>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="aliyun[sign_name]" value="{{ old('sign_name', $aliyunConfig['sign_name'] ?? '') }}" class="form-control" id="sign_name" placeholder="请输入签名">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://console.cloud.tencent.com/smsv2/csms-sign" target="_blank">查看 "签名内容"</a> </div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看<a href="https://dysms.console.aliyun.com/domestic/text" target="_blank">"签名内容"</a>、<a href="https://dysms.console.aliyun.com/domestic/text/template" target="_blank">"短信模板"</a></div>
                     </div>
 
                     <div class="mb-3 row">
@@ -67,7 +67,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="aliyun[access_key_id]" value="{{ old('access_key_id', $aliyunConfig['access_key_id'] ?? '') }}" class="form-control" id="access_key_id" placeholder="请输入 AccessKeyId">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://console.cloud.tencent.com/cam/capi" target="_blank">查看 "AccessKeyId"</a></div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://ram.console.aliyun.com/manage/ak" target="_blank">查看 "AccessKeyId"</a></div>
                     </div>
 
                     <div class="mb-3 row">
@@ -75,7 +75,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="aliyun[access_key_secret]" value="{{ old('access_key_secret', $aliyunConfig['access_key_secret'] ?? '') }}" class="form-control" id="access_key_secret" placeholder="请输入 AccessSecretKey">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://console.cloud.tencent.com/cam/capi" target="_blank">查看 "AccessSecretKey"</a></div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> <a href="https://ram.console.aliyun.com/manage/ak" target="_blank">查看 "AccessSecretKey"</a></div>
                     </div>
                 </div>
 
