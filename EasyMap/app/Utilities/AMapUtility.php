@@ -134,6 +134,10 @@ class AMapUtility
 
         $result =  json_decode($response->getBody()->getContents(), true);
         if ($result['status'] == '0') {
+            if ($result['infocode'] == '30001') {
+                throw new \RuntimeException(sprintf('地址 %s 非法', $params['address']), $result['infocode']);
+            }
+            
             throw new \RuntimeException(sprintf('高德地图 api 返回信息: status: %s, infocode: %s, info: %s, 查看错误码说明: https://lbs.amap.com/api/webservice/guide/tools/info', $result['status'], $result['infocode'], $result['info']), $result['infocode']);
         }
 

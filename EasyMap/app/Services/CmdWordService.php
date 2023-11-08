@@ -2,6 +2,7 @@
 
 namespace Plugins\EasyMap\Services;
 
+use Plugins\EasyMap\Utilities\AMapApiUtility;
 use Plugins\EasyMap\Utilities\MapUtility;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 
@@ -17,6 +18,19 @@ class CmdWordService
 
         try {
             $resp = MapUtility::request($method, $action, $params);
+        } catch (\Throwable $e) {
+            return $this->failure($e->getCode(), $e->getMessage());
+        }
+
+        return $this->success($resp);
+    }
+
+    public function getGeoCode(array $wordBody)
+    {
+        $address = $wordBody['address'] ?? '';
+
+        try {
+            $resp = AMapApiUtility::getGeoCode($address);
         } catch (\Throwable $e) {
             return $this->failure($e->getCode(), $e->getMessage());
         }
