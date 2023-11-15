@@ -1,0 +1,18 @@
+{
+    "fskey": "BaiduOcr",
+    "name": "BaiduOcr",
+    "description": "BaiduOcr plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/baidu-ocr",
+    "settingsPath": "/baidu-ocr/setting",
+    "providers": [
+        "Plugins\\BaiduOcr\\Providers\\BaiduOcrServiceProvider",
+        "Plugins\\BaiduOcr\\Providers\\CmdWordServiceProvider",
+        "Plugins\\BaiduOcr\\Providers\\ExceptionServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

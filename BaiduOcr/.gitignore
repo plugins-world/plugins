@@ -1,0 +1,13 @@
+node_modules/
+npm-debug.log
+*-error.log
+*lock*
+.temp
+.cache
+.settings/
+.idea
+.vscode
+.phpunit.result.cache
+.DS_Store
+dist/
+.idea/
