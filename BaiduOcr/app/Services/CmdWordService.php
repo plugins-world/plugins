@@ -44,6 +44,7 @@ class CmdWordService
             'detect_quality' => $wordBody['detect_quality'] ?? 'false',
             'detect_photo' => $wordBody['detect_photo'] ?? 'false',
             'detect_card' => $wordBody['detect_card'] ?? 'false',
+            'detect_direction' => $wordBody['detect_direction'] ?? 'false',
         ];
         if (isset($wordBody['image'])) {
             $data['image'] = $wordBody['image'];

@@ -26,6 +26,7 @@ dd($resp);
 
 3. 身份证识别
 ```php
+// @see https://ai.baidu.com/ai-doc/OCR/rk3h7xzck
 $params = [
     'url' => 'https://images0.cnblogs.com/blog/454646/201306/07090646-834eecbb94f8475a9a12026c50ef0dde.jpg',
     'id_card_side' => 'front',    //front:身份证含照片的一面/back:身份证带国徽的一面

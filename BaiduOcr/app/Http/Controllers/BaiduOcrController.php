@@ -17,7 +17,8 @@ class BaiduOcrController extends Controller
             'detect_risk' => ['nullable', 'string'],
             'detect_quality' => ['nullable', 'string'],
             'detect_photo' => ['nullable', 'string'],
-            'detect_card' => ['nullable', 'string']
+            'detect_card' => ['nullable', 'string'],
+            'detect_direction' => ['nullable', 'string'],
         ]);
 
         $resp = \FresnsCmdWord::plugin('BaiduOcr')->idCardVerify([
@@ -26,7 +27,8 @@ class BaiduOcrController extends Controller
             'detect_risk' => \request('detect_risk') ?? 'false',
             'detect_quality' => \request('detect_quality') ?? 'false',
             'detect_photo' => \request('detect_photo') ?? 'false',
-            'detect_card' => \request('detect_card') ?? 'false'
+            'detect_card' => \request('detect_card') ?? 'false',
+            'detect_direction' => \request('detect_direction') ?? 'false',
         ]);
         $idCardData = $resp->getData();
 
