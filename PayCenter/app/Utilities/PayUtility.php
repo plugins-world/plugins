@@ -24,7 +24,6 @@ class PayUtility
                 $config['wechat_public_cert_path'][$serialNo] = $content;
             }
         }
-        unset($config['wechat_public_cert_path']);
 
         $payConfig = [
             'wechat' => [
