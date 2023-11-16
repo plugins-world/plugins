@@ -4,10 +4,9 @@ namespace Plugins\SanctumAuth\Utilities;
 
 class UserAuthUtility
 {
-    public static function generateTokenForUser($user, $tokenName = 'sanctum')
+    public static function generateTokenForUser($user, $tokenName = 'sanctum', $abalities = ['*'], $expiresAt = null)
     {
-        $abalities = ['*'];
-        $expiresAt = now()->addDays(7);
+        $expiresAt = $expiresAt ?? now()->addDays(7);
 
         $token = $user->createToken($tokenName, $abalities, $expiresAt);
 

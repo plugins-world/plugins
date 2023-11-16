@@ -19,8 +19,10 @@ class CmdWordService
     {
         $user = $wordBody['user'];
         $tokenName = $wordBody['tokenName'] ?? 'sanctum';
+        $abalities = $wordBody['abalities'] ?? ['*'];
+        $expiresAt = $wordBody['expiresAt'] ?? null;
 
-        $token = UserAuthUtility::generateTokenForUser($user, $tokenName);
+        $token = UserAuthUtility::generateTokenForUser($user, $tokenName, $abalities, $expiresAt);
 
         return $this->success([
             'user' => $user,
