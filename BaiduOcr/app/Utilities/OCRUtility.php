@@ -9,6 +9,9 @@ class OCRUtility
     public static function initConfig()
     {
         $config = Config::getValueByKey('ocr_config', 'baidu_ocr');
+        if (!$config) {
+            throw new \RuntimeException('请完善配置信息');
+        }
 
         return $config;
     }

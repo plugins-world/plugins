@@ -30,6 +30,10 @@ class BaiduOcrController extends Controller
             'detect_card' => \request('detect_card') ?? 'false',
             'detect_direction' => \request('detect_direction') ?? 'false',
         ]);
+        if ($resp->isErrorResponse()) {
+            return $this->fail($resp->getMessage());
+        }
+
         $idCardData = $resp->getData();
 
         return $this->success($idCardData);

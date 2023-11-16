@@ -22,7 +22,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="ocr_config[api_key]" value="{{ old('api_key', $config['api_key'] ?? '') }}" class="form-control" id="request-url" placeholder="请输入API Key">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看 <a href="https://login.bce.baidu.com" target="_blank">获取 API Key</a> </div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看 <a href="https://console.bce.baidu.com/ai/#/ai/face/app/list" target="_blank">获取 API Key</a> </div>
                     </div>
 
                     <div class="mb-3 row">
@@ -30,7 +30,7 @@
                         <div class="col-sm-6">
                             <input type="text" name="ocr_config[secret_key]" value="{{ old('secret_key', $config['secret_key'] ?? '') }}" class="form-control" id="request-url" placeholder="请输入Secret Key">
                         </div>
-                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看 <a href="https://login.bce.baidu.com" target="_blank">获取 Secret Key</a> </div>
+                        <div class="col-sm-4 form-text"><i class="bi bi-info-circle"></i> 查看 <a href="https://console.bce.baidu.com/ai/#/ai/face/app/list" target="_blank">获取 Secret Key</a> </div>
                     </div>
 
                     <button type="submit" class="col-sm-1 offset-sm-2 btn btn-primary mb-3">Save</button>

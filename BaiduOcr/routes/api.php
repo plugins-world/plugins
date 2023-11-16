@@ -28,6 +28,6 @@ use Plugins\BaiduOcr\Http\Controllers as ApiController;
 // Route::group([], function() {
 //     Route::get('/', [ApiController\BaiduOcrSettingController::class, 'index']);
 // });
-Route::prefix('baidu-ocr')->group(function() {
-    Route::post('id-card/verify', [ApiController\BaiduOcrController::class, 'idCardVerify']);
+Route::group([], function() {
+    Route::post('baidu-ocr/id-card/verify', [ApiController\BaiduOcrController::class, 'idCardVerify']);
 });
