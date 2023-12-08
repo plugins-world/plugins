@@ -183,7 +183,7 @@ class FileUtility
             default => null,
             'get' => $storage->get($path),
             'download' => $storage->download($path, $filename),
-            'view' => $storage->download($path, null, ['Content-Disposition' => sprintf('inline, filename="%s"', $filename)]),
+            'view' => $storage->download($path, null, ['Content-Disposition' => sprintf('inline; filename="%s"', $filename)]),
             'mime' => $storage->mimeType($path),
         };
     }
