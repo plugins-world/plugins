@@ -54,7 +54,7 @@ class AuthController extends Controller
             return $this->fail('用户名错误', 404);
         }
 
-        if (!Hash::check($request->passwkrd, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return $this->fail('密码错误', 401);
         }
 
