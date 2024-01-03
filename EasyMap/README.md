@@ -23,7 +23,7 @@ dd($resp);
 $address = sprintf('%s%s%s%s', request('province_ext_name'), request('city_ext_name'), request('area_ext_name'), request('address'));
 $address = '成都市高新区吉泰路666号福年广场T2';
 
-$resp = \FresnsCmdWord::plugin('EasyMap')->getGeoCode([
+$resp = \FresnsCmdWord::plugin('EasyMap')->getGeoCodeGeoInfo([
     'address' => $address,
 ]);
 
@@ -33,5 +33,19 @@ if ($resp->isErrorResponse()) {
 
 $resp->getData('longitude'); // 经度
 $resp->getData('latitude'); // 纬度
+dd($resp);
+```
+
+3. 经纬度转地址
+```php
+$wordBody['longitude'] = $longitude;
+$wordBody['latitude'] = $latitude;
+$wordBody['user_address'] = $user_address;
+$resp = \FresnsCmdWord::plugin('EasyMap')->getGeoCodeRegeoInfo($wordBody);
+if ($resp->isErrorResponse()) {
+    $errorMessage = $resp->getMessage();
+}
+
+$resp->getData(); // 转换结果
 dd($resp);
 ```

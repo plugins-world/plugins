@@ -30,7 +30,8 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         // ['word' => TestModel::CMD_MODEL_TEST, 'provider' => [TestModel::class, 'handleModelTest']],
         // ['word' => 'cmdWord', 'provider' => [CmdWordService::class, 'cmdWord']],
         ['word' => 'request', 'provider' => [CmdWordService::class, 'request']],
-        ['word' => 'getGeoCode', 'provider' => [CmdWordService::class, 'getGeoCode']]
+        ['word' => 'getGeoCodeGeoInfo', 'provider' => [CmdWordService::class, 'getGeoCodeGeoInfo']],
+        ['word' => 'getGeoCodeRegeoInfo', 'provider' => [CmdWordService::class, 'getGeoCodeRegeoInfo']],
     ];
 
     /**

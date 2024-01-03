@@ -25,12 +25,27 @@ class CmdWordService
         return $this->success($resp);
     }
 
-    public function getGeoCode(array $wordBody)
+    public function getGeoCodeGeoInfo(array $wordBody)
     {
         $address = $wordBody['address'] ?? '';
 
         try {
-            $resp = AMapApiUtility::getGeoCode($address);
+            $resp = AMapApiUtility::getGeoCodeGeoInfo($address);
+        } catch (\Throwable $e) {
+            return $this->failure($e->getCode(), $e->getMessage());
+        }
+
+        return $this->success($resp);
+    }
+
+    public function getGeoCodeRegeoInfo(array $wordBody)
+    {
+        $longitude = $wordBody['longitude'] ?? '';
+        $latitude = $wordBody['latitude'] ?? '';
+        $user_address = $wordBody['user_address'] ?? '';
+
+        try {
+            $resp = AMapApiUtility::getGeoCodeRegeoInfo($longitude, $latitude, $user_address);
         } catch (\Throwable $e) {
             return $this->failure($e->getCode(), $e->getMessage());
         }
