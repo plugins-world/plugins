@@ -47,11 +47,23 @@ class OCRApiUtility
 
         switch ($data['id_card_side']) {
             case 'front':
-                $item['name'] = $wordsList['姓名']['words'];
-                $item['nation'] = $wordsList['民族']['words'];
-                $item['address'] = $wordsList['住址']['words'];
-                $item['id_card_no'] = $wordsList['公民身份号码']['words'];
-                $item['birthday'] = $wordsList['出生']['words'];
+                $item['issue_day_raw'] = $wordsList['签发日期']['words'] ?? null;
+                $item['expired_day_raw'] = $wordsList['失效日期']['words'] ?? null;
+
+                $item['issue_day_desc'] = date('Y-m-d', strtotime($item['issue_day_raw'] ?? null));
+                $item['expired_day_desc'] = date('Y-m-d', strtotime($item['expired_day_raw'] ?? null));
+
+                $item['issue_day_desc'] = date('Y-m-d 00:00:00', strtotime($item['issue_day_raw'] ?? null));
+                $item['expired_day_desc'] = date('Y-m-d 00:00:00', strtotime($item['expired_day_raw'] ?? null));
+
+                $item['signing_and_issuing_organization'] = $wordsList['签发机关']['words'] ?? null;
+                break;
+            case 'back':
+                $item['name'] = $wordsList['姓名']['words'] ?? null;
+                $item['nation'] = $wordsList['民族']['words'] ?? null;
+                $item['address'] = $wordsList['住址']['words'] ?? null;
+                $item['id_card_no'] = $wordsList['公民身份号码']['words'] ?? null;
+                $item['birthday'] = $wordsList['出生']['words'] ?? null;
 
                 $genderStr = $wordsList['性别']['words'];
                 $item['gender_integer'] = match($genderStr) {
@@ -65,18 +77,6 @@ class OCRApiUtility
                     '女' => 'FEMALE',
                 };
                 $item['gender_desc'] = $genderStr;
-                break;
-            case 'back':
-                $item['issue_day_raw'] = $wordsList['签发日期']['words'];
-                $item['expired_day_raw'] = $wordsList['失效日期']['words'];
-
-                $item['issue_day_desc'] = date('Y-m-d', strtotime($item['issue_day_raw']));
-                $item['expired_day_desc'] = date('Y-m-d', strtotime($item['expired_day_raw']));
-
-                $item['issue_day_desc'] = date('Y-m-d 00:00:00', strtotime($item['issue_day_raw']));
-                $item['expired_day_desc'] = date('Y-m-d 00:00:00', strtotime($item['expired_day_raw']));
-
-                $item['signing_and_issuing_organization'] = $wordsList['签发机关']['words'];
                 break;
             default:
                 $item = [];

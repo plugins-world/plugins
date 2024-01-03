@@ -125,7 +125,7 @@ class OCRConfigUtility
         if (!$this->guzzleHttpClient instanceof Client) {
             $this->guzzleHttpClient = new Client([
                 'base_uri' => $this->requestUrl,
-                'timeout' => 1.0
+                'timeout' => 10.0
             ]);
         }
     }
