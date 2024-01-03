@@ -1,0 +1,17 @@
+{
+    "fskey": "BaiduFaceOcr",
+    "name": "BaiduFaceOcr",
+    "description": "BaiduFaceOcr plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/baidu-face-ocr",
+    "settingsPath": "/baidu-face-ocr/setting",
+    "providers": [
+        "Plugins\\BaiduFaceOcr\\Providers\\BaiduFaceOcrServiceProvider",
+        "Plugins\\BaiduFaceOcr\\Providers\\CmdWordServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}

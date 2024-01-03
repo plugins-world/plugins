@@ -1,0 +1,26 @@
+{
+    "name": "plugins-world/baidu-face-ocr",
+    "description": "BaiduFaceOcr plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\BaiduFaceOcr\\": "app",
+            "Plugins\\BaiduFaceOcr\\Database\\Factories\\": "database/factories/",
+            "Plugins\\BaiduFaceOcr\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\BaiduFaceOcr\\Tests\\": "tests/"
+        }
+    },
+    "require": []
+}
