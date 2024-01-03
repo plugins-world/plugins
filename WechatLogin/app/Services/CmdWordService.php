@@ -61,6 +61,12 @@ class CmdWordService
             $userAttrs['name'] = uniqid();
             $userAttrs['email'] = $userAttrs['name'] . "@example.com";
             $userAttrs['password'] = Hash::make($account['aid'] . '168');
+            if ($data['password']) {
+                $userAttrs['password'] = $account->password;
+            }
+            if ($data['email']) {
+                $userAttrs['email'] = $account->email;
+            }
 
             $user = User::create($userAttrs);
 
