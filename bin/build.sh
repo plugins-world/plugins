@@ -2,7 +2,7 @@
 
 set -ex
 
-mkdir apps -p
+mkdir -p apps
 zip -r apps/LaravelSaas.zip LaravelSaas -x "*node_modules/*" -x "*vendor/*"
 zip -r apps/DcatSaas.zip DcatSaas -x "*node_modules/*" -x "*vendor/*"
 zip -r apps/SanctumAuth.zip SanctumAuth -x "*node_modules/*" -x "*vendor/*"
