@@ -44,6 +44,7 @@ $wordBody = [
 $resp = \FresnsCmdWord::plugin('PayCenter')->callbackParse($wordBody);
 
 dd($resp->getData());
+return $resp->getData();
 ```
 
 
@@ -55,4 +56,5 @@ $wordBody = [
 $resp = \FresnsCmdWord::plugin('PayCenter')->callbackResponse($wordBody);
 
 dd($resp->getData());
+return $resp->getData();
 ```
