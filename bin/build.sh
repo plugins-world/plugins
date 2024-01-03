@@ -2,7 +2,8 @@
 
 set -ex
 
-zip -r appsBaiduOcr.zip BaiduOcr -x "*node_modules/*" -x "*vendor/*"
+zip -r BaiduFaceOcr.zip BaiduFaceOcr -x "*node_modules/*" -x "*vendor/*"
+zip -r BaiduOcr.zip BaiduOcr -x "*node_modules/*" -x "*vendor/*"
 zip -r DcatSaas.zip DcatSaas -x "*node_modules/*" -x "*vendor/*"
 zip -r EasyMap.zip EasyMap -x "*node_modules/*" -x "*vendor/*"
 zip -r EasySms.zip EasySms -x "*node_modules/*" -x "*vendor/*"
