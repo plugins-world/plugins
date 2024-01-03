@@ -40,6 +40,8 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         ['word' => 'getAccountFirstUser', 'provider' => [CmdWordService::class, 'getAccountFirstUser']],
         ['word' => 'getAccountLastUser', 'provider' => [CmdWordService::class, 'getAccountLastUser']],
         ['word' => 'getAccountConnect', 'provider' => [CmdWordService::class, 'getAccountConnect']],
+        ['word' => 'getAccountConnectOfUser', 'provider' => [CmdWordService::class, 'getAccountConnectOfUser']],
+        ['word' => 'loadAccountBaseInfo', 'provider' => [CmdWordService::class, 'loadAccountBaseInfo']],
     ];
 
     /**

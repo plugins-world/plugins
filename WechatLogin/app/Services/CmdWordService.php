@@ -23,9 +23,9 @@ class CmdWordService
     {
         $data['type'] = $wordBody['type'] ?? 3; // 1.超级管理员 / 2.普通管理员 / 3.普通用户
         $data['aid'] = $wordBody['aid'] ?? null;
-        $data['country_code'] = $wordBody['countryCode'] ?? null;
-        $data['pure_phone'] = $wordBody['purePhoneNumber'] ?? null;
-        $data['phone'] = $wordBody['phoneNumber'] ?? null;
+        $data['country_code'] = $wordBody['country_code'] ?? null;
+        $data['pure_phone'] = $wordBody['pure_phone'] ?? null;
+        $data['phone'] = $wordBody['pure_phone'] ?? null;
         $data['email'] = $wordBody['email'] ?? null;
         $data['password'] = $wordBody['password'] ?? null;
         $data['last_login_at'] = now();
@@ -137,7 +137,7 @@ class CmdWordService
 
     public function getAccountByAccountId(array $wordBody)
     {
-        $accountId = $wordBody['accountId'];
+        $accountId = $wordBody['accountId'] ?? null;
 
         $account = AccountUtility::getAccountByAccountId($accountId);
 
@@ -210,6 +210,31 @@ class CmdWordService
 
         return $this->success([
             'accountConnect' => $accountConnect,
+        ]);
+    }
+
+    public function getAccountConnectOfUser(array $wordBody)
+    {
+        $user = $wordBody['user'];
+        $connect_platform_id = $wordBody['connect_platform_id'];
+
+        $accountConnect = AccountUtility::getAccountConnectOfUser($user, $connect_platform_id);
+
+        return $this->success([
+            'accountConnect' => $accountConnect,
+        ]);
+    }
+
+    public function loadAccountBaseInfo(array $wordBody)
+    {
+        $baseInfo = $wordBody['baseInfo'];
+        $account = $wordBody['account'];
+        $connect_platform_id = $wordBody['connect_platform_id'] ?? 25;
+
+        $newBaseInfo = AccountUtility::loadAccountBaseInfo($baseInfo, $account, $connect_platform_id);
+
+        return $this->success([
+            'newBaseInfo' => $newBaseInfo,
         ]);
     }
 }

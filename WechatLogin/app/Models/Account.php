@@ -26,8 +26,8 @@ class Account extends Model
     public function users()
     {
         $userModelClass = \App\Models\User::class;
-        if (class_exists(User::class)) {
-            $userModelClass = User::class;
+        if (class_exists(\Plugins\WechatLogin\Models\User::class)) {
+            $userModelClass = \Plugins\WechatLogin\Models\User::class;
         }
 
         return $this->hasManyThrough($userModelClass, AccountUser::class, 'account_id', 'id', 'id', 'user_id');

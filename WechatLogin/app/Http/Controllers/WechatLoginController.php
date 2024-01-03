@@ -240,7 +240,6 @@ class WechatLoginController extends Controller
                 'type' => 'image',
                 'usageType' => 'avatar',
                 'file' => \request()->file('avatar'),
-                'disk' => 'cos',
             ]);
 
             $avatar = $resp->getData('path');
@@ -248,9 +247,21 @@ class WechatLoginController extends Controller
             $avatar = \request('avatar');
         }
 
+        $newNickname = \request('nickname');
+        $newAvatar = \request('avatar');
+
+        if (\request()->has('nickname')) {
+            event('wechat-login:user_info:update:nickname', [['account_connect_id' => $accountConnect?->id, 'nickname' => $newNickname]]);
+        }
+        if (\request()->has('avatar')) {
+            event('wechat-login:user_info:update:avatar', [['account_connect_id' => $accountConnect?->id, 'avatar' => $newAvatar]]);
+        }
+
+        $nickname = $newNickname ?? $accountConnect?->connect_nickname ?? null;
+        $avatar = $avatar ?? $accountConnect?->getRawOriginal('connect_avatar') ?? null;
         $accountConnect?->update([
-            'connect_nickname' => \request('nickname') ?? $accountConnect?->connect_nickname ?? null,
-            'connect_avatar' => $avatar ?? $accountConnect?->getRawOriginal('connect_avatar') ?? null,
+            'connect_nickname' => $nickname,
+            'connect_avatar' => $avatar,
         ]);
 
         return $this->success([

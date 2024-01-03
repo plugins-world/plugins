@@ -114,7 +114,7 @@ $account = $resp->getData('account');
 ```php
 $mobile = null;
 
-$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByAccountId([
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountByMobile([
     'mobile' => $mobile,
 ]);
 
@@ -169,4 +169,32 @@ $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountConnect([
 ]);
 
 $accountConnect = $resp->getData('accountConnect');
+```
+
+- 获取 user 的授权信息:
+```php
+$user = null;
+$connect_platform_id = 25;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountConnectOfUser([
+    'user' => $user,
+    'connect_platform_id' => $connect_platform_id,
+]);
+
+$accountConnect = $resp->getData('accountConnect');
+```
+
+- 获取 account 的头像昵称手机号等信息:
+```php
+$baseInfo = [];
+$account = null;
+$connect_platform_id = 25;
+
+$resp = \FresnsCmdWord::plugin('WechatLogin')->loadAccountBaseInfo([
+    'baseInfo' => $baseInfo,
+    'account' => $account,
+    'connect_platform_id' => $connect_platform_id,
+]);
+
+$baseInfo = $resp->getData('newBaseInfo');
 ```

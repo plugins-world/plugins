@@ -15,7 +15,7 @@ class AccountConnect extends Model
             return null;
         }
 
-        $resp = \FresnsCmdWord::plugin('FileStorage')->getFileTemporaryUrl([
+        $resp = \FresnsCmdWord::plugin('FileStorage')->getFileUrl([
             'fileId' => null,
             'filepath' => $filepath,
         ]);
