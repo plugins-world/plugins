@@ -4,7 +4,7 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            publicDirectory: "../../../public/assets/plugins/GithubAuth/",
+            publicDirectory: "../../../public/assets/GithubAuth/",
             hotFile: '../../../public/hot',
             buildDirectory: "../../../../extensions/plugins/GithubAuth/resources/assets/build/",
             input: [
