@@ -11,6 +11,7 @@ namespace Plugins\FileStorage\Services;
 use Fresns\CmdWordManager\Traits\CmdWordResponseTrait;
 use Illuminate\Http\UploadedFile;
 use Plugins\FileStorage\Utilities\FileUtility;
+use Plugins\MarketManager\Utils\LaravelCache;
 
 class CmdWordService
 {
@@ -31,18 +32,18 @@ class CmdWordService
             return $this->failure("文件类型不正确");
         }
 
+        if (!$file instanceof UploadedFile) {
+            return $this->failure(400, "文件类型不正确");
+        }
+
         $filename = $file->getClientOriginalName();
         $mime = $file->getClientMimeType();
         $type = $wordBody['type'] ?? FileUtility::getFileTypeByMimeOrFilename($mime, $filename);;
 
         $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
 
-        if (!$file instanceof UploadedFile) {
-            return $this->failure("文件类型不正确");
-        }
-
         if (empty($savePath)) {
-            return $this->failure("保存路径不能为空");
+            return $this->failure(400, "保存路径不能为空");
         }
 
         FileUtility::initConfig();
@@ -71,11 +72,11 @@ class CmdWordService
         $options = $wordBody['options'] ?? [];
 
         if (!$file instanceof UploadedFile) {
-            return $this->failure("文件类型不正确");
+            return $this->failure(400, "文件类型不正确");
         }
 
         if (empty($savePath)) {
-            return $this->failure("保存路径不能为空");
+            return $this->failure(400, "保存路径不能为空");
         }
 
         FileUtility::initConfig();
@@ -102,7 +103,11 @@ class CmdWordService
         $fileId = $wordBody['fileId'] ?? null;
         $filepath = $wordBody['filepath'] ?? null;
 
-        $url = FileUtility::getFileUrl($fileId, $filepath);
+        $cacheKey = sprintf('file_url:file_id_%s:file_path_%s', $fileId, $filepath);
+        $url = LaravelCache::remember($cacheKey, function () use ($fileId, $filepath) {
+            $url = FileUtility::getFileUrl($fileId, $filepath);
+            return $url;
+        });
 
         return $this->success([
             'file_url' => $url,
@@ -114,7 +119,11 @@ class CmdWordService
         $fileId = $wordBody['fileId'] ?? null;
         $filepath = $wordBody['filepath'] ?? null;
 
-        $url = FileUtility::getFileTemporaryUrl($fileId, $filepath);
+        $cacheKey = sprintf('file_url:file_id_%s:file_path_%s', $fileId, $filepath);
+        $url = LaravelCache::remember($cacheKey, function () use ($fileId, $filepath) {
+            $url = FileUtility::getFileTemporaryUrl($fileId, $filepath);
+            return $url;
+        });
 
         return $this->success([
             'file_url' => $url,
