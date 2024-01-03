@@ -13,8 +13,8 @@
                     <label for="sms_default_gateway" class="col-sm-2 col-form-label">发信网关</label>
                     <div class="col-sm-6">
                         <select name="sms_default_gateway" class="form-select" aria-label="Default select example">
-                            <option  @if($sms_default_gateway == 'qcloud') selected @endif>腾讯云短信</option>
-                            <option  @if($sms_default_gateway == 'aliyun') selected @endif>阿里云短信</option>
+                            <option  @if($sms_default_gateway == 'qcloud') selected @endif value="qcloud">腾讯云短信</option>
+                            <option  @if($sms_default_gateway == 'aliyun') selected @endif value="aliyun">阿里云短信</option>
                         </select>
                     </div>
                 </div>
