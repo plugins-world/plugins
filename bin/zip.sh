@@ -14,4 +14,4 @@ zip -r SanctumAuth.zip SanctumAuth -x "*node_modules/*" -x "*vendor/*"
 zip -r SmsAuth.zip SmsAuth -x "*node_modules/*" -x "*vendor/*"
 zip -r WechatLogin.zip WechatLogin -x "*node_modules/*" -x "*vendor/*"
 
-# mv *.zip /path/to/apps/public/
+mv *.zip /www/wwwroot/plugins-world/apps/public/
