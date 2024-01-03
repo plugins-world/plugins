@@ -15,7 +15,7 @@ class FileStorageController extends Controller
     public function fileUpload()
     {
         request()->validate([
-            'type' => ['required', 'string', Rule::in(array_keys(File::TYPE_MAP))],
+            'type' => ['nullable', 'string', Rule::in(array_keys(File::TYPE_MAP))],
             'usage_type' => ['required'], // 自行通过文档进行约束说明: usage_type: avatars-头像;...
             'file' => ['required', 'file'],
         ]);

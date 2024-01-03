@@ -25,9 +25,15 @@ class CmdWordService
 
     public function upload(array $wordBody)
     {
-        $type = $wordBody['type'];
         $usageType = $wordBody['usageType'];
         $file = $wordBody['file'];
+        if (!$file) {
+            return $this->failure("文件类型不正确");
+        }
+
+        $filename = $file->getClientOriginalName();
+        $mime = $file->getClientMimeType();
+        $type = $wordBody['type'] ?? FileUtility::getFileTypeByMimeOrFilename($mime, $filename);;
 
         $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
 
