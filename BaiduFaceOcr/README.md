@@ -4,7 +4,7 @@
 1. 百度OCR公共请求方法
 
 ```php
-$method = 'POST';              //文档中的请求方法，详细阅读 https://ai.baidu.com/ai-doc/REFERENCE/Ck3dwjhhu#2-%E8%8E%B7%E5%8F%96-access_token
+$method = 'POST'; //文档中的请求方法，详细阅读 https://ai.baidu.com/ai-doc/REFERENCE/Ck3dwjhhu#2-%E8%8E%B7%E5%8F%96-access_token
 $action = '/oauth/2.0/token';  //文档中的请求路由
 $params = [];
 
