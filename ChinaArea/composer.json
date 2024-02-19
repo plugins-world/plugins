@@ -1,0 +1,26 @@
+{
+    "name": "plugins-world/china-area",
+    "description": "ChinaArea plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.org/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\ChinaArea\\": "app",
+            "Plugins\\ChinaArea\\Database\\Factories\\": "database/factories/",
+            "Plugins\\ChinaArea\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\ChinaArea\\Tests\\": "tests/"
+        }
+    },
+    "require": []
+}

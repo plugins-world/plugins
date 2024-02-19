@@ -1,0 +1,17 @@
+{
+    "fskey": "ChinaArea",
+    "name": "ChinaArea",
+    "description": "ChinaArea plugin made by MouYong",
+    "author": "MouYong",
+    "authorLink": "https://plugins-world.org/",
+    "version": "1.0.0",
+    "scene": [],
+    "accessPath": "/china-area",
+    "settingsPath": "/china-area/setting",
+    "providers": [
+        "Plugins\\ChinaArea\\Providers\\ChinaAreaServiceProvider",
+        "Plugins\\ChinaArea\\Providers\\RouteServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": []
+}
