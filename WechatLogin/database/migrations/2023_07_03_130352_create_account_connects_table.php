@@ -60,6 +60,7 @@ return new class extends Migration
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('account_id')->nullable();
                 $table->unsignedTinyInteger('connect_platform_id');
+                $table->string('app_id');
                 $table->string('connect_account_id', 128);
                 $table->string('connect_token', 128)->nullable();
                 $table->string('connect_refresh_token', 128)->nullable();

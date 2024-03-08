@@ -25,13 +25,17 @@ use Plugins\WechatLogin\Http\Controllers as ApiController;
 //     return $request->user();
 // });
 
-Route::prefix('wechat-login')->group(function() {
-    Route::post('login/code', [ApiController\WechatLoginController::class, 'miniAppLoginCode']);
-    Route::post('userinfo/bind-phone', [ApiController\WechatLoginController::class, 'miniAppBindPhone']);
+Route::prefix('wechat-config')->group(function () {
+    Route::post('get-jssdk-config', [ApiController\WechatConfigController::class, 'getJssdkConfig']);
+});
 
-    Route::group([
-        'middleware' => ['auth:sanctum'],
-    ],function () {
-        Route::post('userinfo/update', [ApiController\WechatLoginController::class, 'miniAppUpdateUserInfo']);
-    });
+Route::prefix('wechat-login')->middleware(['auth:sanctum'])->group(function() {
+    // 公众号
+    Route::post('official-login/get-auth-url', [ApiController\WechatLoginController::class, 'wechatAuthUrl'])->withoutMiddleware(['auth:sanctum']);
+    Route::post('official-login/login-by-code', [ApiController\WechatLoginController::class, 'wechatLoginByCode'])->withoutMiddleware(['auth:sanctum']);
+
+    // 小程序
+    Route::post('mini-app-login/login-by-code', [ApiController\WechatLoginController::class, 'miniAppLoginByCode'])->withoutMiddleware(['auth:sanctum']);
+    Route::post('mini-app-login/userinfo/bind-phone', [ApiController\WechatLoginController::class, 'miniAppBindPhone'])->withoutMiddleware(['auth:sanctum']);
+    Route::post('mini-app-login/userinfo/update', [ApiController\WechatLoginController::class, 'miniAppUpdateUserInfo']);
 });

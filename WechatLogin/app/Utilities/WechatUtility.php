@@ -18,7 +18,7 @@ class WechatUtility
         WechatUtility::TYPE_OPEN_PLATFORM => '微信开放平台',
     ];
 
-    public static function getConfig(?string $type = null): ?array
+    public static function getConfig(string $type = null, string $appId = null): ?array
     {
         if (!array_key_exists($type, WechatUtility::TPYE_MAP)) {
             return null;
@@ -27,6 +27,11 @@ class WechatUtility
         $itemKey = "wechat_login_{$type}";
 
         $itemValue = Config::getValueByKey($itemKey);
+        if (empty($itemValue)) {
+            return null;
+        }
+
+        $appIdConfig = collect($itemValue)->where('appId', $appId)->first();
         if (empty($itemValue)) {
             return null;
         }
@@ -47,6 +52,9 @@ class WechatUtility
             ],
         };
 
+        if ($appId && $config['app_id'] !== $appId) {
+            throw new \RuntimeException("请正确配置平台：{$type} 的 app_id: {$appId} 相关信息");
+        }
 
         /** @see https://easywechat.com/6.x/mini-app/index.html */
         $httpConfig = [
@@ -74,21 +82,23 @@ class WechatUtility
 
     public static function checkConfigAvaliable(?string $systemConfigAppId = null, ?string $clientAppId = null)
     {
-        throw_if(!$systemConfigAppId, '系统配置错误，未配置服务端的小程序 AppId');
-        throw_if(!$systemConfigAppId, '系统配置错误，客户端的小程序 AppId 获取失败');
-        throw_if($systemConfigAppId !== $clientAppId, '系统配置错误，小程序 AppId 不匹配');
+        throw_if(!$systemConfigAppId, '系统配置错误，未配置服务端的 AppId');
+        throw_if(!$clientAppId, '系统配置错误，客户端的 AppId 获取失败');
+        throw_if($systemConfigAppId !== $clientAppId, '系统配置错误， AppId 不匹配');
     }
 
-    public static function getApp(?string $type = null): null|OfficialAccountApplication|MiniAppApplication|OpenPlatformApplication
+    public static function getApp(string $type = null, string $appId = null): null|OfficialAccountApplication|MiniAppApplication|OpenPlatformApplication
     {
         if (!array_key_exists($type, WechatUtility::TPYE_MAP)) {
             return null;
         }
 
-        $config = WechatUtility::getConfig($type);
+        $config = WechatUtility::getConfig($type, $appId);
         if (!$config) {
             return null;
         }
+
+        WechatUtility::checkConfigAvaliable($config['app_id'], $appId);
 
         $app = match ($type) {
             default => null,

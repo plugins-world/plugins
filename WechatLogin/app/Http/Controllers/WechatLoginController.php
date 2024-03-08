@@ -16,16 +16,197 @@ class WechatLoginController extends Controller
 {
     use ResponseTrait;
 
-    public function miniAppLoginCode()
+    public function wechatAuthUrl()
+    {
+        request()->validate([
+            'app_id' => ['required', 'string'],
+            'callback_url' => ['required', 'url'],
+        ]);
+
+        $appId = request('app_id');
+        $callbackUrl = request('callback_url');
+
+        $app = WechatUtility::getApp(WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
+        if (!$app) {
+            return $this->fail("请先配置 app_id {$appId} 相关信息");
+        }
+
+        $oauth = $app->getOAuth();
+        $redirectUrl = $oauth->scopes(['snsapi_userinfo'])->redirect($callbackUrl);
+
+        return $this->success([
+            'redirect_url' => $redirectUrl,
+        ]);
+    }
+
+    public function wechatLoginByCode()
+    {
+        request()->validate([
+            'app_id' => ['required', 'string'],
+            'code' => ['nullable', 'string'],
+            'state' => ['nullable', 'string'],
+            'code_url' => ['required_without:code', 'url'],
+        ]);
+
+        $appId = request('app_id');
+        $code = request('code');
+        $state = request('state');
+        $codeUrl = request('code_url');
+
+        if ($codeUrl) {
+            $codeUrlInfo = parse_url($codeUrl);
+
+            if (empty($codeUrlInfo['query'] ?? null)) {
+                return $this->fail("请提供正确的 code_url 地址");
+            }
+
+            parse_str($codeUrlInfo['query'], $codeUrlQueryInfo);
+
+            $queryCode = $codeUrlQueryInfo['code'] ?? null;
+            $queryState = $codeUrlQueryInfo['state'] ?? null;
+
+            if (empty($queryCode)) {
+                return $this->fail("code_url 地址的格式不正确，缺失 code 参数");
+            }
+
+            if (empty($state)) {
+                $state = $queryState;
+            }
+
+            if (empty($code)) {
+                $code = $queryCode;
+            }
+        }
+
+        $app = WechatUtility::getApp(WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
+        if (!$app) {
+            return $this->fail("请先配置 app_id {$appId} 相关信息");
+        }
+
+        $oauth = $app->getOAuth();
+        // [
+        //     "id" => "oROpE6bwtq48CaQ31AgJSmMbjGJc"
+        //     "name" => "\u{3164}\u{3164}"
+        //     "nickname" => "\u{3164}\u{3164}"
+        //     "avatar" => "https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83erPtQMaSAg1unOjKWa7xqxYm7kWyiaicahD9V3voQkRDhPs21a3tOYeHGtO4fkfdQ6eOj0kBUz61iahA/132"
+        //     "email" => null
+        //     "raw" => array:9 [
+        //       "openid" => "oROpE6bwtq48CaQ31AgJSmMbjGJc"
+        //       "nickname" => "\u{3164}\u{3164}"
+        //       "sex" => 0
+        //       "language" => ""
+        //       "city" => ""
+        //       "province" => ""
+        //       "country" => ""
+        //       "headimgurl" => "https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83erPtQMaSAg1unOjKWa7xqxYm7kWyiaicahD9V3voQkRDhPs21a3tOYeHGtO4fkfdQ6eOj0kBUz61iahA/132"
+        //       "privilege" => []
+        //     ]
+        //     "access_token" => "76_5P79Ox02iqSruFx3TEc1NeX2AcgRGV9cTjYn8HfCcPDjA3NRQZ6MJcuh6d-jOvHO67aDsr7r_wQD8akua62uUriEsxS8btVcWK7iHHMbthI"
+        //     "refresh_token" => "76_MomqR4WHEa4WxYyW37ELIU6UKnQFTpr33fis1_usmpJDWma18XgLBK6chSHgcFq7oELy28IxMvArNvOvWm98SQzxxvi11RWra3alxMR3HDc"
+        //     "expires_in" => 7200
+        //     "token_response" => array:5 [
+        //       "access_token" => "76_5P79Ox02iqSruFx3TEc1NeX2AcgRGV9cTjYn8HfCcPDjA3NRQZ6MJcuh6d-jOvHO67aDsr7r_wQD8akua62uUriEsxS8btVcWK7iHHMbthI"
+        //       "expires_in" => 7200
+        //       "refresh_token" => "76_MomqR4WHEa4WxYyW37ELIU6UKnQFTpr33fis1_usmpJDWma18XgLBK6chSHgcFq7oELy28IxMvArNvOvWm98SQzxxvi11RWra3alxMR3HDc"
+        //       "openid" => "oROpE6bwtq48CaQ31AgJSmMbjGJc"
+        //       "scope" => "snsapi_userinfo"
+        //     ]
+        //   ]
+        $user = $oauth->userFromCode($code);
+
+        $raw = $user->getRaw();
+        $openid = $user->getId();
+        $name = $user->getName();
+        $nickname = $user->getNickname();
+        $avatar = $user->getAvatar();
+        $email = $user->getEmail();
+        $access_token = $user->getAccessToken();
+        $refresh_token = $user->getRefreshToken();
+        $connect_platform_id = 24; // @see https://docs.fresns.cn/database/dictionary/connects.html
+        $raw['app_id'] = $appId;
+
+        $account_id = null;
+        $token = null;
+        $accountConnect = AccountConnect::where([
+            'app_id' => $appId,
+            'connect_platform_id' => $connect_platform_id,
+            'connect_account_id' => $openid,
+        ])->first();
+        if (!$accountConnect) {
+            $accountConnect = AccountConnect::create([
+                'app_id' => $appId,
+                'connect_platform_id' => $connect_platform_id,
+                'connect_account_id' => $openid,
+                'connect_token' => $access_token,
+                'connect_refresh_token' => $refresh_token,
+                'connect_username' => $name,
+                'connect_nickname' => $nickname,
+                'connect_avatar' => $avatar,
+                'plugin_fskey' => 'WechatLogin',
+                'is_enabled' => true,
+                'more_json' => $raw,
+            ]);
+        } else {
+            $account = null;
+            $account_id = $accountConnect->account_id;
+
+            // 将邮箱绑定到账号
+            if (!$account_id && $email) {
+                $account = Account::where('email', $email)->first();
+                $account_id = $account?->id;
+
+                $account && $accountConnect->update([
+                    'account_id' => $account?->id,
+                ]);
+            }
+
+            if (!$account) {
+                $account = Account::find($account_id);
+            }
+
+            $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountLastUser([
+                'account' => $account,
+            ]);
+            $user = $resp->getData('user');
+
+            $expiresAt = now()->addDays(7);
+            $tokenName = 'api';
+            $abalities = ['*'];
+            $generateTokenResp = \FresnsCmdWord::plugin('WechatLogin')->generateTokenForUser([
+                'user' => $user,
+                'expiresAt' => $expiresAt,
+                'tokenName' => $tokenName,
+                'abalities' => $abalities,
+            ]);
+            if ($generateTokenResp->isErrorResponse()) {
+                return $this->fail($generateTokenResp->getMessage(), $generateTokenResp->getCode());
+            }
+
+            $token = $generateTokenResp->getData('token');
+        }
+
+        $is_need_bind_mobile = !$account_id;
+
+        return $this->success([
+            'account_connect_id' => $accountConnect->id,
+            'account_id' => $account_id,
+            'is_need_bind_mobile' => $is_need_bind_mobile,
+            'token' => $token,
+        ]);
+    }
+
+    public function miniAppLoginByCode()
     {
         \request()->validate([
+            'app_id' => ['required', 'string'],
             'code' => ['required', 'string'],
         ]);
 
+        $appId = \request('app_id');
         $code = \request('code');
-        $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
+        $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM, $appId);
         if (!$app) {
-            return $this->fail('请先配置小程序信息');
+            return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
 
         /** @var \EasyWeChat\MiniApp\Utils */
@@ -45,6 +226,7 @@ class WechatLoginController extends Controller
 
         $data['account_id'] = null;
         $data['connect_platform_id'] = 25; // @see https://docs.fresns.cn/database/dictionary/connects.html
+        $data['app_id'] = $appId;
         $data['connect_account_id'] = $response['openid'];
         $data['connect_token'] = null;
         $data['connect_refresh_token'] = null;
@@ -57,6 +239,7 @@ class WechatLoginController extends Controller
 
         $accountConnect = AccountConnect::where([
             'connect_platform_id' => 25,
+            'app_id' => $appId,
             'plugin_fskey' => $data['plugin_fskey'],
             'connect_account_id' => $data['connect_account_id'],
         ])->first();
@@ -86,19 +269,27 @@ class WechatLoginController extends Controller
     public function miniAppBindPhone()
     {
         \request()->validate([
+            'app_id' => ['required', 'string'],
             'account_connect_id' => ['required', 'integer'],
             'code' => ['required', 'string'],
             'encryptedData' => ['required', 'string'],
             'iv' => ['required', 'string'],
         ]);
 
+        $appId = \request('app_id');
         $accountConnectId = \request('account_connect_id');
-        $accountConnect = AccountConnect::where('connect_platform_id', 25)->where('id', $accountConnectId)->first();
-        throw_if(!$accountConnect, "授权信息 account_connect_id: {$accountConnectId} 不存在");
+        $accountConnect = AccountConnect::where('connect_platform_id', 25)
+            ->where('app_id', $appId)
+            ->where('id', $accountConnectId)
+            ->first();
+
+        if (!$accountConnect) {
+            return $this->fail("授权信息 account_connect_id: {$accountConnectId} 不存在");
+        }
 
         $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
         if (!$app) {
-            return $this->fail('请先配置小程序信息');
+            return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
 
         /** @var \EasyWeChat\MiniApp\Utils */
@@ -119,7 +310,8 @@ class WechatLoginController extends Controller
         //     ]
         // ]
 
-        $systemConfigAppId = WechatUtility::getConfig(WechatUtility::TYPE_MINI_PROGRAM)['app_id'] ?? null;
+        $systemConfig = WechatUtility::getConfig(WechatUtility::TYPE_MINI_PROGRAM, $appId);
+        $systemConfigAppId = $systemConfig['app_id'] ?? null;
         $clientAppId = $session['watermark']['appid'] ?? null;
         WechatUtility::checkConfigAvaliable($systemConfigAppId, $clientAppId);
 
@@ -213,27 +405,39 @@ class WechatLoginController extends Controller
     public function miniAppUpdateUserInfo()
     {
         \request()->validate([
+            'app_id' => ['required', 'string'],
             'account_connect_id' => ['required', 'integer'],
             'avatar' => ['nullable', 'file'],
             'nickname' => ['nullable', 'string'],
         ]);
 
+        $appId = request('app_id');
         $accountConnectId = request('account_connect_id');
 
         $user = auth()->user();
-        throw_if(!$user, '未登录');
+        if (!$user) {
+            return $this->fail("未登录");
+        }
 
         $accountUser = AccountUser::where('user_id', $user['id'])->first();
-        throw_if(!$accountUser, "用户 {$user['id']} 未绑定账户信息");
+        if (!$accountUser) {
+            return $this->fail("用户 {$user['id']} 未绑定账户信息");
+        }
 
         $account = Account::where('id', $accountUser['account_id'])->first();
-        throw_if(!$account, "未找到 {$accountUser['account_id']} 的账户信息");
+        if (!$account) {
+            return $this->fail("未找到 {$accountUser['account_id']} 的账户信息");
+        }
 
         $accountConnect = AccountConnect::where('connect_platform_id', 25)
             ->where('id', $accountConnectId)
             ->where('account_id', $account['id'])
+            ->where('app_id', $appId)
             ->first();
-        throw_if(!$accountConnect, "未找到 {$account['id']} 的用户授权信息");
+
+        if (!$accountConnect) {
+            return $this->fail("未找到 {$account['id']} 的用户授权信息");
+        }
 
         if (\request()->file('avatar')?->isValid()) {
             $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
