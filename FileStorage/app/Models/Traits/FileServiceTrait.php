@@ -4,9 +4,10 @@ namespace Plugins\FileStorage\Models\Traits;
 
 use Plugins\FileStorage\Models\File;
 use Plugins\FileStorage\Models\FileUsage;
-use Plugins\FileStorage\Utilities\FileUtility;
 use Plugins\FileStorage\Utilities\CosUtility;
 use Plugins\FileStorage\Utilities\OssUtility;
+use Plugins\FileStorage\Utilities\FileUtility;
+use Plugins\MarketManager\Utilities\StrUtility;
 
 /**
  * @mixin File
@@ -107,7 +108,7 @@ trait FileServiceTrait
             };
             $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], $expiresMinutes);
         }
-        $fileInfo['url'] = $url;
+        $fileInfo['url'] = StrUtility::qualifyUrl($url);
 
         return $fileInfo;
     }
