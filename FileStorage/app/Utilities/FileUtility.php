@@ -355,14 +355,18 @@ class FileUtility
         return $file;
     }
 
-    public static function getFileInfo(?string $fileId = null, ?string $filepath = null)
+    public static function getFileInfo(?string $fileId = null, ?string $filepath = null, $temporary = false)
     {
         if (!$fileId && !$filepath) {
             return null;
         }
 
         if ($filepath && filter_var($filepath, FILTER_VALIDATE_URL)) {
-            return $filepath;
+            $fileInfo = [];
+            $fileInfo['name'] = pathinfo($filepath, PATHINFO_BASENAME);
+            $fileInfo['path'] = parse_url($filepath, PATHINFO_BASENAME)['path'] ?? null;
+            $fileInfo['url'] = $filepath;
+            return $fileInfo;
         }
 
         if ($fileId) {
@@ -377,7 +381,7 @@ class FileUtility
             return null;
         }
 
-        $fileInfo = $file->getFileInfo();
+        $fileInfo = $file->getFileInfo($temporary);
 
         return $fileInfo;
     }
@@ -389,8 +393,8 @@ class FileUtility
             return null;
         }
 
-        if ($fileInfo && filter_var($fileInfo, FILTER_VALIDATE_URL)) {
-            $url = $fileInfo;
+        if (empty($fileInfo['fid'])) {
+            $url = $fileInfo['url'];
         } else {
             $url = FileUtility::getStorage()->url($fileInfo['path']);
         }
@@ -405,8 +409,8 @@ class FileUtility
             return null;
         }
 
-        if ($fileInfo && filter_var($fileInfo, FILTER_VALIDATE_URL)) {
-            $url = $fileInfo;
+        if (empty($fileInfo['fid'])) {
+            $url = $fileInfo['url'];
         } else {
             $driver = FileUtility::getFileStorageDriver();
 

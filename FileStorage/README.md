@@ -48,10 +48,12 @@ $fileInfo = $resp->getData();
 ```php
 $fileId = 1;
 $filepath = null;
+$temporary = false;
 
 $resp = \FresnsCmdWord::plugin('FileStorage')->getFileInfo([
     'fileId' => $fileId,
     'filepath' => $filepath,
+    'temporary' => false,
 ]);
 
 $fileinfo = $resp->getData('fileinfo');

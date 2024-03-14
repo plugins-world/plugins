@@ -90,8 +90,9 @@ class CmdWordService
     {
         $fileId = $wordBody['fileId'];
         $filepath = $wordBody['filepath'];
+        $temporary = $wordBody['temporary'] ?? false;
 
-        $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
+        $fileInfo = FileUtility::getFileInfo($fileId, $filepath, $temporary);
 
         return $this->success([
             'fileinfo' => $fileInfo,
