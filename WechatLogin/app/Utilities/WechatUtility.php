@@ -52,8 +52,12 @@ class WechatUtility
             ],
         };
 
+        if (empty($config['app_id'])) {
+            throw new \RuntimeException("请配置平台：{$type} 的 app_id: {$appId} 相关信息");
+        }
+
         if ($appId && $config['app_id'] !== $appId) {
-            throw new \RuntimeException("请正确配置平台：{$type} 的 app_id: {$appId} 相关信息");
+            throw new \RuntimeException("配置平台：{$type} 的 app_id: {$appId} 与系统记录信息不匹配");
         }
 
         /** @see https://easywechat.com/6.x/mini-app/index.html */
