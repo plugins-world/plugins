@@ -134,7 +134,7 @@ class PayCenterSettingController extends Controller
         }
         
         return back()->with([
-            'mnessage' => 'wechat_public_cert_path 下载成功',
+            'mnessage' => 'wechat_public_cert_path 下载完成',
         ]);
     }
 }
