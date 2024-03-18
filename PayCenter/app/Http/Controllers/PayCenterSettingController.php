@@ -130,9 +130,9 @@ class PayCenterSettingController extends Controller
         PayUtility::downloadWechatCert();
 
         if (request()->wantsJson()) {
-            return $this->success('下载完成');
+            return $this->success('wechat_public_cert_path 下载完成');
         }
-        
+
         return back()->with([
             'mnessage' => 'wechat_public_cert_path 下载完成',
         ]);
