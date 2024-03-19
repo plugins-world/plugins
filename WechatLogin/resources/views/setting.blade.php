@@ -77,7 +77,7 @@
                                 <div class="col-6">
                                     <div class="input-group">
                                         <div class="input-group-text w-25">网页授权域名</div>
-                                        <input type="text" class="form-control bg-light" value="{{ config('app.url') }}">
+                                        <input type="text" class="form-control bg-light" value="{{ str_replace(['http://', 'https://'], '', config('app.url')) }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 form-text pt-1"><i class="bi bi-info-circle"></i> 用户在网页授权页同意授权给公众号后，微信会将授权数据传给授权域名的回调页面</div>

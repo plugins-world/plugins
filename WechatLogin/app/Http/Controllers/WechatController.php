@@ -10,11 +10,47 @@ use ZhenMu\Support\Traits\ResponseTrait;
 use Plugins\WechatLogin\Models\AccountUser;
 use Plugins\WechatLogin\Models\AccountConnect;
 use Plugins\MarketManager\Utilities\StrUtility;
-use Plugins\WechatLogin\Utilities\WechatUtility;
+use Plugins\Aone\Utilities\WechatUtility;
 
-class WechatLoginController extends Controller
+class WechatController extends Controller
 {
     use ResponseTrait;
+
+    public function getJssdkConfig()
+    {
+        request()->validate([
+            'app_id' => ['required', 'string'],
+            'url' => ['nullable', 'string'],
+            'jsApiList' => ['nullable', 'array'],
+            'openTagList' => ['nullable', 'array'],
+            'debug' => ['nullable', 'boolean:0,1'],
+        ]);
+
+        $appId = request('app_id');
+
+        $url = request('url', request()->getHttpHost());
+        $jsApiList = request('jsApiList', []);
+        $openTagList = request('openTagList', []);
+        $debug = request()->boolean('debug', false);
+
+        $tenant = request()->attributes->get('tenant');
+        $app = WechatUtility::getTenantApp($tenant, WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
+        if (!$app) {
+            return $this->fail('请先配置 app_id 等相关信息');
+        }
+
+        /** @var \EasyWeChat\OfficialAccount\Utils */
+        $utils = $app->getUtils();
+
+        $config = $utils->buildJsSdkConfig(
+            $url,
+            $jsApiList,
+            $openTagList,
+            $debug
+        );
+
+        return $this->success($config);
+    }
 
     public function wechatAuthUrl()
     {
@@ -26,17 +62,35 @@ class WechatLoginController extends Controller
         $appId = request('app_id');
         $callbackUrl = request('callback_url');
 
-        $app = WechatUtility::getApp(WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
+        $tenant = request()->attributes->get('tenant');
+        $app = WechatUtility::getTenantApp($tenant, WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
         if (!$app) {
             return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
 
+        $redirectUrl = route('wechat-official-login.callback', ['app_id' => $appId, 'callback_url' => $callbackUrl]);
         $oauth = $app->getOAuth();
-        $redirectUrl = $oauth->scopes(['snsapi_userinfo'])->redirect($callbackUrl);
+        $redirectUrl = $oauth->scopes(['snsapi_userinfo'])->redirect($redirectUrl);
 
         return $this->success([
             'redirect_url' => $redirectUrl,
         ]);
+    }
+
+    public function wechatAuthCallback()
+    {
+        request()->validate([
+            'app_id' => ['required', 'string'],
+            'callback_url' => ['required', 'url'],
+            'code' => ['required', 'string'],
+            'state' => ['required', 'string'],
+        ]);
+
+        $callbackUrl = request('callback_url');
+        $params = request()->except('callback_url');
+        $redirectUrl = $callbackUrl . '?' . http_build_query($params);
+
+        return redirect($redirectUrl);
     }
 
     public function wechatLoginByCode()
@@ -78,7 +132,8 @@ class WechatLoginController extends Controller
             }
         }
 
-        $app = WechatUtility::getApp(WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
+        $tenant = request()->attributes->get('tenant');
+        $app = WechatUtility::getTenantApp($tenant, WechatUtility::TYPE_OFFICIAL_ACCOUNT, $appId);
         if (!$app) {
             return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
@@ -204,7 +259,9 @@ class WechatLoginController extends Controller
 
         $appId = \request('app_id');
         $code = \request('code');
-        $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM, $appId);
+
+        $tenant = request()->attributes->get('tenant');
+        $app = WechatUtility::getTenantApp($tenant, WechatUtility::TYPE_MINI_PROGRAM, $appId);
         if (!$app) {
             return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
@@ -287,7 +344,8 @@ class WechatLoginController extends Controller
             return $this->fail("授权信息 account_connect_id: {$accountConnectId} 不存在");
         }
 
-        $app = WechatUtility::getApp(WechatUtility::TYPE_MINI_PROGRAM);
+        $tenant = request()->attributes->get('tenant');
+        $app = WechatUtility::getTenantApp($tenant, WechatUtility::TYPE_MINI_PROGRAM);
         if (!$app) {
             return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
