@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function() {
 
     // 公众号登录
     Route::post('wechat-login/official-login/get-auth-url', [ApiController\WechatController::class, 'wechatAuthUrl'])->withoutMiddleware(['auth:sanctum']);
-    Route::get('wechat-login/official-login/callback', [ApiController\WechatController::class, 'wechatAuthCallback'])->name('wechat-official-login.callback')->withoutMiddleware('auth:sanctum');
+    Route::get('wechat-login/official-login/callback', [ApiController\WechatController::class, 'wechatAuthCallback'])->withoutMiddleware(['auth:sanctum'])->name('wechat-official-login.callback');
     Route::post('wechat-login/official-login/login-by-code', [ApiController\WechatController::class, 'wechatLoginByCode'])->withoutMiddleware(['auth:sanctum']);
 
     // 小程序登录
