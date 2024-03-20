@@ -16,6 +16,7 @@ class SmsAuthController extends Controller
             'mobile' => ['required', 'string'],
 
             'fskey' => ['required', 'string'],
+            'send_fskey' => ['nullable', 'string'],
             'cmdWord' => ['nullable', 'string'],
         ]);
         // 要发送验证码的手机号
@@ -23,6 +24,7 @@ class SmsAuthController extends Controller
 
         // 业务插件信息
         $fskey = request('fskey');
+        $send_fskey = request('send_fskey');
         $cmdWord = request('cmdWord', 'handleSmsAction');
 
         // 短信验证码 5 分钟有效
@@ -39,12 +41,15 @@ class SmsAuthController extends Controller
         // 生成验证码
         $code = LaravelCache::remember($code_cache_key, $codeCacheTime, function () use ($code_cache_key, $codeCacheTime) {
             $code = (string) random_int(100000, 999999);
+
+            $code = request('is_test') ? 888888 : $code;
+
             info(sprintf('code_cache_key: %s, cache_code: %s, expire_at: %s', $code_cache_key, $code, $codeCacheTime));
             return $code;
         });
 
         $send_sms_cache_key = 'send_sms:'.$code_cache_key;
-        $resp = LaravelCache::remember($send_sms_cache_key, $sendCodeActionCacheTime, function () use ($mobile, $code, $fskey, $cmdWord) {
+        $resp = LaravelCache::remember($send_sms_cache_key, $sendCodeActionCacheTime, function () use ($mobile, $code, $fskey, $send_fskey, $cmdWord) {
             $params = [
                 'code' => $code,
             ];
@@ -54,7 +59,9 @@ class SmsAuthController extends Controller
             $wordBody = [
                 'rpc' => [
                     'fskey' => $fskey,
+                    'send_fskey' => $send_fskey ?? null,
                     'cmdWord' => $cmdWord,
+                    'gateways' => request('is_test') ? ['errorlog'] : [],
                     'wordBody' => [
                         'actionType' => 'login',
                         'to' => $to,

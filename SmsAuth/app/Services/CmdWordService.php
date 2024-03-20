@@ -19,8 +19,11 @@ class CmdWordService
         // 获取发送短信需要的参数信息
         $rpc = $wordBody['rpc'];
         $fskey = $rpc['fskey'];
+        $send_fskey = $rpc['send_fskey'] ?? 'EasySms';
         $cmdWord = $rpc['cmdWord'];
+        $gateways = $rpc['gateways'] ?? [];
         $newWordBody = $rpc['wordBody'];
+
         $smsActionResp = \FresnsCmdWord::plugin($fskey)->$cmdWord($newWordBody);
         if ($smsActionResp->isErrorResponse()) {
             return $this->failure($smsActionResp->getCode(), $smsActionResp->getMessage(), $smsActionResp->getData());
@@ -28,9 +31,10 @@ class CmdWordService
         $result = $smsActionResp->getData();
 
         // 发送短信，依赖 EasySms 插件
-        $sendSmsResp = \FresnsCmdWord::plugin('EasySms')->send([
+        $sendSmsResp = \FresnsCmdWord::plugin($send_fskey)->send([
             'to' => $result['to'],
             'params' => $result['params'],
+            'gateways' => $gateways,
         ]);
         if ($sendSmsResp->isErrorResponse()) {
             return $this->failure($sendSmsResp->getCode(), $sendSmsResp->getMessage(), $sendSmsResp->getData());
