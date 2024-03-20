@@ -7,10 +7,12 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Plugins\WechatLogin\Models\Account;
 use ZhenMu\Support\Traits\ResponseTrait;
+use Plugins\Aone\Utilities\WechatUtility;
 use Plugins\WechatLogin\Models\AccountUser;
 use Plugins\WechatLogin\Models\AccountConnect;
 use Plugins\MarketManager\Utilities\StrUtility;
-use Plugins\Aone\Utilities\WechatUtility;
+use Plugins\WechatLogin\Utilities\AccountUtility;
+use Plugins\WechatLogin\Models\TenantAccountProfile;
 
 class WechatController extends Controller
 {
@@ -247,6 +249,41 @@ class WechatController extends Controller
             'account_id' => $account_id,
             'is_need_bind_mobile' => $is_need_bind_mobile,
             'token' => $token,
+        ]);
+    }
+
+    public function wechatLoginupdateProfile()
+    {
+        \request()->validate([
+            'account_connect_id' => ['required', 'string'],
+            'avatar' => ['nullable', 'string'],
+        ]);
+
+        $account_connect_id = \request('account_connect_id');
+        $accountInfo = AccountUtility::getLoginAccount();
+
+        $tenant = request()->attributes->get('tenant');
+        $accountConnect = AccountConnect::find($account_connect_id);
+
+        if (!$accountInfo) {
+            return $this->fail('获取账户信息失败，请检查是否登录成功');
+        }
+
+        $accountConnect?->update([
+            'account_id' => $accountInfo['account_id'],
+        ]);
+
+        // 创建租户用户信息
+        $tenantAccountProfile = TenantAccountProfile::updateOrCreate([
+            'tenant_no' => $tenant?->tenant_no,
+            'account_id' => $accountInfo['account_id'],
+            'user_id' => $accountInfo['user_id'],
+        ], [
+            'mobile' => $accountInfo['mobile'],
+        ]);
+
+        return $this->success([
+            'tenant_account_profile_id' => $tenantAccountProfile?->id,
         ]);
     }
 

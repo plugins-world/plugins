@@ -2,8 +2,11 @@
 
 namespace Plugins\WechatLogin\Utilities;
 
+use App\Models\User;
+use Plugins\PhpSupport\Utils\Str;
 use Plugins\WechatLogin\Models\Account;
 use Plugins\WechatLogin\Models\AccountUser;
+use Plugins\MarketManager\Utils\LaravelCache;
 use Plugins\WechatLogin\Models\AccountConnect;
 
 class AccountUtility
@@ -161,10 +164,10 @@ class AccountUtility
         return $token?->plainTextToken;
     }
 
-    public static function loadAccountBaseInfo($baseInfo = [], $account = null, $connect_platform_id = 25)
+    public static function loadAccountBaseInfo(&$baseInfo = [], $account = null, $connect_platform_id = 25)
     {
         if (!$account) {
-            return null;
+            return $baseInfo;
         }
 
         $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountConnect([
@@ -185,8 +188,45 @@ class AccountUtility
             2 => '女',
         };
 
-        $baseInfo = array_merge($baseInfo, $itemInfo);
+        $info = array_merge($baseInfo, $itemInfo);
+        foreach ($info as $key => $value) {
+            $baseInfo[$key] = $value;
+        }
 
         return $baseInfo;
+    }
+
+    public static function getLoginAccount($userId = null, $connect_platform_id = 24)
+    {
+        if ($userId) {
+            $user = User::find($userId);
+        } else {
+            $user = auth()->user();
+            $userId = $user?->id;
+        }
+
+        $cacheKey = sprintf('user_id:%s:connect_platform_id:%s', $userId, $connect_platform_id);
+        $account = LaravelCache::remember($cacheKey, function () use ($user, $connect_platform_id) {
+            $resp = \FresnsCmdWord::plugin('WechatLogin')->getAccountOfUser([
+                'user' => $user,
+            ]);
+
+            $account = $resp->getData('account');
+
+            $baseInfo = [];
+            $baseInfo['account_id'] = $account?->id;
+            $baseInfo['user_id'] = $user?->id;
+            $resp = \FresnsCmdWord::plugin('WechatLogin')->loadAccountBaseInfo([
+                'baseInfo' => $baseInfo,
+                'account' => $account,
+                'connect_platform_id' => $connect_platform_id,
+            ]);
+
+            $newBaseInfo = $resp->getData('newBaseInfo');
+
+            return $newBaseInfo;
+        });
+
+        return $account;
     }
 }
