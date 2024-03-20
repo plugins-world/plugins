@@ -13,8 +13,9 @@ class CmdWordService
     {
         $to = $wordBody['to'];
         $params = $wordBody['params'];
+		$gateways = $wordBody['gateways'] ?? [];
 
-        $resp = SmsUtility::send($to, $params);
+        $resp = SmsUtility::send($to, $params, $gateways);
 
         return $this->success($resp);
     }

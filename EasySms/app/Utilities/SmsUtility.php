@@ -2,7 +2,6 @@
 
 namespace Plugins\EasySms\Utilities;
 
-use Overtrue\EasySms\EasySms;
 use Plugins\LaravelConfig\Models\Config;
 
 class SmsUtility
@@ -54,13 +53,13 @@ class SmsUtility
     {
         $config = SmsUtility::initConfig();
 
-        return new EasySms($config);
+        return new \Overtrue\EasySms\EasySms($config);
     }
 
-    public static function send($to, array $params = [])
+    public static function send($to, array $params = [], $gateways = [])
     {
         try {
-            $resp = SmsUtility::getSms()->send($to, $params);
+            $resp = SmsUtility::getSms()->send($to, $params, $gateways);
         } catch (\Throwable $e) {
             SmsUtility::throwException($e);
         }
@@ -71,7 +70,7 @@ class SmsUtility
     protected static function throwException(\Throwable $e)
     {
         $message = $e->getMessage();
-        
+
         if (method_exists($e, 'getExceptions')) {
             $message = '';
 
