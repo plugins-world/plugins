@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tenant_account_profiles', function (Blueprint $table) {
-            $table->comment('租户账户');
+            $table->comment('租户账户信息');
 
             $table->id();
             $table->string('tenant_no')->nullable()->index()->comment('租户编号');
