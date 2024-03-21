@@ -77,7 +77,7 @@ class CmdWordService
         return $this->success($result);
     }
 
-    public function callbackParse(array $wordBody)
+    public function handlePayCallbackParse(array $wordBody)
     {
         $type = $wordBody['type'];
 
@@ -86,7 +86,7 @@ class CmdWordService
         return $this->success($result);
     }
 
-    public function callbackResponse(array $wordBody)
+    public function handlePayCallbackResponse(array $wordBody)
     {
         $type = $wordBody['type'];
 

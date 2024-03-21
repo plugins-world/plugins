@@ -33,7 +33,7 @@ $connect_platform_id = match ($payMethod) {
 $wordBody = [
     'payPlatform' => $payPlatform,
     'payAction' => $payMethod,
-    'init_config_key' => $payInitConfigKey,
+    'initConfigKey' => $payInitConfigKey,
 
     'rpc' => [
         'fskey' => $payFskey, // 业务插件名
@@ -56,9 +56,9 @@ dd($resp->getData());
 2. 解析支付回调数据
 ```php
 $wordBody = [
-    'type' => 'pay_center_wechatpay',
+    'initConfigKey' => 'pay_center_wechatpay',
 ];
-$resp = \FresnsCmdWord::plugin('PayCenter')->callbackParse($wordBody);
+$resp = \FresnsCmdWord::plugin('PayCenter')->handlePayCallbackParse($wordBody);
 
 dd($resp->getData());
 return $resp->getData();
@@ -68,9 +68,9 @@ return $resp->getData();
 2. 确认支付回调
 ```php
 $wordBody = [
-    'type' => 'pay_center_wechatpay',
+    'initConfigKey' => 'pay_center_wechatpay',
 ];
-$resp = \FresnsCmdWord::plugin('PayCenter')->callbackResponse($wordBody);
+$resp = \FresnsCmdWord::plugin('PayCenter')->handlePayCallbackResponse($wordBody);
 
 dd($resp->getData());
 return $resp->getData();

@@ -109,17 +109,17 @@ class PayUtility
         $configModel->save();
     }
 
-    public static function callback(string $itemKey)
+    public static function callback(string $payPlatform, string $itemKey)
     {
         PayUtility::init($itemKey);
 
-        return Pay::wechat()->callback();
+        return Pay::{$payPlatform}()->callback();
     }
 
-    public static function success(string $itemKey)
+    public static function success(string $payPlatform, string $itemKey)
     {
         PayUtility::init($itemKey);
 
-        return Pay::wechat()->success();
+        return Pay::{$payPlatform}()->success();
     }
 }
