@@ -8,18 +8,62 @@ use Plugins\LaravelConfig\Models\Config;
 
 class PayUtility
 {
-    public static function init(string $type)
+    public static function findConfig(string $itemKey)
     {
-        $configModel = Config::where('item_key', $type)->where('item_tag', 'pay_center')->first();
+        $configModel = Config::where('item_key', $itemKey)->where('item_tag', 'pay_center')->first();
+
+        return $configModel;
+    }
+
+    public static function findTenantConfig(\Illuminate\Database\Eloquent\Model $tenant, string $itemKey)
+    {
+        return null;
+    }
+
+    public static function init(string $itemKey)
+    {
+        $tenant = request()->attributes->get('tenant');
+        if (!$tenant) {
+            $configModel = static::findConfig($itemKey);
+        } else {
+            $configModel = static::findTenantConfig($tenant, $itemKey);
+        }
+
+        if (!$configModel) {
+            throw new \RuntimeException('请配置支付信息');
+        }
 
         $config = $configModel->item_value ?? [];
         $config['mch_id'] = strval($config['mch_id']);
-        $config['mch_secret_cert'] = base_path($config['mch_secret_cert']);
-        $config['mch_public_cert_path'] = base_path($config['mch_public_cert_path']);
 
-        throw_if(! is_file($config['mch_secret_cert']), '文件 apiclient_key.pem 不存在');
-        throw_if(! is_file($config['mch_public_cert_path']), '文件 apiclient_cert.pem 不存在');
-        foreach($config['wechat_public_cert_path'] ?? [] as $serialNo => $content) {
+        // mch_secret_cert: apiclient_key.pem
+        if (
+            str_ends_with($config['mch_secret_cert'], '.crt')
+            || str_ends_with($config['mch_secret_cert'], '.pem')
+        ) {
+            $mch_secret_cert = base_path($config['mch_secret_cert']);
+            $config['mch_secret_cert'] = @file_get_contents($mch_secret_cert);
+        }
+
+        // 替换文件内容，避免拼接内容时，重复拼接
+        $config['mch_secret_cert'] = str_replace([
+            "-----BEGIN PRIVATE KEY-----\n",
+            "\n-----END PRIVATE KEY-----",
+        ], '', $config['mch_secret_cert']);
+        throw_if(empty($config['mch_secret_cert']), 'apiclient_key.pem 信息不存在, 请检查是否设置 mch_secret_cert');
+
+        // mch_public_cert_path: apiclient_cert.pem
+        if (
+            str_ends_with($config['mch_public_cert_path'], '.cer')
+            || str_ends_with($config['mch_public_cert_path'], '.crt')
+            || str_ends_with($config['mch_public_cert_path'], '.pem')
+        ) {
+            $mch_public_cert_path = base_path($config['mch_public_cert_path']);
+            $config['mch_public_cert_path'] = @file_get_contents($mch_public_cert_path);
+        }
+        throw_if(empty($config['mch_public_cert_path']), 'apiclient_cert.pem 信息不存在, 请检查是否设置 mch_public_cert_path');
+
+        foreach ($config['wechat_public_cert_path'] ?? [] as $serialNo => $content) {
             if (str_starts_with($content, '---')) {
                 $config['wechat_public_cert_path'][$serialNo] = $content;
             }
@@ -65,16 +109,16 @@ class PayUtility
         $configModel->save();
     }
 
-    public static function callback(string $type)
+    public static function callback(string $itemKey)
     {
-        PayUtility::init($type);
+        PayUtility::init($itemKey);
 
         return Pay::wechat()->callback();
     }
 
-    public static function success(string $type)
+    public static function success(string $itemKey)
     {
-        PayUtility::init($type);
+        PayUtility::init($itemKey);
 
         return Pay::wechat()->success();
     }

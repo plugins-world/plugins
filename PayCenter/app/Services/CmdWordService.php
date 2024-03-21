@@ -41,13 +41,16 @@ class CmdWordService
         return $this->success($result);
     }
 
-    public function handle(array $wordBody)
+    public function handlePayAction(array $wordBody)
     {
         $payPlatform = $wordBody['payPlatform'];
-        $orderAction = $wordBody['orderAction'];
+        $payAction = $wordBody['payAction'];
         $initConfigKey = $wordBody['init_config_key'];
+
+		// 初始化后支付配置
         $config = PayUtility::init($initConfigKey);
 
+		// 获取订单信息
         $rpc = $wordBody['rpc'];
         $fskey = $rpc['fskey'];
         $cmdWord = $rpc['cmdWord'];
@@ -58,11 +61,14 @@ class CmdWordService
         }
         $order = $resp->getData();
 
+		// 获取支付平台实例
         $platform = Pay::$payPlatform($config);
-        if (!is_callable([$platform, $orderAction])) {
-            return $this->failure(400, "订单 {$orderAction} 操作不存在");
+        if (!is_callable([$platform, $payAction])) {
+            return $this->failure(400, "{$payPlatform}::{$payAction} 不存在");
         }
-        $result = $platform->{$orderAction}($order);
+
+		// 发起支付申请
+        $result = $platform->{$payAction}($order);
         info('handle result', $result->toArray());
         if (!empty($result->code)) {
             return $this->failure(400, "code: {$result->code}, message: {$result->message}");

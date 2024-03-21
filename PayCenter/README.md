@@ -16,22 +16,39 @@
 
 1. 获取微信支付预付单信息:
 ```php
+$wechatConfig = TenantUtility::getOfficialAccountConfig();
+$app_id = $wechatConfig['app_id'] ?? null;
+$payPlatform = request('pay_platform', 'wechat'); // wechat-微信支付平台, alipay-支付宝, unipay-银联
+$payInitConfigKey = request('init_config_key', 'pay_center_wechatpay'); // init_config_key-支付配置的 item_key
+$payMethod = request('pay_method', 'mini'); // mp-公众号支付，mini-小程序支付, wap-H5 支付, scan-网页 native 扫码支付
+$payFskey = request('pay_fskey', 'Aone');
+$connect_platform_id = match ($payMethod) {
+    default => 25,
+    'mini' => 25,
+    'mp' => 24,
+    'wap' => 25,
+};
+
+// 发起支付申请
 $wordBody = [
-    'payPlatform' => 'wechat',
-    'orderAction' => 'mini',
-    'init_config_key' => 'pay_center_wechatpay',
+    'payPlatform' => $payPlatform,
+    'payAction' => $payMethod,
+    'init_config_key' => $payInitConfigKey,
 
     'rpc' => [
-        'fskey' => 'DianCan', // 业务插件名
+        'fskey' => $payFskey, // 业务插件名
         'cmdWord' => 'getOrderInfo', // 业务插件获取微信下单结构的命令字
         'wordBody' => [ // 业务插件查询订单需要的参数数据
-            'account_id' => request('account_id'),
-            'batchNo' => $batchNo,
+            'pay_method' => $payMethod,
+            'connect_platform_id' => $connect_platform_id,
+            'account_info' => $accountInfo,
+            'app_id' => $app_id,
+            'batch_no' => $batch_no,
         ],
     ]
 ];
 
-$resp = \FresnsCmdWord::plugin('PayCenter')->handle($wordBody);
+$resp = \FresnsCmdWord::plugin('PayCenter')->handlePayAction($wordBody);
 
 dd($resp->getData());
 ```
