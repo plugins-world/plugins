@@ -288,7 +288,7 @@ class WechatController extends Controller
         ]);
     }
 
-    public function wechatLoginupdateProfile()
+    public function wechatLoginUpdateProfile()
     {
         \request()->validate([
             'account_connect_id' => ['required', 'string'],
