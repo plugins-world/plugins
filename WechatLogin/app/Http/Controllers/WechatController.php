@@ -58,10 +58,12 @@ class WechatController extends Controller
     {
         request()->validate([
             'app_id' => ['required', 'string'],
+            'forward_url' => ['nullable', 'url'],
             'callback_url' => ['required', 'url'],
         ]);
 
         $appId = request('app_id');
+        $forwardUrl = request('forward_url', config('app.url'));
         $callbackUrl = request('callback_url');
 
         $tenant = request()->attributes->get('tenant');
@@ -70,7 +72,21 @@ class WechatController extends Controller
             return $this->fail("请先配置 app_id {$appId} 相关信息");
         }
 
-        $redirectUrl = route('wechat-official-login.callback', ['app_id' => $appId, 'callback_url' => $callbackUrl]);
+        $urlInfo = parse_url($callbackUrl);
+        parse_str($urlInfo['query'] ?? '', $query);
+
+        $params = array_merge(['app_id' => $appId, 'callback_url' => $callbackUrl], $query);
+
+        $tenant = request()->attributes->get('tenant');
+
+        if (!$tenant) {
+            $redirectUri = route('wechat-official-login.callback', $params, false);
+        } else {
+            $redirectUri = route('tenants.wechat-official-login.callback', $params, false);
+        }
+
+        $redirectUrl = sprintf('%s/%s', rtrim($forwardUrl, '/'), ltrim($redirectUri, '/'));
+
         $oauth = $app->getOAuth();
         $redirectUrl = $oauth->scopes(['snsapi_userinfo'])->redirect($redirectUrl);
 
@@ -90,7 +106,27 @@ class WechatController extends Controller
 
         $callbackUrl = request('callback_url');
         $params = request()->except('callback_url');
-        $redirectUrl = $callbackUrl . '?' . http_build_query($params);
+
+        $startStringPos = mb_strpos($callbackUrl, '?');
+        $endStringPos = mb_strpos($callbackUrl, '#');
+
+        if ($endStringPos) {
+            $replaceString = mb_substr($callbackUrl, $startStringPos, $endStringPos - $startStringPos);
+        } else {
+            $replaceString = mb_substr($callbackUrl, $startStringPos);
+        }
+        $newCallbackUrl = str_replace($replaceString, '', $callbackUrl);
+
+        $urlInfo = parse_url($callbackUrl);
+        parse_str($urlInfo['query'] ?? '', $query);
+
+        $params = array_merge($params, $query);
+
+        if (str_contains($newCallbackUrl, '?') === false) {
+            $redirectUrl = $newCallbackUrl . '?' . http_build_query($params);
+        } else {
+            $redirectUrl = $newCallbackUrl . '&' . http_build_query($params);
+        }
 
         return redirect($redirectUrl);
     }

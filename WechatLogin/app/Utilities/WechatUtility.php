@@ -31,6 +31,7 @@ class WechatUtility
             return null;
         }
 
+        // todo: 重构为单用户同时支持测试环境 appid, 正式环境 appid
         $appIdConfig = collect($itemValue)->where('appId', $appId)->first();
         if (empty($itemValue)) {
             return null;
