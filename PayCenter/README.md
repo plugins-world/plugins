@@ -56,6 +56,7 @@ dd($resp->getData());
 2. 解析支付回调数据
 ```php
 $wordBody = [
+    'payPlatform' => 'wechat',
     'initConfigKey' => 'pay_center_wechatpay',
 ];
 $resp = \FresnsCmdWord::plugin('PayCenter')->handlePayCallbackParse($wordBody);
@@ -68,6 +69,7 @@ return $resp->getData();
 2. 确认支付回调
 ```php
 $wordBody = [
+    'payPlatform' => 'wechat',
     'initConfigKey' => 'pay_center_wechatpay',
 ];
 $resp = \FresnsCmdWord::plugin('PayCenter')->handlePayCallbackResponse($wordBody);

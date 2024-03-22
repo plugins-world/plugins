@@ -45,7 +45,7 @@ class CmdWordService
     {
         $payPlatform = $wordBody['payPlatform'];
         $payAction = $wordBody['payAction'];
-        $initConfigKey = $wordBody['init_config_key'];
+        $initConfigKey = $wordBody['initConfigKey'];
 
 		// 初始化后支付配置
         $config = PayUtility::init($initConfigKey);
@@ -62,13 +62,30 @@ class CmdWordService
         $order = $resp->getData();
 
 		// 获取支付平台实例
+		/** @var \Yansongda\Pay\Provider\Wechat|\Yansongda\Pay\Provider\Alipay|\Yansongda\Pay\Provider\Unipay $platform */
         $platform = Pay::$payPlatform($config);
         if (!is_callable([$platform, $payAction])) {
             return $this->failure(400, "{$payPlatform}::{$payAction} 不存在");
         }
 
 		// 发起支付申请
-        $result = $platform->{$payAction}($order);
+		try {
+			$result = $platform->{$payAction}($order);
+		} catch (\Throwable $e) {
+			/** @var \Yansongda\Artful\Exception\InvalidResponseException $e */
+			$message = $e->getMessage();
+
+			$data = [];
+			if ($e instanceof \Yansongda\Artful\Exception\InvalidResponseException) {
+				$data = $e->response->toArray();
+
+				$message = sprintf('%s, code: %s, message: %s', $message, $data['code'], $data['message']);
+				return $this->failure(400, $message);
+			}
+
+            return $this->failure(400, $message);
+		}
+
         info('handle result', $result->toArray());
         if (!empty($result->code)) {
             return $this->failure(400, "code: {$result->code}, message: {$result->message}");
@@ -79,18 +96,20 @@ class CmdWordService
 
     public function handlePayCallbackParse(array $wordBody)
     {
-        $type = $wordBody['type'];
+		$payPlatform = $wordBody['payPlatform'];
+        $initConfigKey = $wordBody['initConfigKey'];
 
-        $result = PayUtility::callback($type);
+        $result = PayUtility::callback($payPlatform, $initConfigKey);
 
         return $this->success($result);
     }
 
     public function handlePayCallbackResponse(array $wordBody)
     {
-        $type = $wordBody['type'];
+		$payPlatform = $wordBody['payPlatform'];
+        $initConfigKey = $wordBody['initConfigKey'];
 
-        $result = PayUtility::success($type);
+        $result = PayUtility::success($payPlatform, $initConfigKey);
 
         return $this->success($result);
     }

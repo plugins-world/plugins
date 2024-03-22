@@ -8,25 +8,25 @@ use Plugins\LaravelConfig\Models\Config;
 
 class PayUtility
 {
-    public static function findConfig(string $itemKey)
+    public static function findConfig(string $initConfigKey)
     {
-        $configModel = Config::where('item_key', $itemKey)->where('item_tag', 'pay_center')->first();
+        $configModel = Config::where('item_key', $initConfigKey)->where('item_tag', 'pay_center')->first();
 
         return $configModel;
     }
 
-    public static function findTenantConfig(\Illuminate\Database\Eloquent\Model $tenant, string $itemKey)
+    public static function findTenantConfig(\Illuminate\Database\Eloquent\Model $tenant, string $initConfigKey)
     {
         return null;
     }
 
-    public static function init(string $itemKey)
+    public static function init(string $initConfigKey)
     {
         $tenant = request()->attributes->get('tenant');
         if (!$tenant) {
-            $configModel = static::findConfig($itemKey);
+            $configModel = static::findConfig($initConfigKey);
         } else {
-            $configModel = static::findTenantConfig($tenant, $itemKey);
+            $configModel = static::findTenantConfig($tenant, $initConfigKey);
         }
 
         if (!$configModel) {
@@ -109,16 +109,37 @@ class PayUtility
         $configModel->save();
     }
 
-    public static function callback(string $payPlatform, string $itemKey)
+    public static function query(array $params, string $payPlatform, string $initConfigKey)
     {
-        PayUtility::init($itemKey);
+        static::init($initConfigKey);
+
+        return Pay::{$payPlatform}()->query($params);
+    }
+
+    public static function refund(array $params, string $payPlatform, string $initConfigKey)
+    {
+        static::init($initConfigKey);
+
+        return Pay::{$payPlatform}()->refund($params);
+    }
+
+    public static function close(array $params, string $payPlatform, string $initConfigKey)
+    {
+        static::init($initConfigKey);
+
+        return Pay::{$payPlatform}()->close($params);
+    }
+
+    public static function callback(string $payPlatform, string $initConfigKey)
+    {
+        static::init($initConfigKey);
 
         return Pay::{$payPlatform}()->callback();
     }
 
-    public static function success(string $payPlatform, string $itemKey)
+    public static function success(string $payPlatform, string $initConfigKey)
     {
-        PayUtility::init($itemKey);
+        static::init($initConfigKey);
 
         return Pay::{$payPlatform}()->success();
     }
