@@ -291,7 +291,7 @@ class WechatController extends Controller
     public function wechatLoginUpdateProfile()
     {
         \request()->validate([
-            'connect_platform_id' => ['nullable', 'string'],
+            'connect_platform_id' => ['nullable', 'integer'],
             'account_connect_id' => ['required', 'string'],
             'avatar' => ['nullable', 'string'],
         ]);
