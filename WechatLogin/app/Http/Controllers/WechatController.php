@@ -294,6 +294,7 @@ class WechatController extends Controller
             'connect_platform_id' => ['nullable', 'integer'],
             'account_connect_id' => ['required', 'string'],
             'avatar' => ['nullable', 'string'],
+            'nickname' => ['nullable', 'string'],
         ]);
 
         $userId = auth()->id();
