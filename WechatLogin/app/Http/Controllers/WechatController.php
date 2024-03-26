@@ -291,23 +291,29 @@ class WechatController extends Controller
     public function wechatLoginUpdateProfile()
     {
         \request()->validate([
+            'connect_platform_id' => ['nullable', 'string'],
             'account_connect_id' => ['required', 'string'],
             'avatar' => ['nullable', 'string'],
         ]);
 
+        $userId = auth()->id();
+        $connect_platform_id = \request('connect_platform_id', 24);
         $account_connect_id = \request('account_connect_id');
-        $accountInfo = AccountUtility::getLoginAccount();
-
+        $avatar = \request('avatar');
+        $nickname = \request('nickname');
         $tenant = request()->attributes->get('tenant');
-        $accountConnect = AccountConnect::find($account_connect_id);
 
+        $accountInfo = AccountUtility::getLoginAccount($userId, $connect_platform_id);
         if (!$accountInfo) {
             return $this->fail('获取账户信息失败，请检查是否登录成功');
         }
 
-        $accountConnect?->update([
-            'account_id' => $accountInfo['account_id'],
-        ]);
+        if ($account_connect_id) {
+            $accountConnect = AccountConnect::find($account_connect_id);
+            $accountConnect?->update([
+                'account_id' => $accountInfo['account_id'],
+            ]);
+        }
 
         // 创建租户用户信息
         $tenantAccountProfile = TenantAccountProfile::updateOrCreate([
@@ -317,6 +323,19 @@ class WechatController extends Controller
         ], [
             'mobile' => $accountInfo['mobile'],
         ]);
+
+        if ($nickname) {
+            $accountConnect?->update([
+                'connect_nickname' => $nickname,
+                'connect_username' => $nickname,
+            ]);
+        }
+
+        if ($avatar) {
+            $accountConnect?->update([
+                'connect_avatar' => $avatar,
+            ]);
+        }
 
         return $this->success([
             'tenant_account_profile_id' => $tenantAccountProfile?->id,
