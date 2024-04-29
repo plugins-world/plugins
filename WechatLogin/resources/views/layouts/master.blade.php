@@ -14,7 +14,7 @@
 
     <body>
         <header>
-            <!-- @include('FileStorage::layouts.header') -->
+            <!-- @include('WechatLogin::layouts.header') -->
         </header>
 
         <main>
