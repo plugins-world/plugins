@@ -40,14 +40,20 @@ class CmdWordService
         $mime = $file->getClientMimeType();
         $type = $wordBody['type'] ?? FileUtility::getFileTypeByMimeOrFilename($mime, $filename);;
 
-        $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
+        if (!empty($wordBody['savePath'] ?? null)) {
+            $savePath = $wordBody['savePath'];
+            $isCustomSavePath = true;
+        } else {
+            $isCustomSavePath = false;
+            $savePath = FileUtility::fresnsFileStoragePath($type, $usageType);
+        }
 
         if (empty($savePath)) {
             return $this->failure(400, "保存路径不能为空");
         }
 
         FileUtility::initConfig();
-        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath);
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $isCustomSavePath);
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());
@@ -69,6 +75,7 @@ class CmdWordService
     {
         $file = $wordBody['file'];
         $savePath = $wordBody['savePath'];
+        $isCustomSavePath = $wordBody['isCustomSavePath'];
         $options = $wordBody['options'] ?? [];
 
         if (!$file instanceof UploadedFile) {
@@ -80,7 +87,7 @@ class CmdWordService
         }
 
         FileUtility::initConfig();
-        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $options);
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $isCustomSavePath, $options);
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());

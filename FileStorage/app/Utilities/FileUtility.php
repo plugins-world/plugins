@@ -188,7 +188,7 @@ class FileUtility
         };
     }
 
-    public static function saveToDiskAndGetFileInfo(UploadedFile $file, $savePath, $options = [])
+    public static function saveToDiskAndGetFileInfo(UploadedFile $file, $savePath, $isCustomSavePath = false, $options = [])
     {
         $storage = FileUtility::getStorage();
         $disk = FileUtility::getFileStorageDriver();
@@ -204,20 +204,27 @@ class FileUtility
 
         $fileModel = File::where('md5', $md5)->first();
 
-        $randomBasename = Str::random(40);
         $extension = $file->getClientOriginalExtension();
-        $fileSaveName = $randomBasename . "." . $extension;
-        if ($fileModel?->path) {
-            $fileSaveName = basename($fileModel->path);
-        }
 
         $filename = $file->getClientOriginalName();
         $mime = $file->getClientMimeType();
         $size = $file->getSize();
 
+        if ($isCustomSavePath) {
+            $savePath = dirname($savePath);
+            $fileSaveName = $filename;
+        } else {
+            $randomBasename = Str::random(40);
+            $fileSaveName = $randomBasename . "." . $extension;
+            if ($fileModel?->path) {
+                $fileSaveName = basename($fileModel->path);
+            }
+        }
+
         $publicDiskPrefix = "";
         $relativePath = "$savePath/{$fileSaveName}";
         $absolutePath = $relativePath;
+
         if ($disk == 'local') {
             if (!str_starts_with($savePath, 'public/')) {
                 $savePath = 'public/' . $savePath;
@@ -235,7 +242,11 @@ class FileUtility
 
         try {
             if (!$storage->has($relativePath)) {
-                $file->storeAs($savePath, $fileSaveName, $options);
+                if ($isCustomSavePath) {
+                    $file->store($savePath, $options);
+                } else {
+                    $file->storeAs($savePath, $fileSaveName, $options);
+                }
             }
         } catch (\Throwable $e) {
             if ($e instanceof \OSS\Core\OssException) {
