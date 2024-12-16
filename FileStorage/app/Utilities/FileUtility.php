@@ -17,9 +17,9 @@ class FileUtility
 {
     public static function getFileStorageDriver()
     {
-        $dirver = Config::getValueByKey('file_storage_driver') ?? 'local';
+        $driver = Config::getValueByKey('file_storage_driver') ?? 'public';
 
-        return $dirver;
+        return $driver;
     }
 
     public static function initTimezone()
@@ -129,7 +129,7 @@ class FileUtility
     {
         $disk = FileUtility::initConfig();
 
-        if ($disk == 'local') {
+        if ($disk == 'local' || $disk == 'public') {
             FileUtility::buildLocalTemporaryUrls();
         }
 
@@ -211,8 +211,8 @@ class FileUtility
         $size = $file->getSize();
 
         if ($isCustomSavePath) {
+            $fileSaveName = basename($savePath);
             $savePath = dirname($savePath);
-            $fileSaveName = $filename;
         } else {
             $randomBasename = Str::random(40);
             $fileSaveName = $randomBasename . "." . $extension;
@@ -225,14 +225,9 @@ class FileUtility
         $relativePath = "$savePath/{$fileSaveName}";
         $absolutePath = $relativePath;
 
-        if ($disk == 'local') {
-            if (!str_starts_with($savePath, 'public/')) {
-                $savePath = 'public/' . $savePath;
-            }
-
-            $relativePath = str_replace('public/', '', $relativePath);
+        if ($disk == 'local' || $disk == 'public') {
             $absolutePath = storage_path("app/public/{$relativePath}");
-            $publicDiskPrefix = storage_path("app/");
+            $publicDiskPrefix = storage_path("app/public/");
 
             if (!$storage->has($relativePath)) {
                 $dir = $publicDiskPrefix . $savePath;
@@ -242,11 +237,7 @@ class FileUtility
 
         try {
             if (!$storage->has($relativePath)) {
-                if ($isCustomSavePath) {
-                    $file->store($savePath, $options);
-                } else {
-                    $file->storeAs($savePath, $fileSaveName, $options);
-                }
+                $storage->putFileAs($savePath, $file, $fileSaveName, $options);
             }
         } catch (\Throwable $e) {
             if ($e instanceof \OSS\Core\OssException) {

@@ -28,6 +28,7 @@ class CmdWordService
     {
         $usageType = $wordBody['usageType'];
         $file = $wordBody['file'];
+        $options = $wordBody['options'] ?? [];
         if (!$file) {
             return $this->failure("文件类型不正确");
         }
@@ -53,7 +54,7 @@ class CmdWordService
         }
 
         FileUtility::initConfig();
-        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $isCustomSavePath);
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $isCustomSavePath, $options);
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());
