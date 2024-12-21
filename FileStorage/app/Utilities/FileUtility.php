@@ -404,7 +404,7 @@ class FileUtility
         return StrUtility::qualifyUrl($url);
     }
 
-    public static function getFileTemporaryUrl(?string $fileId = null, ?string $filepath = null)
+    public static function getFileTemporaryUrl(?string $fileId = null, ?string $filepath = null, $cacheTime = null)
     {
         $fileInfo = FileUtility::getFileInfo($fileId, $filepath);
         if (!$fileInfo) {
@@ -416,11 +416,15 @@ class FileUtility
         } else {
             $driver = FileUtility::getFileStorageDriver();
 
-            $expiresMinutes = match ($driver) {
-                default => now()->addMinutes(20),
-                CosUtility::DISK_KEY => now()->addMinutes(20),
-                OssUtility::DISK_KEY => 20 * 60,
-            };
+            if ($cacheTime) {
+                $expiresMinutes = $cacheTime;
+            } else {
+                $expiresMinutes = match ($driver) {
+                    default => now()->addMinutes(20),
+                    CosUtility::DISK_KEY => now()->addMinutes(20),
+                    OssUtility::DISK_KEY => 20 * 60,
+                };
+            }
 
             $url = FileUtility::getStorage()->temporaryUrl($fileInfo['path'], $expiresMinutes);
         }

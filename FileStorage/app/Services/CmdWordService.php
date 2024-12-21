@@ -128,9 +128,9 @@ class CmdWordService
         $fileId = $wordBody['fileId'] ?? null;
         $filepath = $wordBody['filepath'] ?? null;
 
-        $cacheKey = sprintf('file_url:file_id_%s:file_path_%s', $fileId, $filepath);
-        $url = LaravelCache::remember($cacheKey, function () use ($fileId, $filepath) {
-            $url = FileUtility::getFileTemporaryUrl($fileId, $filepath);
+        $cacheKey = sprintf('file_temporary_url:file_id_%s:file_path_%s', $fileId, $filepath);
+        $url = LaravelCache::remember($cacheKey, function ($cacheTime) use ($fileId, $filepath) {
+            $url = FileUtility::getFileTemporaryUrl($fileId, $filepath, $cacheTime);
             return $url;
         });
 
