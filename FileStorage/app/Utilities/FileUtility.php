@@ -137,6 +137,13 @@ class FileUtility
         return Storage::disk($disk);
     }
 
+    public static function getImageUrl($path)
+    {
+        $httpOrigin = request()->server('HTTP_ORIGIN');
+        $finalUrl = $httpOrigin . $path;
+        return $finalUrl;
+    }
+
     public static function buildLocalTemporaryUrls()
     {
         $disk = FileUtility::initConfig();
@@ -152,7 +159,8 @@ class FileUtility
                 return URL::temporarySignedRoute(
                     'file.download',
                     $expiration,
-                    array_merge($options, ['action' => 'view', 'filename' => $filename, 'extension' => $extension, 'path' => $path])
+                    array_merge($options, ['action' => 'view', 'filename' => $filename, 'extension' => $extension, 'path' => $path]),
+                    true,
                 );
             }
         );
@@ -168,10 +176,6 @@ class FileUtility
 
         /** @var FilesystemAdapter */
         $storage = Storage::disk($disk);
-
-        if ($disk == 'local') {
-            $path = "public/$path";
-        }
 
         if (!$storage->has($path)) {
             return null;
