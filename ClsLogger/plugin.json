@@ -1,0 +1,18 @@
+{
+    "fskey": "ClsLogger",
+    "name": "ClsLogger",
+    "description": "ClsLogger plugin made by MouYong",
+    "author": "MouYong",
+    "website": "https://plugins-world.cn/",
+    "version": "1.0.0",
+    "providers": [
+        "Plugins\\ClsLogger\\Providers\\PluginServiceProvider",
+        "Plugins\\ClsLogger\\Providers\\ClsLoggerServiceProvider",
+        "Plugins\\ClsLogger\\Providers\\RouteServiceProvider"
+    ],
+    "autoloadFiles": [],
+    "aliases": [],
+    "panelUsages": [],
+    "accessPath": "/cls-logger",
+    "settingsPath": "/cls-logger/setting"
+}

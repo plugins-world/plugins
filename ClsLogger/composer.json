@@ -1,0 +1,28 @@
+{
+    "name": "plugins-world/cls-logger",
+    "description": "ClsLogger plugin made by MouYong",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouYong",
+            "email": "my24251325@gmail.com",
+            "homepage": "https://plugins-world.cn/",
+            "role": "Creator"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugins\\ClsLogger\\": "app",
+            "Plugins\\ClsLogger\\Database\\Factories\\": "database/factories/",
+            "Plugins\\ClsLogger\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plugins\\ClsLogger\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "tencentcloud/tencentcloud-cls-sdk-php": "^1.0"
+    }
+}
