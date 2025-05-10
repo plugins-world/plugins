@@ -32,7 +32,7 @@ return new class extends Migration
             'item_tag' => 'file_storage',
             'item_key' => 'file_storage_timezone',
             'item_type' => 'string',
-            'item_value' => 'PRC',
+            'item_value' => 'Asia/Shanghai',
         ],
         [
             'item_tag' => 'file_storage',
