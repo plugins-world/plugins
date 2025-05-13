@@ -107,9 +107,7 @@ class FileStorageController extends Controller
             'temporary' => $temporary,
         ]);
 
-        return $this->success([
-            'fileinfo' => $resp->getData(),
-        ]);
+        return $this->success($resp->getData());
     }
 
     public function fileDownload(string $filename)
