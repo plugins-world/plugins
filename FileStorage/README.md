@@ -37,7 +37,11 @@ $file = \request()->file('file');
 $resp = \FresnsCmdWord::plugin('FileStorage')->upload([
     'type' => $type,
     'usageType' => $usageType,
+    'savePath' => $savePath,
     'file' => $file,
+    'filename' => $filename,
+    'mime' => $mime,
+    'size' => $size,
 ]);
 
 $fileInfo = $resp->getData();

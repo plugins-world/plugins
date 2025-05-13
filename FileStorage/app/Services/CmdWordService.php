@@ -27,18 +27,29 @@ class CmdWordService
     public function upload(array $wordBody)
     {
         $usageType = $wordBody['usageType'];
-        $file = $wordBody['file'];
+        /** @var UploadedFile|null $file */
+        $file = $wordBody['file'] ?? null;
+        $filename = $wordBody['filename'] ?? null;
+        $mime = $wordBody['mime'] ?? null;
+        $size = $wordBody['size'] ?? null;
         $options = $wordBody['options'] ?? [];
-        if (!$file) {
-            return $this->failure("文件类型不正确");
+        if (!$file && !$filename) {
+            return $this->failure(400, "请提供要上传的文件信息");
         }
 
-        if (!$file instanceof UploadedFile) {
+        if ($file && !$file instanceof UploadedFile) {
             return $this->failure(400, "文件类型不正确");
         }
 
-        $filename = $file->getClientOriginalName();
-        $mime = $file->getClientMimeType();
+        if ($file) {
+            $filename = $file?->getClientOriginalName();
+            $mime = $file->getClientMimeType();
+            $size = $file->getSize();
+            $fileOrFilename = $file;
+        } else {
+            $fileOrFilename = $filename;
+        }
+
         $type = $wordBody['type'] ?? FileUtility::getFileTypeByMimeOrFilename($mime, $filename);;
 
         if (!empty($wordBody['savePath'] ?? null)) {
@@ -54,7 +65,7 @@ class CmdWordService
         }
 
         FileUtility::initConfig();
-        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($file, $savePath, $isCustomSavePath, $options);
+        $fileMetaInfo = FileUtility::saveToDiskAndGetFileInfo($fileOrFilename, $savePath, $isCustomSavePath, $options, $mime, $size);
         $file = FileUtility::create($fileMetaInfo);
 
         return $this->success($file->getFileInfo());

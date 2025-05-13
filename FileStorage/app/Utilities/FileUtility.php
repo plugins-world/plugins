@@ -193,15 +193,23 @@ class FileUtility
         };
     }
 
-    public static function saveToDiskAndGetFileInfo(UploadedFile $file, $savePath, $isCustomSavePath = false, $options = [])
+    public static function saveToDiskAndGetFileInfo(UploadedFile|string $fileOrFilename, $savePath, $isCustomSavePath = false, $options = [], $mime = null, $size = null)
     {
         $storage = FileUtility::getStorage();
         $disk = FileUtility::getFileStorageDriver();
 
+        $file = null;
+        $filename = $fileOrFilename instanceof \Illuminate\Http\UploadedFile ? $fileOrFilename?->getClientOriginalName() : $fileOrFilename;
+        $isBackendUpload = $fileOrFilename instanceof \Illuminate\Http\UploadedFile;
+        $isBackendUpload = false;
+        if ($isBackendUpload) {
+            $file = $fileOrFilename;
+        }
+
         $md5 = null;
         $sha = null;
         $sha_type = null;
-        if (is_file($file->path())) {
+        if (is_file($file?->path())) {
             $md5 = md5_file($file->path());
             $sha = sha1_file($file->path());
             $sha_type = 'sha1';
@@ -209,11 +217,7 @@ class FileUtility
 
         $fileModel = File::where('md5', $md5)->first();
 
-        $extension = $file->getClientOriginalExtension();
-
-        $filename = $file->getClientOriginalName();
-        $mime = $file->getClientMimeType();
-        $size = $file->getSize();
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         if ($isCustomSavePath) {
             $fileSaveName = basename($savePath);
@@ -241,7 +245,7 @@ class FileUtility
         }
 
         try {
-            if (!$storage->has($relativePath)) {
+            if ($isBackendUpload && !$storage->has($relativePath)) {
                 $storage->putFileAs($savePath, $file, $fileSaveName, $options);
             }
         } catch (\Throwable $e) {
@@ -263,6 +267,7 @@ class FileUtility
             throw $e;
         }
 
+        $data['is_uploaded'] = $isBackendUpload ? true : false;
         $data['name'] = $filename;
         $data['type'] = FileUtility::getFileTypeByMimeOrFilename($mime, $filename);
         $data['mime'] = $mime;
@@ -277,7 +282,10 @@ class FileUtility
 
         switch ($data['type']) {
             case 'image':
-                $imageInfo = getimagesize($file->path());
+                $imageInfo = null;
+                if ($imageInfo) {
+                    $imageInfo = getimagesize($file->path());
+                }
 
                 if ($imageInfo) {
                     $data['image_width'] = $imageInfo[0];
@@ -333,6 +341,7 @@ class FileUtility
         $file = File::where('md5', $params['md5'])->first();
 
         $data = collect($params)->only([
+            'is_uploaded',
             'type',
             'name',
             'mime',

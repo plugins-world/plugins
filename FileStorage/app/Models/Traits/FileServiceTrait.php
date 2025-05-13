@@ -52,6 +52,7 @@ trait FileServiceTrait
 
         $fileInfo['id'] = $file['id'];
         $fileInfo['fid'] = $file['fid'];
+        $fileInfo['is_uploaded'] = $file['is_uploaded'];
         $fileInfo['type'] = $file['type'];
         $fileInfo['name'] = $file['name'];
         $fileInfo['mime'] = $file['mime'];
@@ -101,6 +102,7 @@ trait FileServiceTrait
         if ($temporary == false) {
             $url = FileUtility::getStorage()->url($fileInfo['path']);
         } else {
+            $driver = FileUtility::getFileStorageDriver();
             $expiresMinutes = match ($driver) {
                 default => now()->addMinutes(20),
                 CosUtility::DISK_KEY => now()->addMinutes(20),

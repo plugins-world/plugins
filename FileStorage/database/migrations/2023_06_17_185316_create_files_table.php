@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name')->comment('文件名称');
             $table->string('mime')->comment('媒体类型');
             $table->string('extension')->comment('后缀');
-            $table->string('size')->nullable()->comment('文件大小');
+            $table->unsignedBigInteger('size')->nullable()->comment('文件大小');
             $table->string('md5')->nullable()->comment('文件md5');
             $table->string('sha')->nullable()->comment('文件sha');
             $table->string('sha_type')->nullable()->comment('文件sha');

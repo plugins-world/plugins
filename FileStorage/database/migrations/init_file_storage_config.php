@@ -60,7 +60,7 @@ return new class extends Migration
         ],
         [
             'item_tag' => 'file_storage',
-            'item_key' => 'reigon',
+            'item_key' => 'region',
             'item_type' => 'string',
             'item_value' => null,
         ],

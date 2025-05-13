@@ -31,6 +31,7 @@ class CmdWordServiceProvider extends ServiceProvider implements CmdWordProviderC
         // ['word' => 'cmdWord', 'provider' => [CmdWordService::class, 'cmdWord']],
         ['word' => 'initConfig', 'provider' => [CmdWordService::class, 'initConfig']],
         ['word' => 'upload', 'provider' => [CmdWordService::class, 'upload']],
+        ['word' => 'getUploadToken', 'provider' => [CmdWordService::class, 'getUploadToken']],
         ['word' => 'fresnsFileStoragePath', 'provider' => [CmdWordService::class, 'fresnsFileStoragePath']],
         ['word' => 'uploadFile', 'provider' => [CmdWordService::class, 'uploadFile']],
         ['word' => 'getFileInfo', 'provider' => [CmdWordService::class, 'getFileInfo']],
