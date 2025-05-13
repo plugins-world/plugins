@@ -39,9 +39,9 @@ class FileStorageController extends Controller
 
         $savePath = match ($usageType) {
             //  tenant_no/merchant_images/商户名称/YYYY-MM-DD/timestampe-文件名
-            'cover' => sprintf("{$tenantNo}/cover/{$day}/%s-%s", $time, $filename),
-            'summary' => sprintf("{$tenantNo}/summary/{$day}/%s-%s", $time, $filename),
-            'description' => sprintf("{$tenantNo}/description/{$day}/%s-%s", $time, $filename),
+            'cover' => sprintf("{$tenantNo}/cover/%s-%s", $time, $filename),
+            'summary' => sprintf("{$tenantNo}/summary/%s-%s", $time, $filename),
+            'description' => sprintf("{$tenantNo}/description/%s-%s", $time, $filename),
             default => throw new \Exception('未知的使用类型：' . $usageType),
         };
 
