@@ -124,6 +124,13 @@ class CosUtility
                                 "action" => [
                                     "cos:PutObject",
                                     "cos:GetObject",
+
+                                    "cos:InitiateMultipartUpload",
+                                    "cos:UploadPart",
+                                    "cos:CompleteMultipartUpload",
+                                    "cos:AbortMultipartUpload",
+                                    "cos:ListMultipartUploads",
+                                    "cos:ListParts",
                                 ],
                                 "resource" => [
                                     "qcs::cos:$region:uid/<appid>:<bucket>-<appid>/$savePath",
@@ -136,7 +143,7 @@ class CosUtility
         ]);
 
         $token = \Overtrue\LaravelQcloudFederationToken\FederationToken::createToken();
-        // $strategy = \Overtrue\LaravelQcloudFederationToken\FederationToken::strategy();
+        $strategy = \Overtrue\LaravelQcloudFederationToken\FederationToken::strategy();
         $data = $token->toArray();
 
         return array_merge($data, [
@@ -145,7 +152,7 @@ class CosUtility
             'bucket' => $bucket,
             'region' => $region,
             'key' => $savePath,
-            // 'resources' => $strategy->getStatements()[0]['resource'] ?? [],
+            'resources' => $strategy->getStatements(),
         ]);
     }
 }
